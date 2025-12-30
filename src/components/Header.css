@@ -185,62 +185,139 @@
 }
 
 /* Responsive Design */
+@media (max-width: 1024px) {
+  .nav-item {
+    padding: 0.5rem 1.2rem;
+  }
+  
+  .logo-section {
+    padding: 0.5rem 2rem;
+  }
+  
+  .title-section {
+    padding: 0.5rem 2rem;
+  }
+  
+  .title-text {
+    font-size: 1.2rem;
+  }
+}
+
 @media (max-width: 768px) {
-  .header-container {
-    padding: 1rem 1.5rem;
+  .header-top {
+    padding: 0.5rem 1rem;
+  }
+  
+  .logo-section {
+    padding: 0.5rem 1.5rem;
+  }
+  
+  .title-section {
+    padding: 0.5rem 1.5rem;
+  }
+  
+  .title-text {
+    font-size: 1rem;
+  }
+  
+  .planet-icon {
+    width: 24px;
+    height: 24px;
+  }
+  
+  .window-controls {
+    gap: 0.5rem;
+  }
+  
+  .control-btn {
+    font-size: 1rem;
   }
 
   .hamburger {
     display: flex;
+    position: absolute;
+    right: 1rem;
+    z-index: 1001;
   }
 
   .nav {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    right: 0;
-    background-color: #0f2137;
     flex-direction: column;
     gap: 0;
     padding: 0;
     max-height: 0;
     overflow: hidden;
     transition: max-height 0.3s ease, padding 0.3s ease;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    border-top: none;
   }
 
   .nav-open {
-    max-height: 400px;
-    padding: 1rem 0;
+    max-height: 500px;
+    padding: 0.5rem 0;
+    border-top: 2px solid transparent;
+    border-image: linear-gradient(90deg, #4a5fff, #ff00ff, #00d4ff, #4a5fff);
+    border-image-slice: 1;
+  }
+  
+  .nav-item {
+    width: 90%;
+    margin: 0.25rem auto;
+    clip-path: none;
+    border-radius: 8px;
+    text-align: center;
+  }
+  
+  .nav-item:first-child {
+    margin: 0.25rem auto;
   }
 
   .nav-link {
-    padding: 1rem 2rem;
+    padding: 0.75rem 1.5rem;
+    display: block;
     width: 100%;
-    text-align: left;
-    border-bottom: 1px solid rgba(148, 163, 184, 0.1);
-  }
-
-  .nav-link::after {
-    display: none;
-  }
-
-  .nav-link:hover {
-    background-color: rgba(34, 211, 238, 0.1);
   }
 }
 
-
 @media (max-width: 480px) {
+  .logo-section {
+    padding: 0.4rem 1rem;
+  }
+  
   .logo-text {
-    font-size: 1.25rem;
+    font-size: 0.85rem;
+  }
+  
+  .title-section {
+    padding: 0.4rem 1rem;
   }
 
-  .logo-icon {
-    font-size: 1.75rem;
+  .title-text {
+    font-size: 0.85rem;
   }
-
-  .header-container {
-    padding: 0.875rem 1rem;
+  
+  .planet-icon {
+    width: 20px;
+    height: 20px;
+  }
+  
+  .header-top {
+    padding: 0.4rem 0.75rem;
+  }
+  
+  .window-controls {
+    gap: 0.35rem;
+  }
+  
+  .control-btn {
+    font-size: 0.9rem;
+    padding: 0.15rem 0.35rem;
+  }
+  
+  .nav-item {
+    padding: 0.4rem 1rem;
+  }
+  
+  .nav-link {
+    font-size: 0.75rem;
+    padding: 0.6rem 1rem;
   }
 }
