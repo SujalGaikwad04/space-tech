@@ -1,10 +1,12 @@
 import Header from './components/Header'
+import HomePage from './pages/Homepage.jsx'
 
 const App = () => {
     return ( 
-        <section className="container">
-    <Header /> 
-    </section>
+        <>
+            <Header />
+            <HomePage />
+        </>
     );
 };
 
