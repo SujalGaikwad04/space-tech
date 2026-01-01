@@ -1,0 +1,70 @@
+.explore-section {
+  padding: 80px 10%;
+  background: rgba(10, 14, 39, 0.75);
+  border-top: 1px solid rgba(0, 255, 255, 0.2);
+}
+
+.explore-title {
+  text-align: center;
+  color: #7df9ff;
+  font-size: 24px;
+  margin-bottom: 50px;
+  letter-spacing: 1px;
+}
+
+.explore-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 30px;
+}
+
+.explore-card {
+  background: linear-gradient(145deg, #0f1a3c, #0a0e27);
+  border: 1px solid rgba(125, 249, 255, 0.25);
+  padding: 30px;
+  border-radius: 14px;
+  box-shadow: 0 0 20px rgba(0, 255, 255, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.explore-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 0 30px rgba(0, 255, 255, 0.3);
+}
+
+.explore-card h3 {
+  color: #5ffbff;
+  margin-bottom: 15px;
+}
+
+.explore-card p {
+  color: #cfd8ff;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.explore-card button {
+  margin-top: 20px;
+  background: transparent;
+  border: 1px solid #7df9ff;
+  color: #7df9ff;
+  padding: 8px 16px;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.explore-card button:hover {
+  background: rgba(125, 249, 255, 0.15);
+}
+
+.live-data {
+  margin-top: 10px;
+  color: #9ffcff;
+  font-size: 13px;
+}
+
+.loading {
+  color: #999;
+  font-size: 13px;
+}
