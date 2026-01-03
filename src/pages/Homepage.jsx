@@ -1,8 +1,8 @@
-import ExploreFeatures from "../components/ExploreFeatures";
-import HeroSection from "../components/HeroSection";
-import LearnAbout from "../components/LearnAbout";
-import RealSpaceDashboard from "../components/RealSpaceDashboard";
-import UpcomingEvents from "../components/UpcomingEvents";
+import ExploreFeatures from "../components/Home/ExploreFeatures";
+import HeroSection from "../components/Home//HeroSection";
+import LearnAbout from "../components/Home/LearnAbout";
+import RealSpaceDashboard from "../components/Home/RealSpaceDashboard";
+import UpcomingEvents from "../components/Home/UpcomingEvents";
 
 
 function HomePage() {

@@ -1,0 +1,97 @@
+.selected-day-section {
+  margin: 0;
+}
+
+.selected-day-header {
+  font-size: 1.2rem;
+  font-weight: bold;
+  letter-spacing: 1px;
+  color: #00d9ff;
+  border: 2px solid #00d9ff;
+  border-radius: 8px;
+  padding: 1rem 2rem;
+  margin-bottom: 1.5rem;
+  background: rgba(0, 0, 0, 0.5);
+  box-shadow: 0 0 20px rgba(0, 217, 255, 0.3);
+}
+
+.details-card {
+  background: rgba(0, 0, 30, 0.8);
+  border: 2px solid #00d9ff;
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 0 25px rgba(0, 217, 255, 0.3);
+}
+
+.event-time,
+.event-title,
+.event-visibility,
+.event-moon {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  margin-bottom: 1.2rem;
+  color: white;
+  font-size: 1rem;
+}
+
+.clock-icon,
+.title-icon,
+.moon-icon {
+  font-size: 1.5rem;
+}
+
+.event-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.stars {
+  display: flex;
+  gap: 0.2rem;
+}
+
+.star {
+  font-size: 1.3rem;
+}
+
+.star.filled {
+  color: #ffd700;
+}
+
+.star.empty {
+  color: #555;
+}
+
+.visibility-text {
+  margin-left: 0.5rem;
+  color: #00d9ff;
+}
+
+.event-actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.action-btn-inline {
+  background: rgba(0, 0, 0, 0.6);
+  border: 2px solid #00d9ff;
+  color: #00d9ff;
+  padding: 0.7rem 1.2rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.action-btn-inline:hover {
+  background: rgba(0, 217, 255, 0.2);
+  box-shadow: 0 0 15px rgba(0, 217, 255, 0.4);
+  transform: translateY(-2px);
+}

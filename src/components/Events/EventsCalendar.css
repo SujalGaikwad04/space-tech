@@ -1,0 +1,92 @@
+.calendar-section {
+  margin: 0;
+}
+
+.month-title {
+  color: white;
+  font-size: 1.1rem;
+  font-weight: bold;
+  letter-spacing: 1px;
+  margin-bottom: 1rem;
+}
+
+.calendar {
+  background: rgba(0, 0, 0, 0.5);
+  border: 2px solid #00d9ff;
+  border-radius: 12px;
+  padding: 1rem;
+  box-shadow: 0 0 25px rgba(0, 217, 255, 0.3);
+}
+
+.calendar-header {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+  margin-bottom: 0.5rem;
+}
+
+.day-name {
+  color: #00d9ff;
+  font-weight: bold;
+  text-align: center;
+  padding: 0.3rem;
+  font-size: 0.75rem;
+}
+
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+}
+
+.calendar-day {
+  aspect-ratio: 1;
+  border: 2px solid #00d9ff;
+  background: rgba(0, 20, 40, 0.6);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border-radius: 6px;
+  position: relative;
+  padding: 0.25rem;
+  min-height: 50px;
+}
+
+.calendar-day.empty {
+  border: none;
+  background: transparent;
+  cursor: default;
+}
+
+.calendar-day.has-day:hover {
+  background: rgba(0, 217, 255, 0.2);
+  box-shadow: 0 0 15px rgba(0, 217, 255, 0.4);
+  transform: scale(1.05);
+}
+
+.calendar-day.selected {
+  background: rgba(0, 217, 255, 0.3);
+  box-shadow: 0 0 20px rgba(0, 217, 255, 0.6);
+}
+
+.day-number {
+  color: white;
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-bottom: 0.15rem;
+}
+
+.event-indicators {
+  display: flex;
+  gap: 1px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.event-icon {
+  font-size: 0.75rem;
+}
+
