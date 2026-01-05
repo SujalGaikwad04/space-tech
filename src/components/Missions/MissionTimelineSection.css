@@ -1,0 +1,12 @@
+.mission-timeline {
+  display: flex;
+  gap: 20px;
+  overflow-x: auto;
+  padding: 20px;
+}
+
+.timeline-item {
+  min-width: 180px;
+  border-bottom: 2px solid #3fa9f5;
+  color: white;
+}

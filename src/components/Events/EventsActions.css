@@ -1,0 +1,25 @@
+.bottom-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-top: 2rem;
+  flex-wrap: wrap;
+}
+
+.action-btn-bottom {
+  background: rgba(0, 0, 0, 0.7);
+  border: 2px solid #00d9ff;
+  color: #00d9ff;
+  padding: 0.7rem 1.5rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.action-btn-bottom:hover {
+  background: rgba(0, 217, 255, 0.1);
+  box-shadow: 0 0 15px rgba(0, 217, 255, 0.5);
+  transform: translateY(-2px);
+}

@@ -1,0 +1,31 @@
+.mission-hero {
+  text-align: center;
+  padding: 140px 20px 40px 20px;
+  background: linear-gradient(135deg, #0a0e27 0%, #1a1f3a 50%, #0a0e27 100%);
+  color: white;
+  position: relative;
+  overflow: hidden;
+}
+
+.mission-hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(ellipse at center, rgba(74, 95, 255, 0.2) 0%, transparent 70%);
+  opacity: 0.5;
+  z-index: 0;
+}
+
+.mission-title {
+  font-size: 3rem;
+  font-weight: 700;
+  letter-spacing: 8px;
+  color: #00d9ff;
+  text-shadow: 0 0 20px rgba(0, 217, 255, 0.5);
+  margin: 0;
+  position: relative;
+  z-index: 1;
+}
