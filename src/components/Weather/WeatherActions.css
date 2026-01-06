@@ -1,0 +1,17 @@
+.actions {
+  margin-top: 30px;
+  display: flex;
+  gap: 15px;
+}
+
+.actions button {
+  padding: 10px 16px;
+  border-radius: 20px;
+  border: none;
+  cursor: pointer;
+}
+
+.secondary {
+  background: #6f42c1;
+  color: white;
+}

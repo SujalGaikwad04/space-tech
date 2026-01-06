@@ -1,0 +1,111 @@
+.satellite-card {
+  grid-column: 1 / -1;
+}
+
+.impact-details {
+  margin: 20px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.status-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 0.95rem;
+}
+
+.status-indicator {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: inline-block;
+  flex-shrink: 0;
+}
+
+.status-good {
+  background: #4cff9a;
+  box-shadow: 0 0 10px rgba(76, 255, 154, 0.6);
+}
+
+.status-alert {
+  background: #ff4d4d;
+  box-shadow: 0 0 10px rgba(255, 77, 77, 0.6);
+}
+
+.status-label {
+  color: rgba(255, 255, 255, 0.9);
+  font-weight: 500;
+  min-width: 150px;
+}
+
+.status-value {
+  color: #4cff9a;
+  font-weight: 600;
+}
+
+.status-value-normal {
+  color: rgba(255, 255, 255, 0.85);
+  font-weight: 500;
+}
+
+.satellite-actions {
+  display: flex;
+  gap: 15px;
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(100, 200, 255, 0.2);
+  flex-wrap: wrap;
+}
+
+.action-btn {
+  padding: 10px 18px;
+  border-radius: 24px;
+  border: 1px solid;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.action-primary {
+  background: linear-gradient(135deg, rgba(100, 150, 255, 0.2) 0%, rgba(80, 120, 200, 0.2) 100%);
+  border-color: rgba(100, 150, 255, 0.5);
+  color: #a0c0ff;
+}
+
+.action-primary:hover {
+  background: linear-gradient(135deg, rgba(100, 150, 255, 0.3) 0%, rgba(80, 120, 200, 0.3) 100%);
+  border-color: rgba(100, 150, 255, 0.8);
+  box-shadow: 0 0 15px rgba(100, 150, 255, 0.4);
+  transform: translateY(-2px);
+}
+
+.action-secondary {
+  background: linear-gradient(135deg, rgba(150, 100, 255, 0.2) 0%, rgba(120, 80, 200, 0.2) 100%);
+  border-color: rgba(150, 100, 255, 0.5);
+  color: #c0a0ff;
+}
+
+.action-secondary:hover {
+  background: linear-gradient(135deg, rgba(150, 100, 255, 0.3) 0%, rgba(120, 80, 200, 0.3) 100%);
+  border-color: rgba(150, 100, 255, 0.8);
+  box-shadow: 0 0 15px rgba(150, 100, 255, 0.4);
+  transform: translateY(-2px);
+}
+
+.action-tertiary {
+  background: linear-gradient(135deg, rgba(200, 100, 255, 0.2) 0%, rgba(180, 80, 230, 0.2) 100%);
+  border-color: rgba(200, 100, 255, 0.5);
+  color: #d0a0ff;
+}
+
+.action-tertiary:hover {
+  background: linear-gradient(135deg, rgba(200, 100, 255, 0.3) 0%, rgba(180, 80, 230, 0.3) 100%);
+  border-color: rgba(200, 100, 255, 0.8);
+  box-shadow: 0 0 15px rgba(200, 100, 255, 0.4);
+  transform: translateY(-2px);
+}
