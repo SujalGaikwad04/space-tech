@@ -101,10 +101,12 @@ const UpcomingEvents = ({ events = MOCK_EVENTS }) => {
 
   return (
     <section className="upcoming-events">
-      <header className="upcoming-header">
-        <h2>Upcoming Celestial Events</h2>
+      <div className="section-header-top">SECTION 1: UPCOMING EVENTS</div>
+      <div className="upcoming-content-box">
+        <header className="upcoming-header">
+          <h2 className="subsection-title">UPCOMING CELESTIAL EVENTS</h2>
 
-        <div className="time-filters">
+          <div className="time-filters">
           {FILTERS.map((f) => (
             <button
               key={f.id}
@@ -166,6 +168,7 @@ const UpcomingEvents = ({ events = MOCK_EVENTS }) => {
           )}
         </div>
       </div>
+    </div>
     </section>
   );
 };

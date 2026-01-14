@@ -23,9 +23,6 @@ const Footer = () => {
 
   return (
     <footer className="footer">
-      {/* Background overlay */}
-      <div className="footer-bg" />
-
       <div className="footer-container">
         {/* Logo */}
         <div className="footer-header">
@@ -38,12 +35,12 @@ const Footer = () => {
         {/* Links */}
         <div className="footer-links-grid">
           {footerLinks.map((section) => (
-            <div key={section.title}>
+            <div key={section.title} className="footer-section">
               <h3 className="footer-title">{section.title}</h3>
               <ul className="footer-links">
                 {section.links.map((link) => (
                   <li key={link} className="footer-link">
-                    <span className="star">✦</span>
+                    <span className="link-icon">✦</span>
                     <span>{link}</span>
                   </li>
                 ))}
@@ -54,24 +51,19 @@ const Footer = () => {
 
         {/* Subscription */}
         <div className="subscribe-wrapper">
-          <div className="subscribe-box">
-            <div className="subscribe-content">
-              <h4 className="subscribe-title">[@] Subscribe to space alerts</h4>
-              <div className="subscribe-form">
-                <input
-                  type="email"
-                  placeholder="Enter email"
-                  className="subscribe-input"
-                />
-                <button className="subscribe-btn">[Subscribe]</button>
-              </div>
-            </div>
+          <div className="subscribe-input-wrapper">
+            <span className="subscribe-label">[ @ Subscribe to space alerts]</span>
+            <input
+              type="email"
+              placeholder="Enter email [Subscribe]"
+              className="subscribe-input"
+            />
           </div>
         </div>
 
         {/* Footer bottom */}
         <div className="footer-bottom">
-          <div>
+          <div className="footer-copyright">
             <p>© 2024 SpaceScope. All rights reserved.</p>
             <p className="footer-source">
               Data sources: NASA, ESA, NOAA, SpaceWeather.com
@@ -80,9 +72,9 @@ const Footer = () => {
 
           <div className="footer-policy">
             <a href="#">Privacy Policy</a>
-            <span>|</span>
+            <span> | </span>
             <a href="#">Terms of Service</a>
-            <span>|</span>
+            <span> | </span>
             <a href="#">Cookie Policy</a>
           </div>
         </div>
