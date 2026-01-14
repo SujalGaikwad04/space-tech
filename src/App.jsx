@@ -1,6 +1,8 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import Header from "./components/Header";
+import Footer from "./components/Footer";
+
 
 import HomePage from "./pages/Homepage.jsx";
 import Eventspage from "./pages/Eventspage.jsx";
@@ -20,6 +22,8 @@ const App = () => {
         <Route path="/mission" element={<Missionpage />} />
         <Route path="/weather" element={<Weatherpage />} />
       </Routes>
+
+      <Footer />
     </BrowserRouter>
   );
 };
