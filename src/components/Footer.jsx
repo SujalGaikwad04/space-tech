@@ -1,82 +1,94 @@
+import React from "react";
 import "./Footer.css";
 
-function Footer() {
+const Footer = () => {
+  const footerLinks = [
+    {
+      title: "PRODUCT",
+      links: ["Features", "Pricing", "API", "Roadmap"],
+    },
+    {
+      title: "RESOURCES",
+      links: ["Blog", "Help Center", "Documentation", "Status"],
+    },
+    {
+      title: "PARTNERS",
+      links: ["NASA", "ESA", "ISRO", "SpaceX"],
+    },
+    {
+      title: "CONNECT",
+      links: ["Twitter", "Instagram", "Newsletter", "Contact"],
+    },
+  ];
+
   return (
     <footer className="footer">
+      {/* Background overlay */}
+      <div className="footer-bg" />
+
       <div className="footer-container">
-        {/* Brand Section */}
-        <div className="footer-brand">
-          <h2 className="footer-logo">
-            SpaceScope <span className="rocket">🚀</span>
-          </h2>
-          <p className="footer-tagline">Explore, Learn & Stay Connected with the Universe</p>
-        </div>
-
-        {/* Links Section */}
-        <div className="footer-links">
-          <div className="footer-column">
-            <h4>PRODUCT</h4>
-            <ul>
-              <li><span>+</span> Features</li>
-              <li><span>+</span> Pricing</li>
-              <li><span>+</span> API</li>
-              <li><span>+</span> Roadmap</li>
-            </ul>
-          </div>
-
-          <div className="footer-column">
-            <h4>RESOURCES</h4>
-            <ul>
-              <li><span>+</span> Blog</li>
-              <li><span>+</span> Help Center</li>
-              <li><span>+</span> Documentation</li>
-              <li><span>+</span> Status</li>
-            </ul>
-          </div>
-
-          <div className="footer-column">
-            <h4>PARTNERS</h4>
-            <ul>
-              <li><span>+</span> NASA</li>
-              <li><span>+</span> ESA</li>
-              <li><span>+</span> ISRO</li>
-              <li><span>+</span> SpaceX</li>
-            </ul>
-          </div>
-
-          <div className="footer-column">
-            <h4>CONNECT</h4>
-            <ul>
-              <li><span>+</span> Twitter</li>
-              <li><span>+</span> Instagram</li>
-              <li><span>+</span> Newsletter</li>
-              <li><span>+</span> Contact</li>
-            </ul>
-          </div>
-        </div>
-
-        {/* Subscribe Section */}
-        <div className="footer-subscribe">
-          <div className="subscribe-input-wrapper">
-            <input 
-              type="email" 
-              placeholder="[ @ Subscribe to space alerts] Enter email [Subscribe]" 
-              className="subscribe-input"
-            />
-          </div>
-        </div>
-
-        {/* Bottom Section */}
-        <div className="footer-bottom">
-          <p className="copyright">© 2024 SpaceScope. All rights reserved.</p>
-          <p className="data-sources">Data sources: NASA, ESA, NOAA, SpaceWeather.com</p>
-          <p className="footer-policy">
-            Privacy Policy | Terms of Service | Cookie Policy
+        {/* Logo */}
+        <div className="footer-header">
+          <h2 className="footer-logo">SpaceScope 🚀</h2>
+          <p className="footer-tagline">
+            Explore, Learn & Stay Connected with the Universe
           </p>
+        </div>
+
+        {/* Links */}
+        <div className="footer-links-grid">
+          {footerLinks.map((section) => (
+            <div key={section.title}>
+              <h3 className="footer-title">{section.title}</h3>
+              <ul className="footer-links">
+                {section.links.map((link) => (
+                  <li key={link} className="footer-link">
+                    <span className="star">✦</span>
+                    <span>{link}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+
+        {/* Subscription */}
+        <div className="subscribe-wrapper">
+          <div className="subscribe-box">
+            <div className="subscribe-content">
+              <h4 className="subscribe-title">[@] Subscribe to space alerts</h4>
+              <div className="subscribe-form">
+                <input
+                  type="email"
+                  placeholder="Enter email"
+                  className="subscribe-input"
+                />
+                <button className="subscribe-btn">[Subscribe]</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Footer bottom */}
+        <div className="footer-bottom">
+          <div>
+            <p>© 2024 SpaceScope. All rights reserved.</p>
+            <p className="footer-source">
+              Data sources: NASA, ESA, NOAA, SpaceWeather.com
+            </p>
+          </div>
+
+          <div className="footer-policy">
+            <a href="#">Privacy Policy</a>
+            <span>|</span>
+            <a href="#">Terms of Service</a>
+            <span>|</span>
+            <a href="#">Cookie Policy</a>
+          </div>
         </div>
       </div>
     </footer>
   );
-}
+};
 
 export default Footer;
