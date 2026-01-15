@@ -1,0 +1,111 @@
+/* Root Dashboard */
+.rs-dashboard {
+  min-height: 100vh;
+  background: #0D1B2A;
+  color: #E0E1DD;
+  padding: 90px;
+  font-family: "Segoe UI", sans-serif;
+}
+
+/* Top Bar */
+.rs-topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #1B263B;
+  border: 1px solid #00E5FF;
+  padding: 14px 22px;
+  border-radius: 14px;
+  box-shadow: 0 0 18px rgba(0, 229, 255, 0.2);
+}
+
+.rs-topbar h2 {
+  color: #00E5FF;
+}
+
+/* Welcome Text */
+.rs-welcome {
+  margin: 18px 0 26px;
+  font-size: 14px;
+  color: #E0E1DD;
+  opacity: 0.9;
+}
+
+/* Layout */
+.rs-main {
+  display: flex;
+  gap: 22px;
+}
+
+/* Sidebar */
+.rs-left {
+  width: 260px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Main Content */
+.rs-right {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+/* Cards */
+.rs-card {
+  background: #1B263B;
+  border: 1px solid #415A77;
+  border-radius: 16px;
+  padding: 16px;
+  transition: 0.3s ease;
+}
+
+.rs-card:hover {
+  border-color: #00E5FF;
+  box-shadow: 0 0 14px rgba(0, 229, 255, 0.25);
+}
+
+.rs-card h3 {
+  color: #00E5FF;
+  margin-bottom: 10px;
+}
+
+/* Buttons */
+.edit-profile,
+.small-btn,
+.actions button {
+  background: transparent;
+  border: 1px solid #00E5FF;
+  color: #00E5FF;
+  padding: 8px 14px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.25s ease;
+}
+
+.edit-profile:hover,
+.small-btn:hover,
+.actions button:hover {
+  background: #00E5FF;
+  color: #0D1B2A;
+}
+
+/* Text highlights */
+.highlight {
+  color: #00E5FF;
+}
+
+/* Badges */
+.badges span {
+  font-size: 22px;
+  margin-right: 10px;
+}
+
+/* Quick Actions */
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
