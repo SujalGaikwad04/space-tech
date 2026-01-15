@@ -1,78 +1,69 @@
+/* Aurora Forecast visuals */
 .aurora-visual {
   width: 100%;
-  height: 160px;
-  background: linear-gradient(180deg, #001a1a 0%, #003300 30%, #004d00 100%);
-  border-radius: 12px;
-  margin: 15px 0 20px;
+  height: 180px;
+  margin: 14px 0 22px;
+  border-radius: 16px;
   position: relative;
   overflow: hidden;
+  border: 1px solid rgba(0,255,150,.15);
+  background: linear-gradient(180deg, #021a1a 0%, #06250f 50%, #001008 100%);
+  box-shadow: inset 0 0 32px rgba(0,0,0,.55);
 }
-
 .aurora-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: 
-    radial-gradient(ellipse at 30% 50%, rgba(0, 255, 150, 0.6) 0%, transparent 50%),
-    radial-gradient(ellipse at 70% 60%, rgba(100, 255, 200, 0.5) 0%, transparent 50%),
-    radial-gradient(ellipse at 50% 80%, rgba(50, 255, 150, 0.4) 0%, transparent 60%);
-  animation: auroraWave 8s ease-in-out infinite;
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse at 30% 50%, rgba(0,255,150,.35) 0%, transparent 60%),
+    radial-gradient(ellipse at 70% 42%, rgba(110,255,210,.28) 0%, transparent 62%),
+    linear-gradient(to bottom, transparent 40%, rgba(0,255,100,.12) 100%);
+  filter: blur(8px);
+  animation: auroraWave 6s ease-in-out infinite alternate;
 }
-
-@keyframes auroraWave {
-  0%, 100% { opacity: 0.8; transform: translateY(0); }
-  50% { opacity: 1; transform: translateY(-10px); }
+.aurora-overlay::after {
+  content: "";
+  position: absolute; inset: 0;
+  background: repeating-linear-gradient(90deg, transparent 0 10%, rgba(50,255,150,.06) 12%, transparent 20%);
+  animation: auroraShift 12s linear infinite;
+  pointer-events: none;
 }
+@keyframes auroraWave { from { transform: translateY(0) scale(1); opacity:.75 } to { transform: translateY(-12px) scale(1.05); opacity:.95 } }
+@keyframes auroraShift { from { transform: translateX(-8%) } to { transform: translateX(8%) } }
 
-.aurora-info {
-  font-size: 0.95rem;
-}
+/* Text + CTA */
+.aurora-info { font-size: 1rem; line-height: 1.6; }
+.forecast-title { color: var(--green); font-weight: 800; letter-spacing: .08em; margin: 0 0 8px; font-size: .95rem; text-transform: uppercase; }
+.forecast-value { color: #fff; font-weight: 700; margin: 0 0 14px; font-size: 1.05rem; text-shadow: 0 0 10px rgba(76,255,154,.35); }
+.viewing-info { margin: 12px 0; color: rgba(255,255,255,.88); border-top: 1px solid rgba(255,255,255,.08); padding-top: 12px; }
+.locations { color: var(--cyan); font-weight: 700; }
 
-.forecast-title {
-  font-weight: 600;
-  color: #4cff9a;
-  margin: 0 0 8px 0;
-  font-size: 0.9rem;
-  text-transform: uppercase;
-}
-
-.forecast-value {
-  color: #4cff9a;
-  font-weight: 600;
-  margin: 0 0 15px 0;
-}
-
-.viewing-info {
-  margin: 12px 0;
-  color: rgba(255, 255, 255, 0.9);
-  font-size: 0.9rem;
-}
-
-.locations {
-  color: #fff;
-  font-weight: 500;
-}
-
+/* Primary neon button */
 .primary-btn {
-  margin-top: 15px;
-  padding: 10px 20px;
-  background: linear-gradient(135deg, #00c3ff 0%, #0088cc 100%);
-  border: 1px solid rgba(0, 195, 255, 0.5);
-  border-radius: 24px;
-  color: #fff;
-  font-weight: 600;
-  font-size: 0.9rem;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 0 15px rgba(0, 195, 255, 0.3);
+  margin-top: 14px;
+  width: 100%;
+  padding: 12px 18px;
+  border-radius: 10px;
+  border: 1px solid var(--cyan);
+  background: linear-gradient(135deg, rgba(0, 195, 255, .18), rgba(0, 136, 204, .18));
+  color: var(--cyan);
+  font-weight: 800;
+  letter-spacing: .1em;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
+  box-shadow: 0 0 16px rgba(0,195,255,.16), inset 0 0 14px rgba(0,195,255,.12);
+  cursor: pointer;
+  transition: transform .25s ease, box-shadow .25s ease, color .25s ease, background .25s ease;
+  position: relative; overflow: hidden;
 }
-
+.primary-btn::before {
+  content: "";
+  position: absolute; inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(0,229,255,.2), transparent);
+  transform: translateX(-100%);
+  transition: transform .55s ease;
+}
 .primary-btn:hover {
-  background: linear-gradient(135deg, #00d4ff 0%, #0099dd 100%);
-  box-shadow: 0 0 25px rgba(0, 195, 255, 0.6);
   transform: translateY(-2px);
+  color: #fff;
+  background: rgba(0,195,255,.28);
+  box-shadow: 0 0 26px rgba(0,195,255,.35), inset 0 0 16px rgba(0,195,255,.18);
 }
+.primary-btn:hover::before { transform: translateX(100%) }

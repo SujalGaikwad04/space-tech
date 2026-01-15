@@ -13,7 +13,7 @@ function Eventspage() {
   const [currentMonth, setCurrentMonth] = useState(now.getMonth());
   const [currentYear, setCurrentYear] = useState(now.getFullYear());
   const [selectedDay, setSelectedDay] = useState(now.getDate());
-  const [activeFilters, setActiveFilters] = useState(["[All]"]);
+  const [activeFilters, setActiveFilters] = useState([]);
   const [location, setLocation] = useState("Mumbai, India");
 
   // Custom hooks for data management
@@ -26,16 +26,10 @@ function Eventspage() {
   };
 
   const handleFilterChange = (filter) => {
-    if (filter === "[All]") {
-      setActiveFilters(["[All]"]);
+    if (activeFilters.includes(filter)) {
+      setActiveFilters(activeFilters.filter(f => f !== filter));
     } else {
-      const newFilters = activeFilters.filter(f => f !== "[All]");
-      if (activeFilters.includes(filter)) {
-        const updated = newFilters.filter(f => f !== filter);
-        setActiveFilters(updated.length === 0 ? ["[All]"] : updated);
-      } else {
-        setActiveFilters([...newFilters, filter]);
-      }
+      setActiveFilters([...activeFilters, filter]);
     }
   };
 
@@ -45,8 +39,26 @@ function Eventspage() {
 
   return (
     <div className="events-page">
+      {/* Cosmic decorations */}
+      <div className="shooting-star"></div>
+      <div className="shooting-star"></div>
+      <div className="shooting-star"></div>
+      <div className="cosmic-particle"></div>
+      <div className="cosmic-particle"></div>
+      <div className="cosmic-particle"></div>
+      <div className="cosmic-particle"></div>
+      <div className="cosmic-particle"></div>
+      <div className="nebula nebula-1"></div>
+      <div className="nebula nebula-2"></div>
+      <div className="nebula nebula-3"></div>
+      <div className="planet planet-1"></div>
+      <div className="planet planet-2"></div>
+      <div className="moon-decoration"></div>
+      
       <div className="events-container">
-        <div className="events-page-header">EVENTS / CALENDAR</div>
+        <div style={{textAlign: 'center'}}>
+          <div className="events-page-header">SPACE EVENTS</div>
+        </div>
         
         <EventFilters 
           activeFilters={activeFilters}

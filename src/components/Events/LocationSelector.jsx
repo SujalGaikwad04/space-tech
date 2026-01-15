@@ -4,10 +4,10 @@ const LocationSelector = ({ location = "Mumbai, India", onLocationChange }) => {
   return (
     <div className="location-selector">
       <span className="location-text">
-        Your Location: <strong>[{location}]</strong>
+        Your Location: <strong>{location}</strong>
       </span>
       <button className="change-btn" onClick={onLocationChange}>
-        [Change]
+        Change
       </button>
     </div>
   );
