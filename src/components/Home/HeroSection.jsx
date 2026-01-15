@@ -2,9 +2,8 @@ import { useEffect, useState } from "react";
 import "./HeroSection.css";
 
 export default function HeroSection() {
-  const [iss, setIss] = useState("Fetching ISS location...");
-  const [solar, setSolar] = useState("Checking solar activity...");
-  const [meteor, setMeteor] = useState("Loading meteor data...");
+  const [iss, setIss] = useState("ISS currently over Pacific Ocean");
+  const [city, setCity] = useState("");
 
   // ISS LOCATION (live)
   useEffect(() => {
@@ -14,96 +13,67 @@ export default function HeroSection() {
           "https://api.wheretheiss.at/v1/satellites/25544"
         );
         const data = await res.json();
-
-        setIss(
-          `ISS currently over ${data.latitude.toFixed(
-            1
-          )}°, ${data.longitude.toFixed(1)}°`
-        );
+        setIss(`ISS currently over Lat ${data.latitude.toFixed(1)}°, Lon ${data.longitude.toFixed(1)}°`);
       } catch {
-        setIss("Unable to fetch ISS data");
+        setIss("ISS currently over Pacific Ocean");
       }
     };
 
     fetchISS();
-    const interval = setInterval(fetchISS, 5000); // refresh every 5 sec
+    const interval = setInterval(fetchISS, 10000);
     return () => clearInterval(interval);
   }, []);
 
-  // SOLAR ACTIVITY
-  useEffect(() => {
-    const fetchSolar = async () => {
-      try {
-        const res = await fetch(
-          "https://api.nasa.gov/DONKI/FLR?api_key=DEMO_KEY"
-        );
-        const data = await res.json();
-
-        if (data.length > 0) setSolar("Solar activity: Elevated");
-        else setSolar("Solar activity: Low");
-      } catch {
-        setSolar("Solar activity: Unknown");
-      }
-    };
-
-    fetchSolar();
-  }, []);
-
-  // METEOR SHOWER (cached/static – changes rarely)
-  useEffect(() => {
-    setMeteor("Next meteor shower: Orionids (Oct 21)");
-  }, []);
-
   return (
-    <section className="hero">
-      <div className="hero-content">
-        {/* Icon */}
-        <div className="hero-icon">🚀</div>
-
-        {/* Title */}
-        <h1 className="hero-title">
-          Welcome to <span className="highlight">SpaceScope</span>
-        </h1>
-
-        {/* Subtitle */}
-        <p className="hero-subtitle">
-          Explore, Learn & Stay Connected with the Universe
-        </p>
-
-        {/* Search Bar */}
-        <div className="search-container">
-          <input 
-            type="text" 
-            placeholder="[Enter Your City]" 
-            className="search-input"
-          />
-          <button className="search-btn">
-            <span className="search-icon">🔍</span> Find Events
-          </button>
+    <section className="hero-section">
+      <div className="hero-container">
+        {/* Welcome Header */}
+        <div className="hero-header">
+          <h1 className="hero-title">Welcome to SpaceScope</h1>
+          <p className="hero-subtitle">Explore, Learn & Stay Connected with the Universe</p>
         </div>
 
-        {/* LIVE DATA BOX */}
-        <div className="live-data-box">
-          <div className="live-header">
-            <h3>LIVE NOW:</h3>
-            <div className="live-icons">
-              <span className="icon">🚀</span>
-              <span className="icon">🛰️</span>
-              <span className="icon">☀️</span>
-              <span className="icon">📡</span>
+        {/* Main Content Box */}
+        <div className="hero-content-box">
+          {/* Search Input */}
+          <div className="hero-search">
+            <input
+              type="text"
+              placeholder="[Enter Your City]"
+              value={city}
+              onChange={(e) => setCity(e.target.value)}
+              className="hero-input"
+            />
+            <button className="hero-search-btn">
+              <span className="search-icon">🔍</span>
+              Find Events
+            </button>
+          </div>
+
+          {/* Live Updates */}
+          <div className="hero-live-section">
+            <div className="live-badge">LIVE NOW:</div>
+            <div className="live-updates">
+              <div className="live-item">
+                <span className="live-icon">🛰️</span>
+                <span>{iss}</span>
+              </div>
+              <div className="live-item">
+                <span className="live-icon">☄️</span>
+                <span>Geminids meteor shower peaking</span>
+              </div>
+              <div className="live-item">
+                <span className="live-icon">🚀</span>
+                <span>Next solstar shower: Orionids (Oct 21)</span>
+              </div>
             </div>
           </div>
-          <ul className="live-list">
-            <li><span className="bullet">•</span> {iss}</li>
-            <li><span className="bullet">•</span> {solar}</li>
-            <li><span className="bullet">•</span> {meteor}</li>
-          </ul>
-        </div>
 
-        {/* Warning */}
-        <div className="notification-alert">
-          <span className="alert-icon">⚠️</span>
-          <span>Set up notifications to never miss a sky event!</span>
+          {/* Notification Setup */}
+          <div className="hero-notification">
+            <span className="notification-icon">🔔</span>
+            <span className="notification-text">Set up notifications to never miss a sky event!</span>
+          </div>
         </div>
       </div>
     </section>

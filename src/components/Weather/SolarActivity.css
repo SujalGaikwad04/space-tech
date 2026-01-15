@@ -134,6 +134,61 @@
 @keyframes sunBreathe {
   0%   { transform: translate(-50%, -50%) scale(1);   box-shadow: 0 0 26px 6px rgba(255,200,50,.9),  0 0 64px 10px rgba(255,120,0,.7); }
   100% { transform: translate(-50%, -50%) scale(1.02); box-shadow: 0 0 34px 8px rgba(255,210,70,1), 0 0 90px 14px rgba(255,130,0,.85); }
+  background: linear-gradient(135deg, rgba(15, 25, 60, 0.8), rgba(20, 15, 50, 0.8));
+  border: 2px solid rgba(100, 200, 255, 0.4);
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 0 25px rgba(0, 200, 255, 0.25), inset 0 0 30px rgba(0, 0, 0, 0.2);
+  color: #fff;
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+}
+
+.weather-card:hover {
+  border-color: rgba(100, 200, 255, 0.7);
+  box-shadow: 0 0 40px rgba(0, 200, 255, 0.4);
+  transform: translateY(-3px);
+}
+
+.card-title {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 18px;
+}
+
+/* 🌞 SUN */
+
+.sun-visual {
+  width: 140px;
+  height: 140px;
+  margin: 20px auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sun-core {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  overflow: hidden;
+  position: relative;
+  box-shadow:
+    inset -20px -25px 40px rgba(0, 0, 0, 0.7),
+    inset 10px 10px 30px rgba(255, 180, 100, 0.5),
+    0 0 60px rgba(255, 120, 0, 0.9);
+  animation: sunPulse 3s ease-in-out infinite;
+}
+
+.sun-texture {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  filter: brightness(1.1) contrast(1.2) saturate(1.4);
 }
 @keyframes granulate { to { transform: rotate(18deg) translate(-10px,-10px) } }
 
@@ -147,3 +202,57 @@
 .graph-section { margin-top: 18px; padding-top: 14px; border-top: 1px solid rgba(0,229,255,.15); }
 .graph-label { margin: 0 0 10px; color: var(--text-2); font-size: .85rem; letter-spacing: .06em; text-transform: uppercase; }
 .activity-graph { width: 100%; height: 100px; border-radius: 12px; background: rgba(0,20,40,.28); border: 1px solid rgba(0,229,255,.12); box-shadow: inset 0 0 18px rgba(0,0,0,.25); }
+
+/* highlight */
+.sun-core::before {
+  content: "";
+  top: 16px;
+  left: 20px;
+  width: 36px;
+  height: 36px;
+  background: radial-gradient(circle, rgba(255,255,255,0.9), transparent 70%);
+  border-radius: 50%;
+  filter: blur(3px);
+}
+
+/* shadow */
+.sun-core::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  box-shadow: inset -30px -35px 45px rgba(0,0,0,0.8);
+}
+
+@keyframes sunPulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+/* INFO */
+
+.solar-info {
+  font-size: 0.95rem;
+}
+
+.label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.value {
+  color: #4cff9a;
+}
+
+.graph-section {
+  margin-top: 16px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(100, 200, 255, 0.2);
+}
+
+.activity-graph {
+  width: 100%;
+  height: 80px;
+}
+

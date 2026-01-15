@@ -1,12 +1,14 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-import Header from "./components/Header";
+import Homepage from "./pages/Homepage";
+import Eventspage from "./pages/Eventspage";
+import Learnpage from "./pages/Learn.page";
+import Missionpage from "./pages/Missionpage";
+import Weatherpage from "./pages/Weatherpage";
+import Dashboardpage from "./pages/Dashboardpage";
 
-import HomePage from "./pages/Homepage.jsx";
-import Eventspage from "./pages/Eventspage.jsx";
-import Learnpage from "./pages/Learn.page.jsx";
-import Missionpage from "./pages/Missionpage.jsx";
-import Weatherpage from "./pages/Weatherpage.jsx";
+import Header from "./components/Header";
+import Footer from "./components/Footer";
 
 const App = () => {
   return (
@@ -14,12 +16,15 @@ const App = () => {
       <Header />
 
       <Routes>
-        <Route path="/" element={<HomePage />} />
+        <Route path="/" element={<Homepage />} />
         <Route path="/events" element={<Eventspage />} />
         <Route path="/learn" element={<Learnpage />} />
         <Route path="/mission" element={<Missionpage />} />
         <Route path="/weather" element={<Weatherpage />} />
+        <Route path="/dashboard" element={<Dashboardpage />} />
       </Routes>
+
+      <Footer />
     </BrowserRouter>
   );
 };

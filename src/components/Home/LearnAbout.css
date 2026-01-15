@@ -1,76 +1,149 @@
 .learn-section {
-  padding: 80px 10%;
-  background: rgba(8, 12, 30, 0.75);
-  border-top: 1px solid rgba(0, 255, 255, 0.15);
+  max-width: 1400px;
+  margin: 40px auto 60px;
+  padding: 0 20px;
+  font-family: 'Segoe UI', sans-serif;
 }
 
-.learn-title {
-  text-align: center;
-  color: #7df9ff;
-  font-size: 24px;
-  margin-bottom: 50px;
-  letter-spacing: 1px;
+.learn-content-box {
+  background: rgba(10, 25, 45, 0.7);
+  border: 2px solid rgba(74, 158, 255, 0.3);
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 0 40px rgba(34, 211, 238, 0.15);
+  position: relative;
+  backdrop-filter: blur(10px);
 }
+
 
 .learn-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-  gap: 30px;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.25rem;
+  margin-top: 2rem;
 }
 
 .learn-card {
-  background: linear-gradient(145deg, #0f1a3c, #0a0e27);
-  border: 1px solid rgba(125, 249, 255, 0.25);
-  padding: 25px;
-  border-radius: 14px;
-  box-shadow: 0 0 18px rgba(0, 255, 255, 0.1);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  background: linear-gradient(135deg, rgba(10, 25, 45, 0.8) 0%, rgba(20, 40, 70, 0.6) 100%);
+  border: 1px solid rgba(74, 158, 255, 0.3);
+  border-radius: 10px;
+  padding: 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: all 0.3s ease;
+  cursor: pointer;
 }
 
 .learn-card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 0 28px rgba(0, 255, 255, 0.3);
+  background: rgba(34, 211, 238, 0.1);
+  border-color: #9be7ff;
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(34, 211, 238, 0.2);
 }
 
-.learn-card h3 {
-  color: #5ffbff;
-  margin-bottom: 12px;
+.learn-content h3 {
+  color: #22d3ee;
+  font-size: 0.85rem;
+  margin: 0 0 0.35rem 0;
+  letter-spacing: 1px;
+  font-weight: 700;
 }
 
-.learn-card p {
-  color: #cfd8ff;
-  font-size: 14px;
-  line-height: 1.6;
+.learn-content p {
+  color: #cbd5e1;
+  font-size: 0.85rem;
+  margin: 0;
+  line-height: 1.4;
 }
 
-.learn-card button {
-  margin-top: 18px;
-  background: transparent;
-  border: 1px solid #7df9ff;
-  color: #7df9ff;
-  padding: 8px 16px;
-  border-radius: 20px;
-  cursor: pointer;
-  transition: background 0.3s ease;
+.learn-icon {
+  width: 48px;
+  height: 48px;
+  background-color: rgba(34, 211, 238, 0.15);
+  border: 1px solid rgba(74, 158, 255, 0.4);
+  border-radius: 8px;
+  flex-shrink: 0;
+  margin-left: 1rem;
+  position: relative;
+  transition: all 0.3s ease;
 }
 
-.learn-card button:hover {
-  background: rgba(125, 249, 255, 0.15);
+.learn-card:hover .learn-icon {
+  background-color: rgba(34, 211, 238, 0.25);
+  border-color: #9be7ff;
+  transform: scale(1.1);
 }
 
-/* APOD Preview */
-.apod-preview {
-  margin-top: 12px;
+/* Pseudo-icons */
+.student-icon::before {
+  content: '🎓';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 20px;
 }
 
-.apod-preview img {
-  width: 100%;
-  border-radius: 10px;
-  margin-bottom: 6px;
-  border: 1px solid rgba(255, 255, 255, 0.15);
+.enthusiast-icon::before {
+  content: '🔭';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 20px;
 }
 
-.apod-preview span {
-  font-size: 12px;
-  color: #9ffcff;
+.educator-icon::before {
+  content: '📚';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 20px;
+}
+
+.quiz-icon::before {
+  content: '📝';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 20px;
+}
+
+@media (max-width: 1024px) {
+  .learn-section {
+    padding: 0 1.5rem;
+  }
+  
+  .learn-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .learn-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .learn-section {
+    padding: 0 1rem;
+    margin: 30px auto 40px;
+  }
+  
+  .learn-content-box {
+    padding: 1.25rem;
+  }
+  
+  .learn-card {
+    padding: 1rem;
+  }
+  
+  .learn-icon {
+    width: 40px;
+    height: 40px;
+  }
 }

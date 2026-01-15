@@ -22,54 +22,54 @@ const RealSpaceDashboard = () => {
 
   return (
     <section className="dashboard-section">
-      <h2 className="dashboard-title">LIVE SPACE DASHBOARD</h2>
+      <div className="section-header-top">SECTION 4: REAL-SPACE DASHBOARD WIDGET</div>
+      <div className="dashboard-content-box">
+        <h2 className="subsection-title">LIVE SPACE DASHBOARD WIDGET</h2>
 
-      <div className="dashboard-grid">
-        {/* Solar Activity */}
-        <div className="dashboard-card">
-          <h3>SOLAR ACTIVITY</h3>
-          <p>Status:</p>
-          <span className="highlight">
-            {solar ? solar : "Loading..."}
-          </span>
-          <button>Details →</button>
-        </div>
+        <div className="dashboard-grid">
+          {/* Solar Activity */}
+          <div className="dashboard-card">
+            <div className="dash-content">
+              <h3>SOLAR ACTIVITY</h3>
+              <p>Status: No Flares</p>
+              <p className="sub-text">min last 24h</p>
+              <button className="dash-btn">[ Details → ]</button>
+            </div>
+            <div className="dash-visual solar-visual"></div>
+          </div>
 
-        {/* Earth Orbit */}
-        <div className="dashboard-card">
-          <h3>EARTH ORBIT</h3>
-          <p>Active Satellites</p>
-          <span className="highlight">1,234</span>
-          <button>Track →</button>
-        </div>
+          {/* Earth Orbit */}
+          <div className="dashboard-card">
+            <div className="dash-content">
+              <h3>EARTH ORBIT</h3>
+              <p className="highlight-text">1,234</p>
+              <p className="sub-text">active satellites</p>
+              <button className="dash-btn">[ Track → ]</button>
+            </div>
+            <div className="dash-visual orbit-visual"></div>
+          </div>
 
-        {/* Satellite Traffic */}
-        <div className="dashboard-card">
-          <h3>SATELLITE TRAFFIC</h3>
-          <p>Objects in Orbit</p>
-          <span className="highlight">
-            {satellites ? satellites : "..."}
-          </span>
-          <button>View →</button>
-        </div>
+          {/* Satellite Traffic */}
+          <div className="dashboard-card">
+            <div className="dash-content">
+              <h3>SATELLITE TRAFFIC</h3>
+              <p className="highlight-text">4,872</p>
+              <p className="sub-text">active objects</p>
+              <button className="dash-btn">[ View → ]</button>
+            </div>
+            <div className="dash-visual traffic-visual"></div>
+          </div>
 
-        {/* Astronauts */}
-        <div className="dashboard-card">
-          <h3>ASTRONAUTS IN SPACE</h3>
-          {astronauts ? (
-            <>
-              <p>Currently:</p>
-              <span className="highlight">
-                {astronauts.number}
-              </span>
-              <p className="sub-text">
-                aboard {astronauts.people.length} spacecraft
-              </p>
-            </>
-          ) : (
-            <p>Fetching live data...</p>
-          )}
-          <button>Meet Crew →</button>
+          {/* Astronauts */}
+          <div className="dashboard-card">
+            <div className="dash-content">
+              <h3>ASTRONAUTS IN SPACE</h3>
+              <p className="highlight-text">{astronauts ? astronauts.number : 7}</p>
+              <p className="sub-text">on ISS</p>
+              <button className="dash-btn">[ Meet Crew → ]</button>
+            </div>
+            <div className="dash-visual astronaut-visual"></div>
+          </div>
         </div>
       </div>
     </section>
