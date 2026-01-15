@@ -1,11 +1,9 @@
 .weather-card {
-  background: linear-gradient(135deg, rgba(15, 25, 60, 0.8) 0%, rgba(20, 15, 50, 0.8) 100%);
+  background: linear-gradient(135deg, rgba(15, 25, 60, 0.8), rgba(20, 15, 50, 0.8));
   border: 2px solid rgba(100, 200, 255, 0.4);
   border-radius: 16px;
   padding: 24px;
-  box-shadow: 
-    0 0 25px rgba(0, 200, 255, 0.25),
-    inset 0 0 30px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0 25px rgba(0, 200, 255, 0.25), inset 0 0 30px rgba(0, 0, 0, 0.2);
   color: #fff;
   backdrop-filter: blur(10px);
   transition: all 0.3s ease;
@@ -13,75 +11,91 @@
 
 .weather-card:hover {
   border-color: rgba(100, 200, 255, 0.7);
-  box-shadow: 
-    0 0 40px rgba(0, 200, 255, 0.4),
-    inset 0 0 30px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0 40px rgba(0, 200, 255, 0.4);
   transform: translateY(-3px);
 }
 
 .card-title {
-  font-family: 'Rajdhani', 'Exo 2', sans-serif;
+  font-family: 'Rajdhani', sans-serif;
   font-size: 1.1rem;
   font-weight: 700;
   letter-spacing: 2px;
-  color: #fff;
-  margin: 0 0 18px 0;
   text-transform: uppercase;
+  margin-bottom: 18px;
 }
+
+/* 🌞 SUN */
 
 .sun-visual {
   width: 140px;
   height: 140px;
-  margin: 15px auto 20px;
-  position: relative;
+  margin: 20px auto;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: radial-gradient(circle, rgba(255, 100, 0, 0.2) 0%, transparent 70%);
-  border-radius: 50%;
 }
 
 .sun-core {
   width: 120px;
   height: 120px;
-  background: radial-gradient(circle, #ff6600 0%, #ff4400 40%, #cc3300 100%);
   border-radius: 50%;
-  box-shadow: 
-    0 0 40px rgba(255, 100, 0, 0.8),
-    inset 0 0 30px rgba(200, 50, 0, 0.5);
+  overflow: hidden;
+  position: relative;
+  box-shadow:
+    inset -20px -25px 40px rgba(0, 0, 0, 0.7),
+    inset 10px 10px 30px rgba(255, 180, 100, 0.5),
+    0 0 60px rgba(255, 120, 0, 0.9);
   animation: sunPulse 3s ease-in-out infinite;
 }
 
-@keyframes sunPulse {
-  0%, 100% { transform: scale(1); box-shadow: 0 0 40px rgba(255, 100, 0, 0.8), inset 0 0 30px rgba(200, 50, 0, 0.5); }
-  50% { transform: scale(1.05); box-shadow: 0 0 60px rgba(255, 120, 0, 1), inset 0 0 40px rgba(220, 60, 0, 0.6); }
+.sun-texture {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  filter: brightness(1.1) contrast(1.2) saturate(1.4);
 }
+
+/* highlight */
+.sun-core::before {
+  content: "";
+  top: 16px;
+  left: 20px;
+  width: 36px;
+  height: 36px;
+  background: radial-gradient(circle, rgba(255,255,255,0.9), transparent 70%);
+  border-radius: 50%;
+  filter: blur(3px);
+}
+
+/* shadow */
+.sun-core::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  box-shadow: inset -30px -35px 45px rgba(0,0,0,0.8);
+}
+
+@keyframes sunPulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+/* INFO */
 
 .solar-info {
   font-size: 0.95rem;
-  line-height: 1.6;
-}
-
-.info-line {
-  margin: 8px 0;
-}
-
-.info-value {
-  margin: 0 0 12px 0;
-  font-size: 0.9rem;
-  color: rgba(255, 255, 255, 0.85);
 }
 
 .label {
+  font-size: 0.8rem;
   font-weight: 600;
-  color: rgba(255, 255, 255, 0.9);
   text-transform: uppercase;
-  font-size: 0.85rem;
 }
 
 .value {
   color: #4cff9a;
-  font-weight: 500;
 }
 
 .graph-section {
@@ -90,15 +104,7 @@
   border-top: 1px solid rgba(100, 200, 255, 0.2);
 }
 
-.graph-label {
-  font-size: 0.8rem;
-  color: rgba(255, 255, 255, 0.7);
-  margin: 0 0 10px 0;
-}
-
 .activity-graph {
   width: 100%;
   height: 80px;
-  border-radius: 8px;
-  background: rgba(0, 20, 40, 0.4);
 }
