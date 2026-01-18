@@ -1,10 +1,23 @@
 /* Root Dashboard */
 .rs-dashboard {
   min-height: 100vh;
-  background: #0D1B2A;
+  background: transparent; /* allows video to show */
   color: #E0E1DD;
   padding: 90px;
   font-family: "Segoe UI", sans-serif;
+  position: relative;
+  z-index: 1;
+}
+
+/* BACKGROUND VIDEO */
+.bg-video {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  background: url(earth.jpg);
+  z-index: -10;
 }
 
 /* Top Bar */
@@ -12,23 +25,22 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: #1B263B;
-  border: 1px solid #00E5FF;
+  background: rgba(27, 38, 59, 0.6); /* 60% transparent */
+  border: 1px solid rgba(0, 229, 255, 0.8);
   padding: 14px 22px;
   border-radius: 14px;
-  box-shadow: 0 0 18px rgba(0, 229, 255, 0.2);
+  box-shadow: 0 0 14px rgba(0, 229, 255, 0.2);
 }
 
 .rs-topbar h2 {
-  color: #00E5FF;
+  color: rgba(0, 229, 255, 0.95);
 }
 
 /* Welcome Text */
 .rs-welcome {
   margin: 18px 0 26px;
   font-size: 14px;
-  color: #E0E1DD;
-  opacity: 0.9;
+  color: rgba(224, 225, 221, 0.9);
 }
 
 /* Layout */
@@ -55,20 +67,20 @@
 
 /* Cards */
 .rs-card {
-  background: #1B263B;
-  border: 1px solid #415A77;
+  background: rgba(27, 38, 59, 0.6); /* 60% transparency */
+  border: 1px solid rgba(65, 90, 119, 0.8);
   border-radius: 16px;
   padding: 16px;
   transition: 0.3s ease;
 }
 
 .rs-card:hover {
-  border-color: #00E5FF;
-  box-shadow: 0 0 14px rgba(0, 229, 255, 0.25);
+  border-color: rgba(0, 229, 255, 0.9);
+  box-shadow: 0 0 12px rgba(0, 229, 255, 0.25);
 }
 
 .rs-card h3 {
-  color: #00E5FF;
+  color: rgba(0, 229, 255, 0.95);
   margin-bottom: 10px;
 }
 
@@ -76,9 +88,9 @@
 .edit-profile,
 .small-btn,
 .actions button {
-  background: transparent;
-  border: 1px solid #00E5FF;
-  color: #00E5FF;
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(0, 229, 255, 0.9);
+  color: rgba(0, 229, 255, 0.95);
   padding: 8px 14px;
   border-radius: 10px;
   cursor: pointer;
@@ -88,13 +100,13 @@
 .edit-profile:hover,
 .small-btn:hover,
 .actions button:hover {
-  background: #00E5FF;
+  background: rgba(0, 229, 255, 0.85);
   color: #0D1B2A;
 }
 
 /* Text highlights */
 .highlight {
-  color: #00E5FF;
+  color: rgba(0, 229, 255, 0.95);
 }
 
 /* Badges */

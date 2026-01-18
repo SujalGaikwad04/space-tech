@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import "./Header.css";
+import { useNavigate } from "react-router-dom";
 
 const Header = () => {
+  const navigate = useNavigate();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const toggleMenu = () => {
@@ -46,7 +48,7 @@ const Header = () => {
           <Link to="/events" className="nav-item">EVENTS</Link>
           <Link to="/mission" className="nav-item">MISSION</Link>
           <Link to="/weather" className="nav-item">WEATHER</Link>
-          <Link to="/learn" className="nav-item">LEARN</Link>
+          <Link to="/learning" className="nav-item">LEARN</Link>
           <Link to="/dashboard" className="nav-item">DASHBOARD</Link>
           
           {/* Search Section (Inside Nav for better responsive layout) */}

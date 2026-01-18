@@ -15,7 +15,7 @@
 .aurora-texture {
   position: absolute;
   inset: 0;
-  background: url("/aurora.gif") center / cover no-repeat;
+  background: url("/aura.gif") center / cover no-repeat;
   opacity: 0.85;
   filter: brightness(1.1) contrast(1.15) saturate(1.3);
 }
