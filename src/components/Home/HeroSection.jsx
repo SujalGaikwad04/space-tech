@@ -5,7 +5,6 @@ export default function HeroSection() {
   const [iss, setIss] = useState("ISS currently over Pacific Ocean");
   const [city, setCity] = useState("");
 
-  // ISS LOCATION (live)
   useEffect(() => {
     const fetchISS = async () => {
       try {
@@ -13,7 +12,11 @@ export default function HeroSection() {
           "https://api.wheretheiss.at/v1/satellites/25544"
         );
         const data = await res.json();
-        setIss(`ISS currently over Lat ${data.latitude.toFixed(1)}°, Lon ${data.longitude.toFixed(1)}°`);
+        setIss(
+          `ISS currently over Lat ${data.latitude.toFixed(
+            1
+          )}°, Lon ${data.longitude.toFixed(1)}°`
+        );
       } catch {
         setIss("ISS currently over Pacific Ocean");
       }
@@ -25,57 +28,54 @@ export default function HeroSection() {
   }, []);
 
   return (
-    <section className="hero-section">
-      <div className="hero-container">
-        {/* Welcome Header */}
-        <div className="hero-header">
-          <h1 className="hero-title">Welcome to SpaceScope</h1>
-          <p className="hero-subtitle">Explore, Learn & Stay Connected with the Universe</p>
-        </div>
+    <>
+      {/* 🌍 FIXED BACKGROUND FOR ENTIRE HOME */}
+      <img
+        src="/earth.jpg"
+        alt="Earth from space"
+        className="home-bg"
+      />
 
-        {/* Main Content Box */}
-        <div className="hero-content-box">
-          {/* Search Input */}
-          <div className="hero-search">
-            <input
-              type="text"
-              placeholder="[Enter Your City]"
-              value={city}
-              onChange={(e) => setCity(e.target.value)}
-              className="hero-input"
-            />
-            <button className="hero-search-btn">
-              <span className="search-icon">🔍</span>
-              Find Events
-            </button>
+      <section className="hero-section">
+        <div className="hero-container">
+          <div className="hero-header">
+            <h1 className="hero-title">Welcome to SpaceScope</h1>
+            <p className="hero-subtitle">
+              Explore, Learn & Stay Connected with the Universe
+            </p>
           </div>
 
-          {/* Live Updates */}
-          <div className="hero-live-section">
-            <div className="live-badge">LIVE NOW:</div>
-            <div className="live-updates">
-              <div className="live-item">
-                <span className="live-icon">🛰️</span>
-                <span>{iss}</span>
-              </div>
-              <div className="live-item">
-                <span className="live-icon">☄️</span>
-                <span>Geminids meteor shower peaking</span>
-              </div>
-              <div className="live-item">
-                <span className="live-icon">🚀</span>
-                <span>Next solstar shower: Orionids (Oct 21)</span>
+          <div className="hero-content-box">
+            <div className="hero-search">
+              <input
+                type="text"
+                placeholder="[Enter Your City]"
+                value={city}
+                onChange={(e) => setCity(e.target.value)}
+                className="hero-input"
+              />
+              <button className="hero-search-btn">
+                🔍 Find Events
+              </button>
+            </div>
+
+            <div className="hero-live-section">
+              <div className="live-badge">LIVE NOW:</div>
+              <div className="live-updates">
+                <div className="live-item">🛰️ {iss}</div>
+                <div className="live-item">☄️ Geminids meteor shower peaking</div>
+                <div className="live-item">
+                  🚀 Next solar shower: Orionids (Oct 21)
+                </div>
               </div>
             </div>
-          </div>
 
-          {/* Notification Setup */}
-          <div className="hero-notification">
-            <span className="notification-icon">🔔</span>
-            <span className="notification-text">Set up notifications to never miss a sky event!</span>
+            <div className="hero-notification">
+              🔔 Set up notifications to never miss a sky event!
+            </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </>
   );
 }

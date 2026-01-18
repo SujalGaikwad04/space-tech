@@ -89,7 +89,8 @@
   backdrop-filter: blur(15px);
   animation: panelFade 0.8s ease-out;
   position: relative;
-  overflow: hidden;
+  top:15vh
+  overflow : hidden;
 }
 
 .details-card::before {

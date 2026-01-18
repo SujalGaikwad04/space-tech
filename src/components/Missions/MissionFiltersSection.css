@@ -1,38 +1,105 @@
 .mission-filters-section {
-  padding: 2rem;
-  background: linear-gradient(135deg, #0a0e27 0%, #1a1f3a 50%, #0a0e27 100%);
+  padding: 2.5rem 1.5rem;
   display: flex;
   justify-content: center;
+  position: relative;
 }
 
+/* subtle glow line */
+.mission-filters-section::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 10%;
+  right: 10%;
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    transparent,
+    rgba(0, 217, 255, 0.6),
+    transparent
+  );
+}
+
+/* BUTTON GROUP */
 .filter-buttons {
   display: flex;
-  gap: 1rem;
+  gap: 1.2rem;
   flex-wrap: wrap;
   justify-content: center;
 }
 
+/* BASE BUTTON */
 .filter-btn {
-  background: rgba(0, 0, 0, 0.6);
-  border: 2px solid #00d9ff;
-  color: #00d9ff;
-  padding: 0.8rem 2rem;
-  border-radius: 8px;
+  background: linear-gradient(
+    135deg,
+    rgba(0, 0, 0, 0.7),
+    rgba(10, 25, 45, 0.6)
+  );
+  border: 2px solid rgba(0, 217, 255, 0.8);
+  color: #7fdcff;
+  padding: 0.75rem 2.2rem;
+  border-radius: 10px;
   cursor: pointer;
-  font-size: 0.9rem;
-  font-weight: 600;
-  letter-spacing: 1px;
-  transition: all 0.3s ease;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
   text-transform: uppercase;
+  transition: all 0.3s ease;
+  box-shadow:
+    0 0 12px rgba(0, 217, 255, 0.25),
+    inset 0 0 8px rgba(0, 217, 255, 0.1);
+  position: relative;
 }
 
+/* BUTTON GLOW EDGE */
+.filter-btn::after {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  border-radius: 12px;
+  background: linear-gradient(
+    45deg,
+    transparent,
+    rgba(0, 217, 255, 0.5),
+    transparent
+  );
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+/* HOVER */
 .filter-btn:hover {
-  background: rgba(0, 217, 255, 0.2);
-  box-shadow: 0 0 20px rgba(0, 217, 255, 0.4);
-  transform: translateY(-2px);
+  color: #ffffff;
+  transform: translateY(-3px);
+  box-shadow:
+    0 0 25px rgba(0, 217, 255, 0.6),
+    inset 0 0 15px rgba(0, 217, 255, 0.2);
 }
 
+.filter-btn:hover::after {
+  opacity: 1;
+}
+
+/* ACTIVE STATE */
 .filter-btn.active {
-  background: rgba(0, 217, 255, 0.3);
-  box-shadow: 0 0 25px rgba(0, 217, 255, 0.6);
+  background: linear-gradient(
+    135deg,
+    rgba(0, 217, 255, 0.25),
+    rgba(0, 120, 180, 0.3)
+  );
+  color: #ffffff;
+  border-color: #00ffff;
+  box-shadow:
+    0 0 35px rgba(0, 217, 255, 0.9),
+    inset 0 0 20px rgba(0, 217, 255, 0.4);
+  transform: scale(1.08);
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+  .filter-btn {
+    padding: 0.65rem 1.6rem;
+    font-size: 0.75rem;
+  }
 }
