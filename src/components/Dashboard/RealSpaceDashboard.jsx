@@ -2,7 +2,19 @@ import "./RealSpaceDashboard.css";
 
 const RealSpaceDashboard = () => {
   return (
+
+    
     <div className="rs-dashboard">
+
+      
+{/* fixed background  */}
+
+<img src="earth.jpg" className="bg-video"/>
+
+{/* fix background ended */}
+
+
+
       <div className="rs-topbar">
         <h2>MY SPACESCOPE DASHBOARD</h2>
         <button className="edit-profile">Edit Profile</button>

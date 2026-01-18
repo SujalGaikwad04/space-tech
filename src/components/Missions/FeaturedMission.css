@@ -1,10 +1,10 @@
 .featured-mission-section {
   padding: 2rem;
-  background: linear-gradient(135deg, #0a0e27 0%, #1a1f3a 50%, #0a0e27 100%);
+  background: none;/* transparent section background */
 }
 
 .featured-title {
-  color: white;
+  color: rgba(255, 255, 255, 0.95);
   font-size: 1.3rem;
   font-weight: 600;
   letter-spacing: 2px;
@@ -16,13 +16,13 @@
   display: grid;
   grid-template-columns: 300px 1fr;
   gap: 2rem;
-  background: rgba(0, 0, 0, 0.7);
-  border: 2px solid #00d9ff;
+  background: rgba(0, 0, 0, 0.7); /* 70% transparency */
+  border: 2px solid rgba(0, 217, 255, 0.8);
   border-radius: 12px;
   padding: 2rem;
   max-width: 900px;
   margin: 0 auto;
-  box-shadow: 0 0 25px rgba(0, 217, 255, 0.3);
+  box-shadow: 0 0 18px rgba(0, 217, 255, 0.25);
 }
 
 .featured-image {
@@ -30,7 +30,7 @@
   height: 250px;
   border-radius: 12px;
   overflow: hidden;
-  background: rgba(0, 50, 100, 0.3);
+  background: rgba(0, 50, 100, 0.3); /* transparent image container */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -64,7 +64,7 @@
 }
 
 .status-text {
-  color: white;
+  color: rgba(255, 255, 255, 0.9);
   font-size: 0.95rem;
 }
 
@@ -73,14 +73,14 @@
 }
 
 .discovery-label {
-  color: #00d9ff;
+  color: rgba(0, 217, 255, 0.9);
   font-weight: 600;
   display: block;
   margin-bottom: 0.5rem;
 }
 
 .discovery-text {
-  color: white;
+  color: rgba(255, 255, 255, 0.9);
   font-style: italic;
 }
 
@@ -92,8 +92,8 @@
 
 .action-btn {
   background: rgba(0, 0, 0, 0.6);
-  border: 2px solid #00d9ff;
-  color: #00d9ff;
+  border: 2px solid rgba(0, 217, 255, 0.8);
+  color: rgba(0, 217, 255, 0.9);
   padding: 0.6rem 1.2rem;
   border-radius: 6px;
   cursor: pointer;
@@ -104,7 +104,7 @@
 
 .action-btn:hover {
   background: rgba(0, 217, 255, 0.2);
-  box-shadow: 0 0 15px rgba(0, 217, 255, 0.4);
+  box-shadow: 0 0 12px rgba(0, 217, 255, 0.35);
 }
 
 @media (max-width: 768px) {

@@ -1,10 +1,6 @@
 .events-page {
   min-height: 100vh;
-  background: 
-    radial-gradient(ellipse at 20% 30%, rgba(13, 27, 61, 0.8) 0%, transparent 50%),
-    radial-gradient(ellipse at 80% 70%, rgba(25, 15, 50, 0.8) 0%, transparent 50%),
-    linear-gradient(135deg, #05091a 0%, #0d1428 25%, #1a1f3a 50%, #0d1428 75%, #05091a 100%);
-  padding: 130px 2rem 3rem 2rem;
+  background: black;
   color: white;
   font-family: 'Inter', 'Segoe UI', 'Arial', sans-serif;
   position: relative;

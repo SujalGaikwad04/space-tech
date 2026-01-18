@@ -1,0 +1,162 @@
+.App {
+  font-family: poppins;
+  text-align: center;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  width: 80vw;
+  min-height: 70vh;
+  margin: 40px auto;
+  padding: 30px;
+
+  /* Transparent blue glass */
+  background: rgba(10, 30, 60, 0.55);
+
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+
+  border-radius: 30px;
+
+  border: 1px solid rgba(80, 160, 255, 0.25);
+
+  box-shadow:
+    0 0 30px rgba(0, 140, 255, 0.25),
+    inset 0 0 20px rgba(0, 100, 200, 0.15);
+
+  color: #ffffff;
+
+  transition: all 0.4s ease;
+}
+
+/* Hover effect for entire card */
+.App:hover {
+  box-shadow:
+    0 0 55px rgba(0, 160, 255, 0.55),
+    inset 0 0 30px rgba(0, 140, 255, 0.25);
+
+  border-color: rgba(120, 200, 255, 0.5);
+}
+
+
+/* Question Card */
+.question {
+  margin: 20px auto;
+  width: 73vw;
+  height: 35vh;
+
+  background: rgba(0, 40, 80, 0.45);
+
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+
+  border: 1px solid rgba(120, 180, 255, 0.25);
+  padding: 20px 30px;
+  border-radius: 28px;
+}
+
+
+.question h2 {
+  margin-bottom: 15px;
+}
+
+/* Options Grid */
+.options {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  grid-template-columns: auto auto;
+  gap: 14px;
+}
+
+/* Option Buttons */
+.options > li > button {
+  width: 100%;
+  padding: 14px;
+
+  background: rgba(255, 255, 255, 0.18);
+  color: #ffffff;
+
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+
+  transition: all 0.3s ease;
+}
+
+.options > li > button:hover {
+  background: linear-gradient(135deg, #2563eb, #7c3aed);
+  transform: scale(1.03);
+}
+
+/* Result Card */
+.results {
+  height: 60vh;
+  width: 64vw;
+  margin: 20px auto;
+  padding: 25px;
+
+  background: rgba(0, 40, 80, 0.45);
+
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+
+  border: 1px solid rgba(120, 180, 255, 0.3);
+  border-radius: 25px;
+}
+
+
+/* Result List */
+.results ul {
+  list-style: none;
+  padding: 0;
+}
+
+.results li {
+  font-size: 19px;
+  font-weight: 400;
+  margin-bottom: 12px;
+}
+
+/* Correct / Wrong */
+.results li[data-correct="true"] {
+  color: #22c55e;
+}
+
+.results li[data-correct="false"] {
+  color: #ff0000;
+}
+
+/* Reset Link */
+.results span {
+  color: #ffffff;
+  font-size: 18px;
+  font-weight: 700;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+/* SIMULATE BUTTON */
+.challenge-btn {
+  position: relative;
+  top: 0vh;
+  left: 31vw;
+  margin-top: 20px;
+  align-self: flex-start;
+  padding: 14px 26px;
+  font-size: 21px;
+  color: #7df9ff;
+  background: transparent;
+  border: 1px solid rgba(125, 249, 255, 0.5);
+  border-radius: 30px;
+  cursor: pointer;
+  transition: all 0.35s ease;
+  backdrop-filter: blur(6px);
+}
+
+.challenge-btn:hover {
+  background: rgba(125, 249, 255, 0.1);
+  box-shadow: 0 0 35px rgba(125, 249, 255, 0.6);
+  transform: translateY(-2px);
+}
+
