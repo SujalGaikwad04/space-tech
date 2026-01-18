@@ -127,7 +127,7 @@ function Learn() {
 
 
 
-      <h1 className="header">Welcome back, User!</h1>
+      <h1 className="headers">Welcome back, User!</h1>
       <span className="stu-lower">
         Keep up the great work! You're on a X-day learning streak.
       </span>
