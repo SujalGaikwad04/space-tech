@@ -18,6 +18,7 @@ import Detailquiz from "./components/quiz/detailquiz";
 /* Layout */
 import Footer from "./components/Footer";
 import Header from "./components/Header";
+import Auth from "./components/auth/user";
 
 function App() {
   return (
@@ -30,6 +31,8 @@ function App() {
         <Route path="/mission" element={<Missionpage />} />
         <Route path="/weather" element={<Weatherpage />} />
         <Route path="/dashboard" element={<Dashboardpage />} />
+        <Route path="/Auth" element={<Auth />  } />
+        
 
         {/* Learning routes */}
         <Route path="/learn" element={<Learn />} />

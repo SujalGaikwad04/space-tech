@@ -50,6 +50,8 @@ const Header = () => {
           <Link to="/weather" className="nav-item">WEATHER</Link>
           <Link to="/learn" className="nav-item">LEARN</Link>
           <Link to="/dashboard" className="nav-item">DASHBOARD</Link>
+          <Link to="/Auth" className="nav-item">Get started</Link>
+
           
           {/* Search Section (Inside Nav for better responsive layout) */}
           <div className="search-section">
