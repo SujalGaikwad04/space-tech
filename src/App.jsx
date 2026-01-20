@@ -20,28 +20,33 @@ import Footer from "./components/Footer";
 import Header from "./components/Header";
 import Auth from "./components/auth/user";
 
+/* Context */
+import { AuthProvider } from "./context/AuthContext";
+
 function App() {
   return (
-    <BrowserRouter>
-      <Header />
+    <AuthProvider>
+      <BrowserRouter>
+        <Header />
 
-      <Routes>
-        <Route path="/" element={<Homepage />} />
-        <Route path="/events" element={<Eventspage />} />
-        <Route path="/mission" element={<Missionpage />} />
-        <Route path="/weather" element={<Weatherpage />} />
-        <Route path="/dashboard" element={<Dashboardpage />} />
-        <Route path="/Auth" element={<Auth />  } />
-        
+        <Routes>
+          <Route path="/" element={<Homepage />} />
+          <Route path="/events" element={<Eventspage />} />
+          <Route path="/mission" element={<Missionpage />} />
+          <Route path="/weather" element={<Weatherpage />} />
+          <Route path="/dashboard" element={<Dashboardpage />} />
+          <Route path="/Auth" element={<Auth />  } />
+          
 
-        {/* Learning routes */}
-        <Route path="/learn" element={<Learn />} />
-        <Route path="/whatif" element={<WhatIf />} />
-        <Route path="/quiz" element={<Detailquiz />} />
-      </Routes>
+          {/* Learning routes */}
+          <Route path="/learn" element={<Learn />} />
+          <Route path="/whatif" element={<WhatIf />} />
+          <Route path="/quiz" element={<Detailquiz />} />
+        </Routes>
 
-      <Footer />
-    </BrowserRouter>
+        <Footer />
+      </BrowserRouter>
+    </AuthProvider>
   );
 }
 

@@ -1,6 +1,9 @@
+import { useAuth } from "../../context/AuthContext";
 import "./RealSpaceDashboard.css";
 
 const RealSpaceDashboard = () => {
+  const { user, isAuthenticated } = useAuth();
+
   return (
 
     
@@ -21,7 +24,7 @@ const RealSpaceDashboard = () => {
       </div>
 
       <p className="rs-welcome">
-        Welcome back, <span>User Name</span><br />
+        Welcome back, <span>{isAuthenticated ? user.username : "Guest"}</span><br />
         Location: Navi Mumbai, Maharashtra, India | Timezone: IST (UTC+5:30)
       </p>
 

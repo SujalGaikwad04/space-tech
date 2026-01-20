@@ -2,6 +2,7 @@ import "./learn.css";
 import Quiz from "../quiz/quiz";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../context/AuthContext";
 
 
 // whatif data trial
@@ -82,6 +83,7 @@ const newsData = [
 
 
 function Learn() {
+  const { user, isAuthenticated } = useAuth();
 
   // what if logic start
 
@@ -127,9 +129,9 @@ function Learn() {
 
 
 
-      <h1 className="headers">Welcome back, User!</h1>
+      <h1 className="headers">Welcome back, {isAuthenticated ? user.username : "Guest"}!</h1>
       <span className="stu-lower">
-        Keep up the great work! You're on a X-day learning streak.
+        Keep up the great work! You're on a {isAuthenticated ? user.learningStreak : 0}-day learning streak.
       </span>
 
       <div className="box-container-2">

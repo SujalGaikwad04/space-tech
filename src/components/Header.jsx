@@ -1,15 +1,41 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useState, useEffect, useRef } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 import "./Header.css";
-import { useNavigate } from "react-router-dom";
 
 const Header = () => {
   const navigate = useNavigate();
+  const { user, isAuthenticated, logout } = useAuth();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [showUserMenu, setShowUserMenu] = useState(false);
+  const userMenuRef = useRef(null);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
+
+  const handleLogout = () => {
+    logout();
+    setShowUserMenu(false);
+    navigate("/auth");
+  };
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (userMenuRef.current && !userMenuRef.current.contains(event.target)) {
+        setShowUserMenu(false);
+      }
+    };
+
+    if (showUserMenu) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [showUserMenu]);
 
   return (
     <header className="header">
@@ -50,9 +76,36 @@ const Header = () => {
           <Link to="/weather" className="nav-item">WEATHER</Link>
           <Link to="/learn" className="nav-item">LEARN</Link>
           <Link to="/dashboard" className="nav-item">DASHBOARD</Link>
-          <Link to="/Auth" className="nav-item">Get started</Link>
-
           
+          {/* Auth Section */}
+          {isAuthenticated ? (
+            <div className="user-profile" ref={userMenuRef} onClick={() => setShowUserMenu(!showUserMenu)}>
+              <div className="user-avatar-small">
+                {user.username.charAt(0).toUpperCase()}
+              </div>
+              <span className="user-name">{user.username}</span>
+              {showUserMenu && (
+                <div className="user-dropdown">
+                  <div className="dropdown-item" onClick={() => navigate("/dashboard")}>
+                    <span>📊</span> Dashboard
+                  </div>
+                  <div className="dropdown-item" onClick={() => navigate("/learn")}>
+                    <span>📚</span> Learn
+                  </div>
+                  <div className="dropdown-item" onClick={() => navigate("/auth")}>
+                    <span>⚙️</span> Settings
+                  </div>
+                  <div className="dropdown-divider"></div>
+                  <div className="dropdown-item logout" onClick={handleLogout}>
+                    <span>🚪</span> Logout
+                  </div>
+                </div>
+              )}
+            </div>
+          ) : (
+            <Link to="/Auth" className="nav-item get-started">Get started</Link>
+          )}
+
           {/* Search Section (Inside Nav for better responsive layout) */}
           <div className="search-section">
             <div className="search-box">

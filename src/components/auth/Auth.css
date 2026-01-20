@@ -7,19 +7,22 @@
   min-height: 100vh;
   background: radial-gradient(circle at right, #0e3a4f, #050b14);
   display: flex;
+  align-items: center;
+  justify-content: space-between;
   padding: 60px;
   color: #fff;
+  position: relative;
 }
 
 .auth-card {
-  position: absolute;
-  top: 13vh;
-  left: 6vw;
   width: 413px;
+  max-width: 90%;
   background: rgba(255, 255, 255, 0.04);
   border-radius: 18px;
   padding: 30px;
   backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
 }
 
 .tab-switch {
@@ -83,6 +86,14 @@ form input {
   margin-top: 10px;
   font-weight: 600;
   cursor: pointer;
+  color: #000;
+  transition: all 0.3s ease;
+}
+
+.submit-btn:hover {
+  background: #0da8d4;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(17, 197, 245, 0.4);
 }
 
 
@@ -93,14 +104,12 @@ form input {
 }
 
 .auth-hero {
-  position: absolute;
-  left: 41vw;
-  top: 44vh;
   flex: 1;
   padding-left: 80px;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  max-width: 600px;
 }
 
 .auth-hero h1 {
@@ -144,5 +153,200 @@ form input {
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+/* Logged In View Styles */
+.logged-in-header {
+  text-align: center;
+  margin-bottom: 25px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.logged-in-header h2 {
+  font-size: 24px;
+  font-weight: 600;
+  color: #11c5f5;
+  margin: 0;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 20px;
+  background: rgba(17, 197, 245, 0.05);
+  border-radius: 12px;
+  margin-bottom: 20px;
+  border: 1px solid rgba(17, 197, 245, 0.1);
+}
+
+.user-avatar {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #11c5f5, #0e8ab8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  font-weight: 700;
+  color: #000;
+  flex-shrink: 0;
+}
+
+.user-details {
+  flex: 1;
+}
+
+.user-details h3 {
+  margin: 0 0 5px 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: #fff;
+}
+
+.username-display {
+  margin: 0 0 3px 0;
+  font-size: 14px;
+  color: #11c5f5;
+  font-weight: 500;
+}
+
+.email-display {
+  margin: 0;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.user-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+  margin-bottom: 25px;
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 15px;
+  background: #0a1523;
+  border-radius: 10px;
+  border: 1px solid #1e2c40;
+}
+
+.stat-value {
+  font-size: 20px;
+  font-weight: 700;
+  color: #11c5f5;
+  margin-bottom: 5px;
+}
+
+.stat-label {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.6);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.logged-in-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.dashboard-btn,
+.learn-btn,
+.logout-btn {
+  width: 100%;
+  padding: 14px;
+  border: none;
+  border-radius: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 14px;
+}
+
+.dashboard-btn {
+  background: #11c5f5;
+  color: #000;
+}
+
+.dashboard-btn:hover {
+  background: #0da8d4;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(17, 197, 245, 0.4);
+}
+
+.learn-btn {
+  background: rgba(17, 197, 245, 0.1);
+  color: #11c5f5;
+  border: 1px solid #11c5f5;
+}
+
+.learn-btn:hover {
+  background: rgba(17, 197, 245, 0.2);
+  transform: translateY(-2px);
+}
+
+.logout-btn {
+  background: rgba(255, 68, 68, 0.1);
+  color: #ff4444;
+  border: 1px solid #ff4444;
+}
+
+.logout-btn:hover {
+  background: rgba(255, 68, 68, 0.2);
+  transform: translateY(-2px);
+}
+
+.success-message {
+  background: rgba(17, 197, 245, 0.1);
+  border: 1px solid #11c5f5;
+  color: #11c5f5;
+  padding: 12px;
+  border-radius: 8px;
+  text-align: center;
+  margin-bottom: 15px;
+  font-size: 14px;
+  animation: fadeIn 0.3s ease;
+}
+
+.error-message {
+  background: rgba(255, 68, 68, 0.1);
+  border: 1px solid #ff4444;
+  color: #ff4444;
+  padding: 12px;
+  border-radius: 8px;
+  text-align: center;
+  margin-bottom: 15px;
+  font-size: 14px;
+  animation: fadeIn 0.3s ease;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .auth-wrapper {
+    flex-direction: column;
+    align-items: center;
+    gap: 40px;
+  }
+
+  .auth-card {
+    width: 100%;
+    max-width: 450px;
+  }
+
+  .auth-hero {
+    padding-left: 0;
+    text-align: center;
+    width: 100%;
+  }
+
+  .auth-hero h1 {
+    font-size: 42px;
   }
 }
