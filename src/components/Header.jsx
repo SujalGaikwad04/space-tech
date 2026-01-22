@@ -1,10 +1,11 @@
 import { useState, useEffect, useRef } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import "./Header.css";
 
 const Header = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const { user, isAuthenticated, logout } = useAuth();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [showUserMenu, setShowUserMenu] = useState(false);
@@ -70,13 +71,13 @@ const Header = () => {
 
         {/* Navigation */}
         <nav className={`nav ${isMenuOpen ? "nav-open" : ""}`}>
-          <Link to="/" className="nav-item">HOME</Link>
-          <Link to="/events" className="nav-item">EVENTS</Link>
-          <Link to="/mission" className="nav-item">MISSION</Link>
-          <Link to="/weather" className="nav-item">WEATHER</Link>
-          <Link to="/learn" className="nav-item">LEARN</Link>
-          <Link to="/dashboard" className="nav-item">DASHBOARD</Link>
-          
+          <Link to="/" className={`nav-item ${location.pathname === "/" ? "active" : ""}`}>HOME</Link>
+          <Link to="/events" className={`nav-item ${location.pathname.startsWith("/events") ? "active" : ""}`}>EVENTS</Link>
+          <Link to="/mission" className={`nav-item ${location.pathname.startsWith("/mission") ? "active" : ""}`}>MISSION</Link>
+          <Link to="/weather" className={`nav-item ${location.pathname.startsWith("/weather") ? "active" : ""}`}>WEATHER</Link>
+          <Link to="/learn" className={`nav-item ${location.pathname.startsWith("/learn") ? "active" : ""}`}>LEARN</Link>
+          <Link to="/dashboard" className={`nav-item ${location.pathname.startsWith("/dashboard") ? "active" : ""}`}>DASHBOARD</Link>
+
           {/* Auth Section */}
           {isAuthenticated ? (
             <div className="user-profile" ref={userMenuRef} onClick={() => setShowUserMenu(!showUserMenu)}>
@@ -144,4 +145,3 @@ const Header = () => {
 };
 
 export default Header;
-  

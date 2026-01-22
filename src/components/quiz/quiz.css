@@ -71,7 +71,7 @@
 }
 
 /* Option Buttons */
-.options > li > button {
+.options>li>button {
   width: 100%;
   padding: 14px;
 
@@ -84,7 +84,7 @@
   transition: all 0.3s ease;
 }
 
-.options > li > button:hover {
+.options>li>button:hover {
   background: linear-gradient(135deg, #2563eb, #7c3aed);
   transform: scale(1.03);
 }
@@ -139,10 +139,10 @@
 /* SIMULATE BUTTON */
 .challenge-btn {
   position: relative;
-  top: 0vh;
-  left: 31vw;
-  margin-top: 20px;
-  align-self: flex-start;
+  /* Remove absolute positioning reliance */
+  margin: 20px auto 0;
+  display: block;
+  align-self: center;
   padding: 14px 26px;
   font-size: 21px;
   color: #7df9ff;
@@ -154,9 +154,32 @@
   backdrop-filter: blur(6px);
 }
 
+@media (max-width: 768px) {
+  .App {
+    width: 95vw;
+    margin: 20px auto;
+    padding: 20px;
+  }
+
+  .question {
+    width: 100%;
+    height: auto;
+    min-height: 30vh;
+    padding: 20px;
+  }
+
+  .options {
+    grid-template-columns: 1fr;
+  }
+
+  .results {
+    width: 100%;
+    height: auto;
+  }
+}
+
 .challenge-btn:hover {
   background: rgba(125, 249, 255, 0.1);
   box-shadow: 0 0 35px rgba(125, 249, 255, 0.6);
   transform: translateY(-2px);
 }
-

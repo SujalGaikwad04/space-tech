@@ -11,9 +11,9 @@
   margin-bottom: 1.5rem;
   text-transform: uppercase;
   text-align: center;
-  text-shadow: 
-    0 0 15px rgba(0,229,255,1),
-    0 0 30px rgba(0,229,255,0.5);
+  text-shadow:
+    0 0 15px rgba(0, 229, 255, 1),
+    0 0 30px rgba(0, 229, 255, 0.5);
   animation: titlePulse 2s ease-in-out infinite;
 }
 
@@ -22,6 +22,7 @@
     opacity: 0;
     transform: translateX(-30px);
   }
+
   to {
     opacity: 1;
     transform: translateX(0);
@@ -29,34 +30,35 @@
 }
 
 @keyframes titlePulse {
-  0%, 100% { 
-    text-shadow: 
-      0 0 15px rgba(0,229,255,0.8),
-      0 0 30px rgba(0,229,255,0.4);
+
+  0%,
+  100% {
+    text-shadow:
+      0 0 15px rgba(0, 229, 255, 0.8),
+      0 0 30px rgba(0, 229, 255, 0.4);
   }
-  50% { 
-    text-shadow: 
-      0 0 20px rgba(0,229,255,1),
-      0 0 40px rgba(0,229,255,0.6);
+
+  50% {
+    text-shadow:
+      0 0 20px rgba(0, 229, 255, 1),
+      0 0 40px rgba(0, 229, 255, 0.6);
   }
 }
 
 .calendar {
-  background: linear-gradient(
-    135deg,
-    rgba(5, 11, 30, 0.8),
-    rgba(10, 20, 45, 0.7)
-  );
+  background: linear-gradient(135deg,
+      rgba(5, 11, 30, 0.8),
+      rgba(10, 20, 45, 0.7));
   position: relative;
   border: 2px solid rgba(0, 229, 255, 0.6);
   border-radius: 24px;
   padding: 28px;
   gap: 10px;
-  box-shadow: 
-    0 0 50px rgba(0,229,255,0.4),
-    0 15px 40px rgba(0,0,0,0.5),
-    0 25px 60px rgba(0,0,0,0.7),
-    inset 0 0 40px rgba(0,229,255,0.1);
+  box-shadow:
+    0 0 50px rgba(0, 229, 255, 0.4),
+    0 15px 40px rgba(0, 0, 0, 0.5),
+    0 25px 60px rgba(0, 0, 0, 0.7),
+    inset 0 0 40px rgba(0, 229, 255, 0.1);
   animation: fadeInUp 0.6s ease-out;
   backdrop-filter: blur(15px);
 }
@@ -77,21 +79,24 @@
 }
 
 @keyframes rotateOrbit {
-  from { transform: translate(-50%, -50%) rotateX(75deg) rotateZ(0deg); }
-  to { transform: translate(-50%, -50%) rotateX(75deg) rotateZ(360deg); }
+  from {
+    transform: translate(-50%, -50%) rotateX(75deg) rotateZ(0deg);
+  }
+
+  to {
+    transform: translate(-50%, -50%) rotateX(75deg) rotateZ(360deg);
+  }
 }
 
 .calendar::before {
   content: "";
   position: absolute;
   inset: -2px;
-  background: linear-gradient(
-    135deg,
-    rgba(0,229,255,0.3), 
-    transparent 40%, 
-    transparent 60%, 
-    rgba(0,229,255,0.3)
-  );
+  background: linear-gradient(135deg,
+      rgba(0, 229, 255, 0.3),
+      transparent 40%,
+      transparent 60%,
+      rgba(0, 229, 255, 0.3));
   border-radius: 24px;
   z-index: -1;
   opacity: 0.4;
@@ -99,8 +104,15 @@
 }
 
 @keyframes borderPulse {
-  0%, 100% { opacity: 0.3; }
-  50% { opacity: 0.6; }
+
+  0%,
+  100% {
+    opacity: 0.3;
+  }
+
+  50% {
+    opacity: 0.6;
+  }
 }
 
 .calendar-header {
@@ -118,9 +130,9 @@
   font-weight: 700;
   letter-spacing: 1.5px;
   text-transform: uppercase;
-  text-shadow: 
-    0 0 15px rgba(0,229,255,1),
-    0 0 30px rgba(0,229,255,0.6);
+  text-shadow:
+    0 0 15px rgba(0, 229, 255, 1),
+    0 0 30px rgba(0, 229, 255, 0.6);
   position: relative;
 }
 
@@ -132,13 +144,11 @@
   transform: translateX(-50%);
   width: 50%;
   height: 2px;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgba(0,229,255,0.6),
-    transparent
-  );
-  box-shadow: 0 0 10px rgba(0,229,255,0.8);
+  background: linear-gradient(90deg,
+      transparent,
+      rgba(0, 229, 255, 0.6),
+      transparent);
+  box-shadow: 0 0 10px rgba(0, 229, 255, 0.8);
 }
 
 .calendar-grid {
@@ -147,14 +157,46 @@
   gap: 8px;
 }
 
+@media (max-width: 480px) {
+  .calendar {
+    padding: 15px;
+  }
+
+  .month-title {
+    font-size: 1.1rem;
+  }
+
+  .calendar-header {
+    margin-bottom: 0.5rem;
+  }
+
+  .day-name {
+    font-size: 0.7rem;
+    padding: 0.3rem;
+  }
+
+  .calendar-grid,
+  .calendar-header {
+    gap: 4px;
+  }
+
+  .calendar-day {
+    padding: 0.3rem;
+    min-height: 50px;
+    border-radius: 8px;
+  }
+
+  .day-number {
+    font-size: 0.9rem;
+  }
+}
+
 .calendar-day {
   aspect-ratio: 1;
-  border: 2px solid rgba(0,229,255,0.5);
-  background: linear-gradient(
-    135deg, 
-    rgba(5, 15, 35, 0.95), 
-    rgba(10, 25, 50, 0.9)
-  );
+  border: 2px solid rgba(0, 229, 255, 0.5);
+  background: linear-gradient(135deg,
+      rgba(5, 15, 35, 0.95),
+      rgba(10, 25, 50, 0.9));
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -165,23 +207,21 @@
   position: relative;
   padding: 0.6rem;
   min-height: 70px;
-  box-shadow: 
-    inset 0 0 20px rgba(0,229,255,0.1),
-    0 4px 12px rgba(0,0,0,0.5),
-    0 0 15px rgba(0,229,255,0.2);
+  box-shadow:
+    inset 0 0 20px rgba(0, 229, 255, 0.1),
+    0 4px 12px rgba(0, 0, 0, 0.5),
+    0 0 15px rgba(0, 229, 255, 0.2);
   backdrop-filter: blur(4px);
 }
 
 .calendar-day.empty {
-  border: 1px solid rgba(0,229,255,0.1);
-  background: linear-gradient(
-    135deg,
-    rgba(1, 8, 20, 0.4),
-    rgba(5, 15, 30, 0.3)
-  );
+  border: 1px solid rgba(0, 229, 255, 0.1);
+  background: linear-gradient(135deg,
+      rgba(1, 8, 20, 0.4),
+      rgba(5, 15, 30, 0.3));
   cursor: default;
   opacity: 0.25;
-  box-shadow: inset 0 0 10px rgba(0,0,0,0.5);
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
   position: relative;
   overflow: hidden;
 }
@@ -191,12 +231,10 @@
   position: absolute;
   width: 150%;
   height: 1px;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgba(0,229,255,0.2),
-    transparent
-  );
+  background: linear-gradient(90deg,
+      transparent,
+      rgba(0, 229, 255, 0.2),
+      transparent);
   top: 50%;
   left: -50%;
   animation: cometTrail 3s ease-in-out infinite;
@@ -207,9 +245,11 @@
     left: -50%;
     opacity: 0;
   }
+
   50% {
     opacity: 0.5;
   }
+
   100% {
     left: 100%;
     opacity: 0;
@@ -217,33 +257,29 @@
 }
 
 .calendar-day.has-day:hover {
-  background: linear-gradient(
-    135deg, 
-    rgba(0, 100, 150, 0.6), 
-    rgba(0, 150, 200, 0.5)
-  );
-  box-shadow: 
-    0 0 35px rgba(0,229,255,0.9),
-    0 8px 25px rgba(0,0,0,0.5),
-    0 0 55px rgba(0,229,255,0.5),
-    inset 0 0 30px rgba(0,229,255,0.4);
+  background: linear-gradient(135deg,
+      rgba(0, 100, 150, 0.6),
+      rgba(0, 150, 200, 0.5));
+  box-shadow:
+    0 0 35px rgba(0, 229, 255, 0.9),
+    0 8px 25px rgba(0, 0, 0, 0.5),
+    0 0 55px rgba(0, 229, 255, 0.5),
+    inset 0 0 30px rgba(0, 229, 255, 0.4);
   transform: translateY(-4px) scale(1.05);
-  border-color: rgba(0,229,255,0.9);
+  border-color: rgba(0, 229, 255, 0.9);
 }
 
 .calendar-day.selected {
-  background: linear-gradient(
-    135deg, 
-    rgba(0, 120, 180, 0.8), 
-    rgba(0, 180, 230, 0.7)
-  );
+  background: linear-gradient(135deg,
+      rgba(0, 120, 180, 0.8),
+      rgba(0, 180, 230, 0.7));
   border: 2px solid #00e5ff;
   animation: selectedGlow 2.5s infinite ease-in-out;
-  box-shadow: 
-    0 0 30px rgba(0,229,255,0.8),
-    0 8px 25px rgba(0,0,0,0.6),
-    0 0 50px rgba(0,229,255,0.5),
-    inset 0 0 30px rgba(0,229,255,0.5);
+  box-shadow:
+    0 0 30px rgba(0, 229, 255, 0.8),
+    0 8px 25px rgba(0, 0, 0, 0.6),
+    0 0 50px rgba(0, 229, 255, 0.5),
+    inset 0 0 30px rgba(0, 229, 255, 0.5);
   transform: translateY(-2px) scale(1.05);
 }
 
@@ -252,19 +288,22 @@
   position: absolute;
   inset: -4px;
   border-radius: 18px;
-  background: linear-gradient(
-    45deg,
-    rgba(0,229,255,0.4),
-    transparent 50%,
-    rgba(0,229,255,0.4)
-  );
+  background: linear-gradient(45deg,
+      rgba(0, 229, 255, 0.4),
+      transparent 50%,
+      rgba(0, 229, 255, 0.4));
   z-index: -1;
   animation: rotate 3s linear infinite;
 }
 
 @keyframes rotate {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .day-number {
@@ -272,9 +311,9 @@
   font-size: 1.15rem;
   font-weight: 700;
   margin-bottom: 0.2rem;
-  text-shadow: 
-    0 0 10px rgba(255,255,255,0.7),
-    0 0 20px rgba(0,229,255,0.5);
+  text-shadow:
+    0 0 10px rgba(255, 255, 255, 0.7),
+    0 0 20px rgba(0, 229, 255, 0.5);
   position: relative;
   z-index: 2;
 }
@@ -292,34 +331,51 @@
 .event-icon {
   font-size: 1.1rem;
   opacity: 1;
-  filter: drop-shadow(0 0 10px rgba(255,255,255,0.9));
+  filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.9));
   animation: float 3s ease-in-out infinite;
   animation-delay: calc(var(--i, 0) * 0.2s);
 }
 
 @keyframes float {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-3px); }
+
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-3px);
+  }
 }
 
 @keyframes selectedGlow {
-  0%, 100% { 
-    box-shadow: 
-      0 0 35px rgba(0,229,255,0.9),
-      0 8px 30px rgba(0,0,0,0.6),
-      0 0 60px rgba(0,229,255,0.5),
-      inset 0 0 30px rgba(0,229,255,0.5);
+
+  0%,
+  100% {
+    box-shadow:
+      0 0 35px rgba(0, 229, 255, 0.9),
+      0 8px 30px rgba(0, 0, 0, 0.6),
+      0 0 60px rgba(0, 229, 255, 0.5),
+      inset 0 0 30px rgba(0, 229, 255, 0.5);
   }
-  50% { 
-    box-shadow: 
-      0 0 50px rgba(0,229,255,1),
-      0 10px 35px rgba(0,0,0,0.7),
-      0 0 80px rgba(0,229,255,0.7),
-      inset 0 0 40px rgba(0,229,255,0.7);
+
+  50% {
+    box-shadow:
+      0 0 50px rgba(0, 229, 255, 1),
+      0 10px 35px rgba(0, 0, 0, 0.7),
+      0 0 80px rgba(0, 229, 255, 0.7),
+      inset 0 0 40px rgba(0, 229, 255, 0.7);
   }
 }
 
 @keyframes fadeInUp {
-  from { opacity: 0; transform: translateY(12px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

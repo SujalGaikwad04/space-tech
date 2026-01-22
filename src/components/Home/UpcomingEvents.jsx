@@ -1,6 +1,6 @@
 import React, { useMemo, useState } from "react";
 import "./UpcomingEvents.css";
-
+import { useNavigate } from "react-router-dom";
 // Example data – later you can replace this with data from APIs
 const MOCK_EVENTS = [
   {
@@ -99,6 +99,8 @@ const UpcomingEvents = ({ events = MOCK_EVENTS }) => {
     [events, activeFilter]
   );
 
+      const navigate = useNavigate();
+
   return (
     <section className="upcoming-events">
       <div className="section-header-top">SECTION 1: UPCOMING EVENTS</div>
@@ -132,7 +134,7 @@ const UpcomingEvents = ({ events = MOCK_EVENTS }) => {
             <li>ISS Pass</li>
             <li>Planet Alignment</li>
           </ul>
-          <button className="view-calendar-btn">
+          <button className="view-calendar-btn" onClick={() => navigate("/events")}>
             View Full Calendar →
           </button>
         </aside>

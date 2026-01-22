@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
 import "./LearnAbout.css";
+import { useNavigate } from "react-router-dom";
 
 const LearnAbout = () => {
   const [apod, setApod] = useState(null);
+    const navigate = useNavigate();
 
   useEffect(() => {
     fetch(
@@ -21,8 +23,8 @@ const LearnAbout = () => {
 
         <div className="learn-grid">
           {/* For Students */}
-          <div className="learn-card">
-            <div className="learn-content">
+          <div className="learn-card"onClick={() => navigate("/learn")}  >
+            <div className="learn-content" >
               <h3>FOR STUDENTS</h3>
               <p>Age-appropriate explanations</p>
             </div>
@@ -30,7 +32,7 @@ const LearnAbout = () => {
           </div>
 
           {/* For Enthusiasts */}
-          <div className="learn-card">
+          <div className="learn-card"onClick={() => navigate("/whatif")}  >
             <div className="learn-content">
               <h3>FOR ENTHUSIASTS</h3>
               <p>Deep dives into space science</p>
@@ -39,7 +41,7 @@ const LearnAbout = () => {
           </div>
 
           {/* For Educators */}
-          <div className="learn-card">
+          <div className="learn-card"onClick={() => navigate("/learn")}>
             <div className="learn-content">
               <h3>FOR EDUCATORS</h3>
               <p>Lesson plans and resources</p>
@@ -48,7 +50,7 @@ const LearnAbout = () => {
           </div>
 
           {/* Quizzes */}
-          <div className="learn-card">
+          <div className="learn-card" onClick={() => navigate("/quiz")}>
             <div className="learn-content">
               <h3>QUIZZES</h3>
               <p>Test your knowledge</p>

@@ -68,7 +68,7 @@
   height: 191px;
   border-radius: 12px;
   background: linear-gradient(135deg, rgba(139, 92, 246, 0.25),
-   rgb(11 32 67 / 50%));
+      rgb(11 32 67 / 50%));
   border: 1px solid rgba(255, 255, 255, 0.35);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   position: relative;
@@ -122,30 +122,41 @@
 /* MOBILE (≤ 600px) */
 /* ===================== */
 @media (max-width: 600px) {
-  .header {
-    top: 12vh;
+  .headers {
+    top: 10vh;
     left: 5vw;
-    text-align: left;
+    font-size: 32px;
   }
 
   .stu-lower {
-    top: 20vh;
+    top: 18vh;
     left: 5vw;
+    font-size: 16px;
+    max-width: 90%;
   }
 
   .box-container-2 {
-    top: 30vh;
+    position: relative;
+    top: 25vh;
     left: 0;
-    justify-content: center;
-    gap: 20px;
-    padding: 0 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    padding: 0 20px 40px;
+    width: 100%;
   }
 
   .boxy {
     width: 100%;
-    max-width: 320px;
+    max-width: 100%;
     height: auto;
+    min-height: 120px;
     padding-bottom: 20px;
+  }
+
+  .boxy .titles {
+    top: 25px;
   }
 }
 
@@ -262,6 +273,7 @@
     opacity: 1;
     transform: translate(-50%, 0);
   }
+
   100% {
     opacity: 0;
     transform: translate(-50%, 12px);
@@ -269,14 +281,14 @@
 }
 
 
-    /*  text css ends */
+/*  text css ends */
 
 
 
-    /* quiz section started */
+/* quiz section started */
 
-    .quiz{
-       min-height: 50vh;
+.quiz {
+  min-height: 50vh;
   width: 100%;
 
   /* IMPORTANT: fully transparent */
@@ -290,7 +302,7 @@
   text-align: center;
   padding: 4rem 2rem;
   color: #e6faff;
-    }
+}
 
 
 
@@ -397,9 +409,22 @@ body {
   }
 }
 
-@media (max-width: 700px) {
+@media (max-width: 768px) {
+  .news-page {
+    padding: 40px 20px;
+  }
+
+  .news-header h1 {
+    font-size: 28px;
+  }
+
+  .filter-bar {
+    flex-wrap: wrap;
+  }
+
   .card-grid {
     grid-template-columns: 1fr;
+    gap: 20px;
   }
 }
 
@@ -495,7 +520,8 @@ body {
   flex-direction: column;
   align-items: center;
 
-  width: 80vw;
+  width: 90vw;
+  max-width: 1200px;
   min-height: 70vh;
   margin: 40px auto;
   padding: 30px;
@@ -536,7 +562,19 @@ body {
 /* MAIN CONTAINER */
 .whatif-container {
   min-height: 100vh;
-  padding: 60px 80px;
+  padding: 60px 40px;
+}
+
+@media (max-width: 768px) {
+  .whatif-container {
+    padding: 40px 20px;
+  }
+
+  .app {
+    width: 95vw;
+    padding: 20px;
+    margin: 20px auto;
+  }
 }
 
 /* HEADER */
@@ -544,6 +582,12 @@ body {
   font-size: 36px;
   letter-spacing: 2px;
   color: #7df9ff;
+}
+
+@media (max-width: 480px) {
+  .whatif-header h1 {
+    font-size: 28px;
+  }
 }
 
 .whatif-header p {
@@ -560,6 +604,47 @@ body {
   margin-top: 60px;
 }
 
+@media (max-width: 1024px) {
+  .whatif-content {
+    grid-template-columns: 300px 1fr;
+    gap: 40px;
+  }
+}
+
+@media (max-width: 768px) {
+  .whatif-content {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .scenario-list {
+    flex-direction: row;
+    overflow-x: auto;
+    padding-bottom: 10px;
+  }
+
+  .scenario-btn {
+    min-width: 200px;
+  }
+}
+
+@media (max-width: 600px) {
+  .scenario-list {
+    flex-direction: column;
+    overflow-x: visible;
+  }
+
+  .scenario-btn {
+    width: 100%;
+  }
+
+  .display-icon {
+    width: 70px;
+    height: 70px;
+    font-size: 32px;
+  }
+}
+
 /* LEFT SCENARIO LIST */
 .scenario-list {
   display: flex;
@@ -573,7 +658,8 @@ body {
   align-items: center;
   gap: 18px;
   padding: 18px 22px;
-  background: rgba(255, 255, 255, 0.04); /* semi-transparent card */
+  background: rgba(255, 255, 255, 0.04);
+  /* semi-transparent card */
   border: 1px solid rgba(125, 249, 255, 0.18);
   border-radius: 14px;
   color: #dbeafe;
@@ -590,11 +676,9 @@ body {
   content: "";
   position: absolute;
   inset: 0;
-  background: radial-gradient(
-    circle at left,
-    rgba(125, 249, 255, 0.25),
-    transparent 70%
-  );
+  background: radial-gradient(circle at left,
+      rgba(125, 249, 255, 0.25),
+      transparent 70%);
   opacity: 0;
   transition: opacity 0.35s ease;
 }

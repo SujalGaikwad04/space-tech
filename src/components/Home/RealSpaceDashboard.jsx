@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./RealSpaceDashboard.css";
+import { useNavigate } from "react-router-dom";
 
 const RealSpaceDashboard = () => {
   const [solar, setSolar] = useState(null);
@@ -16,6 +17,9 @@ const RealSpaceDashboard = () => {
     setSolar("Low (last 24h)");
   }, []);
 
+   const navigate = useNavigate();
+  
+
   return (
     <section className="dashboard-section">
       <div className="section-header-top">SECTION 4: REAL-SPACE DASHBOARD WIDGET</div>
@@ -26,7 +30,7 @@ const RealSpaceDashboard = () => {
         <div className="dashboard-grid">
 
           <div className="dashboard-card">
-            <div className="dash-content">
+            <div className="dash-content" onClick={() => navigate("/weather")} >
               <h3>SOLAR ACTIVITY</h3>
               <p>Status: No Flares</p>
               <p className="sub-text">min last 24h</p>
@@ -36,7 +40,7 @@ const RealSpaceDashboard = () => {
           </div>
 
           <div className="dashboard-card">
-            <div className="dash-content">
+            <div className="dash-content" onClick={() => navigate("/weather")}>
               <h3>EARTH ORBIT</h3>
               <p className="highlight-text">1,234</p>
               <p className="sub-text">active satellites</p>
@@ -46,7 +50,7 @@ const RealSpaceDashboard = () => {
           </div>
 
           <div className="dashboard-card">
-            <div className="dash-content">
+            <div className="dash-content" onClick={() => navigate("/weather")}>
               <h3>SATELLITE TRAFFIC</h3>
               <p className="highlight-text">4,872</p>
               <p className="sub-text">active objects</p>
@@ -56,7 +60,7 @@ const RealSpaceDashboard = () => {
           </div>
 
           <div className="dashboard-card">
-            <div className="dash-content">
+            <div className="dash-content"onClick={() => navigate("/weather")}>
               <h3>ASTRONAUTS IN SPACE</h3>
               <p className="highlight-text">{astronauts ? astronauts.number : 7}</p>
               <p className="sub-text">on ISS</p>

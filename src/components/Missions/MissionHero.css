@@ -55,3 +55,14 @@
     font-size: 0.95rem;
   }
 }
+
+@media (max-width: 480px) {
+  .mission-hero {
+    padding: 80px 15px 20px;
+  }
+
+  .mission-title {
+    font-size: 1.8rem;
+    letter-spacing: 3px;
+  }
+}
