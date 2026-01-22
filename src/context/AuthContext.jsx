@@ -28,12 +28,12 @@ export const AuthProvider = ({ children }) => {
     try {
       // Get existing users
       const users = JSON.parse(localStorage.getItem('users') || '[]');
-      
+
       // Check if username or email already exists
       const userExists = users.some(
         u => u.username === userData.username || u.email === userData.email
       );
-      
+
       if (userExists) {
         return { success: false, message: 'Username or email already exists' };
       }
@@ -55,12 +55,12 @@ export const AuthProvider = ({ children }) => {
       // Save to users array
       users.push(newUser);
       localStorage.setItem('users', JSON.stringify(users));
-      
+
       // Set as current user (without password)
       const { password, ...userWithoutPassword } = newUser;
       setUser(userWithoutPassword);
       localStorage.setItem('currentUser', JSON.stringify(userWithoutPassword));
-      
+
       return { success: true, message: 'Registration successful' };
     } catch (error) {
       return { success: false, message: 'Registration failed' };
@@ -71,12 +71,12 @@ export const AuthProvider = ({ children }) => {
   const login = (identifier, password) => {
     try {
       const users = JSON.parse(localStorage.getItem('users') || '[]');
-      
+
       // Find user by email or username
       const foundUser = users.find(
         u => (u.email === identifier || u.username === identifier) && u.password === password
       );
-      
+
       if (!foundUser) {
         return { success: false, message: 'Invalid credentials' };
       }
@@ -85,7 +85,7 @@ export const AuthProvider = ({ children }) => {
       const { password: _, ...userWithoutPassword } = foundUser;
       setUser(userWithoutPassword);
       localStorage.setItem('currentUser', JSON.stringify(userWithoutPassword));
-      
+
       return { success: true, message: 'Login successful' };
     } catch (error) {
       return { success: false, message: 'Login failed' };
@@ -118,7 +118,41 @@ export const AuthProvider = ({ children }) => {
     logout,
     checkUsernameExists,
     checkEmailExists,
-    isAuthenticated: !!user
+    checkEmailExists,
+    isAuthenticated: !!user,
+    updateUserStats: (points) => {
+      if (!user) return;
+
+      const newXP = (user.totalXP || 0) + points;
+      // Level calculation: 0-50 = Level 1, 51-100 = Level 2, etc.
+      // Formula: Math.floor(XP / 50) + 1
+      const newLevel = Math.floor(newXP / 50) + 1;
+
+      const updatedUser = {
+        ...user,
+        totalXP: newXP,
+        level: newLevel
+      };
+
+      // Update state
+      setUser(updatedUser);
+
+      // Update localStorage 'currentUser'
+      localStorage.setItem('currentUser', JSON.stringify(updatedUser));
+
+      // Update this user in the 'users' array
+      try {
+        const users = JSON.parse(localStorage.getItem('users') || '[]');
+        const userIndex = users.findIndex(u => u.username === user.username);
+
+        if (userIndex !== -1) {
+          users[userIndex] = { ...users[userIndex], ...updatedUser };
+          localStorage.setItem('users', JSON.stringify(users));
+        }
+      } catch (e) {
+        console.error("Failed to update user stats in storage", e);
+      }
+    }
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import OptionCard from "./OptionCard";
 
-function Scenario({ scenario }) {
+function Scenario({ scenario, onResult }) {
   const [selected, setSelected] = useState(null);
 
   return (
@@ -27,7 +27,12 @@ function Scenario({ scenario }) {
             data={opt}
             active={selected === i}
             disabled={selected !== null}
-            onClick={() => setSelected(i)}
+            onClick={() => {
+              setSelected(i);
+              if (onResult) {
+                onResult(opt.correct);
+              }
+            }}
           />
         ))}
       </div>

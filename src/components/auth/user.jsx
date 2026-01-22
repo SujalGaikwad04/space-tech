@@ -125,7 +125,20 @@ export default function Auth() {
   // If user is already logged in, show logout option
   if (isAuthenticated && user) {
     return (
+
+     
       <div className="auth-wrapper">
+        
+                 
+      {/* fixed background  */}
+
+      {/* <img src="moon.jpg" className="bg-video" /> */}
+
+      {/* fix background ended */}
+
+   
+
+
         <div className="auth-card">
           <div className="logged-in-header">
             <h2>Already Logged In</h2>

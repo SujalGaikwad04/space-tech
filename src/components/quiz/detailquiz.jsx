@@ -2,15 +2,18 @@ import { useEffect, useState } from "react";
 import "./Quiz.css";
 import Question from "./question";
 import Result from "./result";
+import { useAuth } from "../../context/AuthContext";
 
 function Detailquiz() {
-  
+
 
 
   const [questions, setQuestions] = useState([]);
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [userAnswers, setUserAnswers] = useState([]);
   const [loading, setLoading] = useState(true);
+
+  const { updateUserStats } = useAuth();
 
   useEffect(() => {
     fetchQuestions();
@@ -103,6 +106,9 @@ Rules:
 
   const handleNextQuestion = (isCorrect) => {
     setUserAnswers([...userAnswers, isCorrect]);
+    if (isCorrect) {
+      updateUserStats(2); // Award 2 points for correct answer
+    }
     setCurrentQuestion(currentQuestion + 1);
   };
 

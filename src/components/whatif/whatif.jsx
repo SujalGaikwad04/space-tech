@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import Scenario from "./Scenario";
 import "./whatif.css";
+import { useAuth } from "../../context/AuthContext";
 
 const API_KEY = "ddc-a4f-a96a0d74b82a4ecba97a03f910015439";
 const BASE_URL = "https://api.a4f.co/v1/chat/completions";
@@ -9,6 +10,14 @@ const MODEL_ID = "provider-6/gpt-oss-20b";
 function WhatIf() {
   const [scenario, setScenario] = useState(null);
   const [loading, setLoading] = useState(false);
+
+  const { updateUserStats } = useAuth();
+
+  const handleScenarioResult = (isCorrect) => {
+    if (isCorrect) {
+      updateUserStats(2); // Award 2 points for correct answer
+    }
+  };
 
   const fetchScenario = async () => {
     setLoading(true);
@@ -89,7 +98,7 @@ Rules:
 
         {!loading && scenario && (
           <>
-            <Scenario scenario={scenario} />
+            <Scenario scenario={scenario} onResult={handleScenarioResult} />
             <button className="whatif-next-btn" onClick={fetchScenario}>
               Try Another Scenario
             </button>

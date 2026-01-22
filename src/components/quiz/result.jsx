@@ -1,14 +1,17 @@
 /* eslint-disable react/prop-types */
 
-const Result = ({userAnswers, questions, resetQuiz = () => {}}) => {
+const Result = ({ userAnswers, questions, resetQuiz = () => { } }) => {
   const correctAnswers = userAnswers.filter((answer) => answer).length;
 
   return (
     <div className="results">
       <h2>Results</h2>
       <p>
-        You answered {correctAnswers} out of {questions.length} questions{" "}
-        <span onClick={resetQuiz}>Click here to Retry</span>
+        You answered {correctAnswers} out of {questions.length} questions.
+        <br />
+        <strong>You earned {correctAnswers * 2} XP!</strong>
+        <br />
+        <span onClick={resetQuiz} style={{ cursor: "pointer", textDecoration: "underline" }}>Click here to Retry</span>
       </p>
       <ul>
         {questions.map((question, index) => {
@@ -18,9 +21,8 @@ const Result = ({userAnswers, questions, resetQuiz = () => {}}) => {
               <b>
                 {userAnswers[index]
                   ? ""
-                  : `- ${
-                      question.answerOptions.find((ans) => ans.isCorrect).text
-                    }`}
+                  : `- ${question.answerOptions.find((ans) => ans.isCorrect).text
+                  }`}
               </b>
             </li>
           );

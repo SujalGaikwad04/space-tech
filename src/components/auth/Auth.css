@@ -5,7 +5,7 @@
 
 .auth-wrapper {
   min-height: 100vh;
-  background: radial-gradient(circle at right, #0e3a4f, #050b14);
+  background: url(moon.jpg);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -13,6 +13,20 @@
   color: #fff;
   position: relative;
 }
+
+
+/* BACKGROUND VIDEO */
+/* .bg-video {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -10;
+} */
+
+
+
 
 .auth-card {
   width: 413px;
