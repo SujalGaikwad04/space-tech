@@ -395,7 +395,12 @@ body {
 /* ============================
    Card Grid – 4 per row
    ============================ */
-
+.read-more-btn{
+  background: transparent;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
 .card-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);

@@ -42,40 +42,9 @@ const scenarios = [
 
 
 
-const newsData = [
-  {
-    id: 1,
-    category: "Mission Updates",
-    image: "jems-web.jpeg",
-    title: "The James Webb Space Telescope Discovers New Galaxies",
-    description: "JWST reveals ancient galaxies from the dawn of time.",
-    date: "15/01/2026"
-  },
-  {
-    id: 2,
-    category: "Space Facts",
-    image: "mars-rover.webp",
-    title: "Mars Rover Finds Evidence of Ancient Water",
-    description: "New evidence suggests Mars once had flowing water.",
-    date: "15/01/2026"
-  },
-  {
-    id: 3,
-    category: "Technology",
-    image: "spacex.jpg",
-    title: "SpaceX Launches Revolutionary Satellite Network",
-    description: "Starlink expands global internet coverage.",
-    date: "15/01/2026"
-  },
-  {
-    id: 4,
-    category: "Mission Updates",
-    image: "iss.jpg",
-    title: "International Space Station Celebrates 25 Years",
-    description: "ISS milestone: 25 years of space research.",
-    date: "15/01/2026"
-  }
-];
+
+import { blogData } from "./blogData";
+
 
 
 
@@ -99,8 +68,8 @@ function Learn() {
 
   const filteredNews =
     activeFilter === "All"
-      ? newsData
-      : newsData.filter(item => item.category === activeFilter);
+      ? blogData
+      : blogData.filter(item => item.category === activeFilter);
 
   //  blog section ended
 
@@ -241,9 +210,9 @@ function Learn() {
               <div className="card-content">
                 <span className="tag">{item.category}</span>
                 <span className="date">{item.date}</span>
-                <h3>{item.title}</h3>
-                <p>{item.description}</p>
-                <a href="#">Read More →</a>
+                <h3 className="line-clamp-2">{item.title}</h3>
+                <p className="line-clamp-3">{item.description}</p>
+                <button className="read-more-btn" onClick={() => navigate(`/blog/${item.id}`)}>Read More →</button>
               </div>
             </article>
           ))}

@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./ExploreFeatures.css";
 
 const ExploreFeatures = () => {
+  const navigate = useNavigate();
   const [issData, setIssData] = useState(null);
 
   useEffect(() => {
@@ -22,7 +24,7 @@ const ExploreFeatures = () => {
           <div className="card-content">
             <h3>VISIBILITY MAP</h3>
             <p>Check if you can see celestial events from your city</p>
-            <a className="card-link">[ Try Now → ]</a>
+            <button className="card-link" onClick={() => navigate("/live-map")} style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0, font: 'inherit', color: 'inherit' }}> [ Try Now → ] </button>
           </div>
         </div>
 
@@ -32,7 +34,7 @@ const ExploreFeatures = () => {
           <div className="card-content">
             <h3>MISSION TRACK</h3>
             <p>Follow current space missions in real-time</p>
-            <a className="card-link">[ Explore → ]</a>
+            <button className="card-link" onClick={() => navigate("/mission")} style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0, font: 'inherit', color: 'inherit' }}> [ Try Now → ] </button>
           </div>
         </div>
 
@@ -42,7 +44,7 @@ const ExploreFeatures = () => {
           <div className="card-content">
             <h3>SATELLITE IMPACT</h3>
             <p>See how space technology solves Earth problems</p>
-            <a className="card-link">[ Learn More → ]</a>
+           <button className="card-link" onClick={() => navigate("/blog/5")} style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0, font: 'inherit', color: 'inherit' }}> [ Try Now → ] </button>
           </div>
         </div>
       </div>

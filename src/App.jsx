@@ -9,6 +9,8 @@ import Eventspage from "./pages/Eventspage";
 import Missionpage from "./pages/Missionpage";
 import Weatherpage from "./pages/Weatherpage";
 import Dashboardpage from "./pages/Dashboardpage";
+import LiveMap from "./pages/LiveMap.page";
+import BlogPost from "./pages/BlogPost.page";
 
 /* Learning Section Components */
 import Learn from "./components/learn/learn";
@@ -35,11 +37,13 @@ function App() {
           <Route path="/mission" element={<Missionpage />} />
           <Route path="/weather" element={<Weatherpage />} />
           <Route path="/dashboard" element={<Dashboardpage />} />
-          <Route path="/Auth" element={<Auth />  } />
-          
+          <Route path="/live-map" element={<LiveMap />} />
+          <Route path="/Auth" element={<Auth />} />
+
 
           {/* Learning routes */}
           <Route path="/learn" element={<Learn />} />
+          <Route path="/blog/:id" element={<BlogPost />} />
           <Route path="/whatif" element={<WhatIf />} />
           <Route path="/quiz" element={<Detailquiz />} />
         </Routes>

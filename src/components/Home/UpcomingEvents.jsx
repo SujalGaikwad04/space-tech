@@ -2,13 +2,14 @@ import React, { useMemo, useState } from "react";
 import "./UpcomingEvents.css";
 import { useNavigate } from "react-router-dom";
 // Example data – later you can replace this with data from APIs
+// Example data – later you can replace this with data from APIs
 const MOCK_EVENTS = [
   {
     id: 1,
     title: "ISS Pass",
     type: "ISS Pass",
     startTime: "2025-12-30T20:42:00Z",
-    location: "Visible Worldwide",
+    location: "Visible in Mumbai, Delhi, and Worldwide",
     label: "Today, 8:42 PM",
   },
   {
@@ -17,7 +18,7 @@ const MOCK_EVENTS = [
     type: "Aurora",
     startTime: "2026-01-15T02:00:00Z",
     endTime: "2026-01-17T06:00:00Z",
-    location: "Northern Regions",
+    location: "Northern Regions, rarely visible in Delhi",
     label: "Jan 15–17",
   },
   {
@@ -25,7 +26,7 @@ const MOCK_EVENTS = [
     title: "Meteor Shower Peak",
     type: "Meteor",
     startTime: "2025-12-31T23:00:00Z",
-    location: "Best after midnight",
+    location: "Best after midnight in Mumbai, Delhi",
     label: "Tomorrow, 11:00 PM",
   },
 ];
@@ -87,19 +88,29 @@ function filterEvents(events, filterId) {
 
 const UpcomingEvents = ({ events = MOCK_EVENTS }) => {
   const [activeFilter, setActiveFilter] = useState("week");
+  const [searchLocation, setSearchLocation] = useState("");
 
   const filteredEvents = useMemo(
     () => {
-      console.log('Active filter:', activeFilter);
-      console.log('All events:', events);
-      const filtered = filterEvents(events, activeFilter);
-      console.log('Filtered events:', filtered);
-      return filtered;
+      // 1. Filter by time
+      const timeFiltered = filterEvents(events, activeFilter);
+
+      // 2. Filter by location (if search exists)
+      if (!searchLocation.trim()) return timeFiltered;
+
+      const normalize = (text) => text.toLowerCase().trim();
+      const query = normalize(searchLocation);
+
+      return timeFiltered.filter(event => {
+        const loc = normalize(event.location || "");
+        // Simple check: does the event location string contain the search query?
+        return loc.includes(query) || loc.includes("worldwide");
+      });
     },
-    [events, activeFilter]
+    [events, activeFilter, searchLocation]
   );
 
-      const navigate = useNavigate();
+  const navigate = useNavigate();
 
   return (
     <section className="upcoming-events">
@@ -108,69 +119,77 @@ const UpcomingEvents = ({ events = MOCK_EVENTS }) => {
         <header className="upcoming-header">
           <h2 className="subsection-title">UPCOMING CELESTIAL EVENTS</h2>
 
+          <input
+            type="text"
+            className="location-search-input"
+            placeholder="Enter location (e.g., Mumbai, Delhi)..."
+            value={searchLocation}
+            onChange={(e) => setSearchLocation(e.target.value)}
+          />
+
           <div className="time-filters">
-          {FILTERS.map((f) => (
-            <button
-              key={f.id}
-              className={
-                "time-filter-button" +
-                (activeFilter === f.id ? " active" : "")
-              }
-              onClick={() => setActiveFilter(f.id)}
-            >
-              {f.label}
+            {FILTERS.map((f) => (
+              <button
+                key={f.id}
+                className={
+                  "time-filter-button" +
+                  (activeFilter === f.id ? " active" : "")
+                }
+                onClick={() => setActiveFilter(f.id)}
+              >
+                {f.label}
+              </button>
+            ))}
+          </div>
+        </header>
+
+        <div className="upcoming-body">
+          {/* Left sidebar: Event Cards list */}
+          <aside className="event-cards-sidebar">
+            <h3>Event Cards</h3>
+            <ul>
+              <li>Meteor</li>
+              <li>Eclipse</li>
+              <li>ISS Pass</li>
+              <li>Planet Alignment</li>
+            </ul>
+            <button className="view-calendar-btn" onClick={() => navigate("/events")}>
+              View Full Calendar →
             </button>
-          ))}
-        </div>
-      </header>
+          </aside>
 
-      <div className="upcoming-body">
-        {/* Left sidebar: Event Cards list */}
-        <aside className="event-cards-sidebar">
-          <h3>Event Cards</h3>
-          <ul>
-            <li>Meteor</li>
-            <li>Eclipse</li>
-            <li>ISS Pass</li>
-            <li>Planet Alignment</li>
-          </ul>
-          <button className="view-calendar-btn" onClick={() => navigate("/events")}>
-            View Full Calendar →
-          </button>
-        </aside>
-
-        {/* Right: Event cards */}
-        <div className="events-list">
-          {filteredEvents.length === 0 ? (
-            <div className="no-events">No events in this time range.</div>
-          ) : (
-            filteredEvents.map((event) => (
-              <article key={event.id} className="event-card">
-                <div className="event-main">
-                  <div className="event-title-row">
-                    <span className="event-label">{event.label}</span>
-                    <span className="event-type">{event.type}</span>
+          {/* Right: Event cards */}
+          <div className="events-list">
+            {filteredEvents.length === 0 ? (
+              <div className="no-events">No events in this time range.</div>
+            ) : (
+              filteredEvents.map((event) => (
+                <article key={event.id} className="event-card">
+                  <div className="event-main">
+                    <div className="event-title-row">
+                      <span className="event-label">{event.label}</span>
+                      <span className="event-type">{event.type}</span>
+                    </div>
+                    <h4 className="event-title">{event.title}</h4>
+                    <div className="event-meta">
+                      <span className="event-location">{event.location}</span>
+                    </div>
                   </div>
-                  <h4 className="event-title">{event.title}</h4>
-                  <div className="event-meta">
-                    <span className="event-location">{event.location}</span>
-                  </div>
-                </div>
 
-                <div className="event-actions">
-                  <button className="event-btn secondary">
-                    View Map
-                  </button>
-                  <button className="event-btn primary">
-                    Interactive
-                  </button>
-                </div>
-              </article>
-            ))
-          )}
+                  <div className="event-actions">
+                    <button className="event-btn secondary">
+                      View Map
+                    </button>
+                    <button className="event-btn primary">
+                      Interactive
+                    </button>
+                  </div>
+                </article>
+              ))
+            )}
+          </div>
         </div>
       </div>
-    </div>
     </section>
   );
 };
