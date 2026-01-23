@@ -98,8 +98,8 @@
 
 /* User Profile Dropdown */
 .user-profile {
-  position: absolute;
-  left: 105%;
+  position: relative;
+  left: 31%;
   display: flex;
   align-items: center;
   gap: 10px;

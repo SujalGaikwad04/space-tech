@@ -168,3 +168,15 @@
   border: 1px solid rgba(0,229,255,.12);
   box-shadow: inset 0 0 18px rgba(0,0,0,.25);
 }
+
+
+.sun-texture {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: scale(1.5);
+}
