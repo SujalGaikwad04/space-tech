@@ -17,12 +17,15 @@
   padding: 0 20px;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   height: 60px;
+  position: relative;
 }
 
 /* Logo Section */
 .logo-section {
+  position: absolute;
+  left: 20px;
   display: flex;
   align-items: center;
   gap: 12px;
@@ -95,7 +98,8 @@
 
 /* User Profile Dropdown */
 .user-profile {
-  position: relative;
+  position: absolute;
+  left: 105%;
   display: flex;
   align-items: center;
   gap: 10px;
@@ -199,17 +203,7 @@
   margin-left: 10px;
 }
 
-.search-box {
-  display: flex;
-  align-items: center;
-  background: rgba(20, 25, 45, 0.6);
-  border: 1px solid rgba(74, 158, 255, 0.3);
-  border-radius: 20px;
-  padding: 8px 16px;
-  gap: 10px;
-  width: 200px;
-  transition: width 0.3s ease;
-}
+
 
 .search-box:focus-within {
   border-color: #9be7ff;
