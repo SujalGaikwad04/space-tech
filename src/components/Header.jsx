@@ -110,19 +110,19 @@ const Header = () => {
 
         </nav>
 
-        {/* Theme Toggle */}
-        <ThemeToggle />
-
-        {/* Hamburger Menu for Mobile */}
-        <button
-          className="hamburger"
-          onClick={toggleMenu}
-          aria-label="Toggle menu"
-        >
-          <span></span>
-          <span></span>
-          <span></span>
-        </button>
+        {/* Actions Section */}
+        <div className="header-actions">
+          <ThemeToggle />
+          <button
+            className="hamburger"
+            onClick={toggleMenu}
+            aria-label="Toggle menu"
+          >
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+        </div>
       </div>
     </header>
   );
