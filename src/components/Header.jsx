@@ -78,6 +78,20 @@ const Header = () => {
           <Link to="/weather" className={`nav-item ${location.pathname.startsWith("/weather") ? "active" : ""}`}>WEATHER</Link>
           <Link to="/learn" className={`nav-item ${location.pathname.startsWith("/learn") ? "active" : ""}`}>LEARN</Link>
           <Link to="/dashboard" className={`nav-item ${location.pathname.startsWith("/dashboard") ? "active" : ""}`}>DASHBOARD</Link>
+
+          {/* Mobile Only Auth Items */}
+          <div className="mobile-auth-item">
+            {isAuthenticated ? (
+              <>
+                <div className="nav-item user-info-mobile">
+                  <span>👤 {user.username}</span>
+                </div>
+                <div className="nav-item" onClick={handleLogout}>Logout</div>
+              </>
+            ) : (
+              <Link to="/Auth" className="nav-item get-started-mobile">Get started</Link>
+            )}
+          </div>
         </nav>
 
         {/* Right Actions */}
