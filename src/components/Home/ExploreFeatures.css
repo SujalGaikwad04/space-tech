@@ -10,17 +10,19 @@
 }
 
 body {
-  background: radial-gradient(circle at top, #0b1a2a, #020812);
-  color: #e6f1ff;
+  background: var(--bg-gradient);
+  color: var(--text-primary);
+  transition: var(--transition);
 }
 
 /* ===== SECTION HEADER ===== */
 .section-title {
   font-size: 1rem;
   letter-spacing: 1px;
-  color: #7fdcff;
+  color: var(--accent-primary);
   margin-bottom: 14px;
   text-transform: uppercase;
+  transition: var(--transition);
 }
 
 /* ===== EXPLORE SECTION ===== */
@@ -42,15 +44,16 @@ body {
   height: 190px;
   border-radius: 14px;
   overflow: hidden;
-  background: rgba(10, 25, 45, 0.75);
-  border: 1px solid rgba(120, 200, 255, 0.25);
-  box-shadow: 0 0 25px rgba(0, 180, 255, 0.18);
-  transition: all 0.35s ease;
+  background: var(--card-bg);
+  border: 1px solid var(--border-color-subtle);
+  box-shadow: 0 0 25px var(--shadow);
+  transition: var(--transition);
 }
 
 .explore-card:hover {
   transform: translateY(-6px);
-  box-shadow: 0 0 40px rgba(0, 200, 255, 0.35);
+  box-shadow: 0 0 40px var(--glow-color);
+  border-color: var(--accent-primary);
 }
 
 /* ===== CARD VISUAL ===== */
@@ -80,12 +83,10 @@ body {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    90deg,
-    rgba(4, 12, 24, 0.96),
-    rgba(4, 12, 24, 0.7),
-    rgba(4, 12, 24, 0.25)
-  );
+  background: linear-gradient(90deg,
+      rgba(4, 12, 24, 0.96),
+      rgba(4, 12, 24, 0.7),
+      rgba(4, 12, 24, 0.25));
 }
 
 /* ===== CARD CONTENT ===== */
@@ -99,14 +100,16 @@ body {
 .card-content h3 {
   font-size: 1.05rem;
   margin-bottom: 8px;
-  color: #9fe7ff;
+  color: var(--accent-primary);
   letter-spacing: 0.5px;
+  transition: var(--transition);
 }
 
 .card-content p {
   font-size: 0.9rem;
-  color: #cce6ff;
+  color: var(--text-secondary);
   line-height: 1.45;
+  transition: var(--transition);
 }
 
 /* ===== CARD LINK ===== */
@@ -114,16 +117,16 @@ body {
   display: inline-block;
   margin-top: 14px;
   font-size: 0.85rem;
-  color: #7fdcff;
+  color: var(--accent-primary);
   cursor: pointer;
   text-decoration: none;
   border-bottom: 1px solid transparent;
-  transition: all 0.25s ease;
+  transition: var(--transition);
 }
 
 .card-link:hover {
-  color: #ffffff;
-  border-bottom: 1px solid #7fdcff;
+  color: var(--text-primary);
+  border-bottom: 1px solid var(--accent-primary);
 }
 
 /* ===== RESPONSIVE ===== */

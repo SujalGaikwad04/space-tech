@@ -26,7 +26,7 @@ export default function Auth() {
       ...formData,
       [name]: type === "checkbox" ? checked : value,
     });
-    
+
     // Clear errors when user types
     setError("");
     setSuccess("");
@@ -126,17 +126,17 @@ export default function Auth() {
   if (isAuthenticated && user) {
     return (
 
-     
+
       <div className="auth-wrapper">
-        
-                 
-      {/* fixed background  */}
 
-      {/* <img src="moon.jpg" className="bg-video" /> */}
 
-      {/* fix background ended */}
+        {/* fixed background  */}
 
-   
+        {/* <img src="moon.jpg" className="bg-video" /> */}
+
+        {/* fix background ended */}
+
+
 
 
         <div className="auth-card">
@@ -216,8 +216,8 @@ export default function Auth() {
           </button>
         </div>
 
-        {error && <div className="error-message" style={{color: '#ff4444', padding: '10px', marginBottom: '10px', border: '1px solid #ff4444', borderRadius: '4px', textAlign: 'center'}}>{error}</div>}
-        {success && <div className="success-message" style={{color: '#00ff00', padding: '10px', marginBottom: '10px', border: '1px solid #00ff00', borderRadius: '4px', textAlign: 'center'}}>{success}</div>}
+        {error && <div className="error-message">{error}</div>}
+        {success && <div className="success-message">{success}</div>}
 
         <form onSubmit={handleSubmit}>
           {mode === "register" && (

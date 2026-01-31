@@ -23,21 +23,20 @@
   font-size: 3rem;
   font-weight: 800;
   letter-spacing: 8px;
-  color: #00d9ff;
+  color: var(--accent-primary);
   margin: 0;
-
-  text-shadow:
-    0 0 15px rgba(0, 217, 255, 0.6),
-    0 0 35px rgba(0, 217, 255, 0.4);
+  text-shadow: 0 0 15px var(--glow-color);
+  transition: var(--transition);
 }
 
 /* SUBTITLE */
 .mission-subtitle {
   margin-top: 0.75rem;
   font-size: 1rem;
-  color: #9be7ff;
+  color: var(--text-secondary);
   letter-spacing: 1.2px;
   font-weight: 300;
+  transition: var(--transition);
 }
 
 /* RESPONSIVE */

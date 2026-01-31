@@ -3,11 +3,12 @@
   min-height: 100vh;
   background: transparent;
   /* allows video to show */
-  color: #E0E1DD;
+  color: var(--text-primary);
   padding: 90px;
   font-family: "Segoe UI", sans-serif;
   position: relative;
   z-index: 1;
+  transition: var(--transition);
 }
 
 /* BACKGROUND VIDEO */
@@ -26,23 +27,25 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: rgba(27, 38, 59, 0.6);
-  /* 60% transparent */
-  border: 1px solid rgba(0, 229, 255, 0.8);
+  background: var(--card-bg);
+  border: 1px solid var(--accent-primary);
   padding: 14px 22px;
   border-radius: 14px;
-  box-shadow: 0 0 14px rgba(0, 229, 255, 0.2);
+  box-shadow: var(--box-shadow);
+  transition: var(--transition);
 }
 
 .rs-topbar h2 {
-  color: rgba(0, 229, 255, 0.95);
+  color: var(--accent-primary);
+  transition: var(--transition);
 }
 
 /* Welcome Text */
 .rs-welcome {
   margin: 18px 0 26px;
   font-size: 14px;
-  color: rgba(224, 225, 221, 0.9);
+  color: var(--text-secondary);
+  transition: var(--transition);
 }
 
 /* Layout */
@@ -69,47 +72,49 @@
 
 /* Cards */
 .rs-card {
-  background: rgba(27, 38, 59, 0.6);
-  /* 60% transparency */
-  border: 1px solid rgba(65, 90, 119, 0.8);
+  background: var(--card-bg);
+  border: 1px solid var(--border-color-subtle);
   border-radius: 16px;
   padding: 16px;
-  transition: 0.3s ease;
+  transition: var(--transition);
+  box-shadow: var(--box-shadow);
 }
 
 .rs-card:hover {
-  border-color: rgba(0, 229, 255, 0.9);
-  box-shadow: 0 0 12px rgba(0, 229, 255, 0.25);
+  border-color: var(--accent-primary);
+  box-shadow: var(--btn-box-shadow);
 }
 
 .rs-card h3 {
-  color: rgba(0, 229, 255, 0.95);
+  color: var(--accent-primary);
   margin-bottom: 10px;
+  transition: var(--transition);
 }
 
-/* Buttons */
 .edit-profile,
 .small-btn,
 .actions button {
-  background: rgba(0, 0, 0, 0.3);
-  border: 1px solid rgba(0, 229, 255, 0.9);
-  color: rgba(0, 229, 255, 0.95);
+  background: var(--card-bg-hover);
+  border: 1px solid var(--accent-primary);
+  color: var(--accent-primary);
   padding: 8px 14px;
   border-radius: 10px;
   cursor: pointer;
-  transition: 0.25s ease;
+  transition: var(--transition);
 }
 
 .edit-profile:hover,
 .small-btn:hover,
 .actions button:hover {
-  background: rgba(0, 229, 255, 0.85);
-  color: #0D1B2A;
+  background: var(--accent-hover);
+  color: var(--btn-text);
+  box-shadow: var(--btn-box-shadow);
 }
 
 /* Text highlights */
 .highlight {
-  color: rgba(0, 229, 255, 0.95);
+  color: var(--accent-primary);
+  transition: var(--transition);
 }
 
 /* Badges */

@@ -5,13 +5,14 @@
 
 .auth-wrapper {
   min-height: 100vh;
-  background: url(moon.jpg);
+  background: var(--bg-primary);
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 60px;
-  color: #fff;
+  color: var(--text-primary);
   position: relative;
+  transition: var(--transition);
 }
 
 
@@ -31,19 +32,22 @@
 .auth-card {
   width: 413px;
   max-width: 90%;
-  background: rgba(255, 255, 255, 0.04);
+  background: var(--card-bg);
   border-radius: 18px;
   padding: 30px;
   backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  border: 1px solid var(--border-color-subtle);
+  box-shadow: var(--box-shadow);
+  transition: var(--transition);
 }
 
 .tab-switch {
   display: flex;
-  background: #0a1523;
+  background: var(--bg-secondary);
   border-radius: 50px;
   margin-bottom: 25px;
+  border: 1px solid var(--border-color-subtle);
+  transition: var(--transition);
 }
 
 .tab-switch button {
@@ -51,14 +55,16 @@
   padding: 12px;
   border: none;
   background: transparent;
-  color: #8fa3b8;
+  color: var(--text-secondary);
   border-radius: 50px;
   cursor: pointer;
+  transition: var(--transition);
 }
 
 .tab-switch .active {
-  background: #11c5f5;
-  color: #000;
+  background: var(--accent-primary);
+  color: var(--btn-text);
+  box-shadow: var(--btn-box-shadow);
 }
 
 form label {
@@ -72,10 +78,17 @@ form input {
   width: 100%;
   margin-top: 6px;
   padding: 12px;
-  background: #0a1523;
-  border: 1px solid #1e2c40;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color-subtle);
   border-radius: 10px;
-  color: #fff;
+  color: var(--text-primary);
+  transition: var(--transition);
+}
+
+form input:focus {
+  border-color: var(--accent-primary);
+  outline: none;
+  box-shadow: 0 0 10px var(--glow-color);
 }
 
 .remember {
@@ -94,20 +107,20 @@ form input {
 .submit-btn {
   width: 100%;
   padding: 14px;
-  background: #11c5f5;
+  background: var(--accent-primary);
   border: none;
   border-radius: 12px;
   margin-top: 10px;
   font-weight: 600;
   cursor: pointer;
-  color: #000;
-  transition: all 0.3s ease;
+  color: var(--btn-text);
+  transition: var(--transition);
 }
 
 .submit-btn:hover {
-  background: #0da8d4;
+  background: var(--accent-hover);
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(17, 197, 245, 0.4);
+  box-shadow: var(--btn-box-shadow);
 }
 
 
@@ -132,7 +145,8 @@ form input {
 }
 
 .auth-hero h1 span {
-  color: #11c5f5;
+  color: var(--accent-primary);
+  text-shadow: 0 0 20px var(--glow-color);
 }
 
 .auth-hero p {
@@ -144,9 +158,9 @@ form input {
 
 .username-popup {
   position: absolute;
-  background: rgba(17, 197, 245, 0.1);
-  border: 1px solid #11c5f5;
-  color: #11c5f5;
+  background: var(--accent-primary-light);
+  border: 1px solid var(--accent-primary);
+  color: var(--accent-primary);
   padding: 8px 12px;
   border-radius: 8px;
   font-size: 12px;
@@ -155,7 +169,8 @@ form input {
   z-index: 10;
   animation: fadeIn 0.3s ease;
   margin-top: 5px;
-  box-shadow: 0 4px 15px rgba(17, 197, 245, 0.2);
+  box-shadow: var(--shadow);
+  transition: var(--transition);
 }
 
 @keyframes fadeIn {
@@ -175,14 +190,16 @@ form input {
   text-align: center;
   margin-bottom: 25px;
   padding-bottom: 20px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid var(--border-color-subtle);
+  transition: var(--transition);
 }
 
 .logged-in-header h2 {
   font-size: 24px;
   font-weight: 600;
-  color: #11c5f5;
+  color: var(--accent-primary);
   margin: 0;
+  transition: var(--transition);
 }
 
 .user-info {
@@ -190,24 +207,26 @@ form input {
   align-items: center;
   gap: 20px;
   padding: 20px;
-  background: rgba(17, 197, 245, 0.05);
+  background: var(--accent-primary-light);
   border-radius: 12px;
   margin-bottom: 20px;
-  border: 1px solid rgba(17, 197, 245, 0.1);
+  border: 1px solid var(--border-color-subtle);
+  transition: var(--transition);
 }
 
 .user-avatar {
   width: 60px;
   height: 60px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #11c5f5, #0e8ab8);
+  background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 28px;
   font-weight: 700;
-  color: #000;
+  color: var(--btn-text);
   flex-shrink: 0;
+  transition: var(--transition);
 }
 
 .user-details {
@@ -218,20 +237,23 @@ form input {
   margin: 0 0 5px 0;
   font-size: 18px;
   font-weight: 600;
-  color: #fff;
+  color: var(--text-primary);
+  transition: var(--transition);
 }
 
 .username-display {
   margin: 0 0 3px 0;
   font-size: 14px;
-  color: #11c5f5;
+  color: var(--accent-primary);
   font-weight: 500;
+  transition: var(--transition);
 }
 
 .email-display {
   margin: 0;
   font-size: 12px;
-  color: rgba(255, 255, 255, 0.6);
+  color: var(--text-secondary);
+  transition: var(--transition);
 }
 
 .user-stats {
@@ -246,23 +268,26 @@ form input {
   flex-direction: column;
   align-items: center;
   padding: 15px;
-  background: #0a1523;
+  background: var(--bg-secondary);
   border-radius: 10px;
-  border: 1px solid #1e2c40;
+  border: 1px solid var(--border-color-subtle);
+  transition: var(--transition);
 }
 
 .stat-value {
   font-size: 20px;
   font-weight: 700;
-  color: #11c5f5;
+  color: var(--accent-primary);
   margin-bottom: 5px;
+  transition: var(--transition);
 }
 
 .stat-label {
   font-size: 11px;
-  color: rgba(255, 255, 255, 0.6);
+  color: var(--text-secondary);
   text-transform: uppercase;
   letter-spacing: 0.5px;
+  transition: var(--transition);
 }
 
 .logged-in-actions {
@@ -285,48 +310,56 @@ form input {
 }
 
 .dashboard-btn {
-  background: #11c5f5;
-  color: #000;
+  background: var(--accent-primary);
+  color: var(--btn-text);
+  transition: var(--transition);
 }
 
 .dashboard-btn:hover {
-  background: #0da8d4;
+  background: var(--accent-hover);
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(17, 197, 245, 0.4);
+  box-shadow: var(--btn-box-shadow);
 }
 
 .learn-btn {
-  background: rgba(17, 197, 245, 0.1);
-  color: #11c5f5;
-  border: 1px solid #11c5f5;
+  background: var(--accent-primary-light);
+  color: var(--accent-primary);
+  border: 1px solid var(--accent-primary);
+  transition: var(--transition);
 }
 
 .learn-btn:hover {
-  background: rgba(17, 197, 245, 0.2);
+  background: var(--accent-hover);
+  color: var(--btn-text);
   transform: translateY(-2px);
+  box-shadow: var(--btn-box-shadow);
 }
 
 .logout-btn {
   background: rgba(255, 68, 68, 0.1);
   color: #ff4444;
   border: 1px solid #ff4444;
+  transition: var(--transition);
 }
 
 .logout-btn:hover {
-  background: rgba(255, 68, 68, 0.2);
+  background: #ff4444;
+  color: #fff;
   transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(255, 68, 68, 0.4);
 }
 
 .success-message {
-  background: rgba(17, 197, 245, 0.1);
-  border: 1px solid #11c5f5;
-  color: #11c5f5;
+  background: var(--accent-primary-light);
+  border: 1px solid var(--accent-primary);
+  color: var(--accent-primary);
   padding: 12px;
   border-radius: 8px;
   text-align: center;
   margin-bottom: 15px;
   font-size: 14px;
   animation: fadeIn 0.3s ease;
+  transition: var(--transition);
 }
 
 .error-message {
@@ -339,6 +372,7 @@ form input {
   margin-bottom: 15px;
   font-size: 14px;
   animation: fadeIn 0.3s ease;
+  transition: var(--transition);
 }
 
 /* Responsive Design */

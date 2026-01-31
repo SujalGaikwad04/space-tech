@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import ThemeToggle from "./ThemeToggle";
 import "./Header.css";
 
 const Header = () => {
@@ -108,6 +109,9 @@ const Header = () => {
           )}
 
         </nav>
+
+        {/* Theme Toggle */}
+        <ThemeToggle />
 
         {/* Hamburger Menu for Mobile */}
         <button

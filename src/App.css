@@ -1,8 +1,9 @@
 /* App Container */
 .app {
   min-height: 100vh;
-  background: linear-gradient(135deg, #0a1929 0%, #1a2f4a 50%, #0a1929 100%);
-  color: #e2e8f0;
+  background: var(--bg-gradient);
+  color: var(--text-primary);
+  transition: var(--transition);
 }
 
 /* Main Content */
@@ -18,11 +19,12 @@
   justify-content: center;
   align-items: center;
   text-align: center;
-  background: 
-    radial-gradient(ellipse at top, rgba(34, 211, 238, 0.15) 0%, transparent 50%),
-    radial-gradient(circle at 80% 20%, rgba(99, 102, 241, 0.1) 0%, transparent 40%);
+  background:
+    radial-gradient(ellipse at top, var(--shadow) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, var(--shadow) 0%, transparent 40%);
   position: relative;
   overflow: hidden;
+  transition: var(--transition);
 }
 
 .hero::before {
@@ -30,13 +32,13 @@
   position: absolute;
   width: 100%;
   height: 100%;
-  background-image: 
-    radial-gradient(2px 2px at 20% 30%, white, transparent),
-    radial-gradient(2px 2px at 60% 70%, white, transparent),
-    radial-gradient(1px 1px at 50% 50%, white, transparent),
-    radial-gradient(1px 1px at 80% 10%, white, transparent),
-    radial-gradient(2px 2px at 90% 60%, white, transparent),
-    radial-gradient(1px 1px at 33% 80%, white, transparent);
+  background-image:
+    radial-gradient(2px 2px at 20% 30%, var(--star-color-1), transparent),
+    radial-gradient(2px 2px at 60% 70%, var(--star-color-2), transparent),
+    radial-gradient(1px 1px at 50% 50%, var(--star-color-2), transparent),
+    radial-gradient(1px 1px at 80% 10%, var(--star-color-2), transparent),
+    radial-gradient(2px 2px at 90% 60%, var(--star-color-2), transparent),
+    radial-gradient(1px 1px at 33% 80%, var(--star-color-2), transparent);
   background-size: 200% 200%;
   background-position: 0% 0%;
   opacity: 0.5;
@@ -47,6 +49,7 @@
   from {
     background-position: 0% 0%;
   }
+
   to {
     background-position: 100% 100%;
   }
@@ -55,24 +58,26 @@
 .hero-title {
   font-size: 4rem;
   font-weight: 800;
-  background: linear-gradient(135deg, #22d3ee 0%, #a78bfa 50%, #22d3ee 100%);
+  background: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-secondary) 50%, var(--accent-primary) 100%);
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   margin-bottom: 1rem;
-  text-shadow: 0 0 40px rgba(34, 211, 238, 0.3);
+  text-shadow: 0 0 40px var(--glow-color);
   letter-spacing: 2px;
   z-index: 1;
   position: relative;
+  transition: var(--transition);
 }
 
 .hero-subtitle {
   font-size: 1.5rem;
-  color: #94a3b8;
+  color: var(--text-secondary);
   font-weight: 300;
   letter-spacing: 1px;
   z-index: 1;
   position: relative;
+  transition: var(--transition);
 }
 
 /* Content Sections */
@@ -88,17 +93,19 @@
 
 .content-section h2 {
   font-size: 3rem;
-  color: #22d3ee;
+  color: var(--accent-primary);
   margin-bottom: 1.5rem;
-  text-shadow: 0 0 20px rgba(34, 211, 238, 0.4);
+  text-shadow: 0 0 20px var(--glow-color);
   letter-spacing: 1px;
+  transition: var(--transition);
 }
 
 .content-section p {
   font-size: 1.25rem;
-  color: #cbd5e1;
+  color: var(--text-secondary);
   line-height: 1.8;
   max-width: 800px;
+  transition: var(--transition);
 }
 
 /* Smooth Scrolling */

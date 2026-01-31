@@ -1,12 +1,16 @@
 .mission-card {
-  background: rgba(255,255,255,0.08);
+  background: var(--card-bg);
   padding: 16px;
   border-radius: 14px;
   cursor: pointer;
-  transition: 0.3s;
-  color: white;
+  transition: var(--transition);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color-subtle);
+  box-shadow: var(--box-shadow);
 }
 
 .mission-card:hover {
   transform: scale(1.05);
+  box-shadow: var(--btn-box-shadow);
+  border-color: var(--accent-primary);
 }

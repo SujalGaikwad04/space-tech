@@ -8,10 +8,11 @@
   background-repeat: no-repeat;
 
   padding: 130px 2rem 3rem 2rem;
-  color: white;
+  color: var(--text-primary);
   font-family: 'Inter', 'Segoe UI', 'Arial', sans-serif;
   position: relative;
   overflow: hidden;
+  transition: var(--transition);
 }
 
 /* ================= STARFIELD (KEPT) ================= */
@@ -63,13 +64,14 @@
   font-size: 1.8rem;
   font-weight: 700;
   letter-spacing: 4px;
-  color: #00e5ff;
-  border: 3px solid #00e5ff;
+  color: var(--accent-primary);
+  border: 3px solid var(--accent-primary);
   border-radius: 20px;
   padding: 1.2rem 3rem;
   margin-bottom: 2.5rem;
   display: inline-block;
   text-align: center;
+  transition: var(--transition);
 }
 
 /* ================= GRID ================= */

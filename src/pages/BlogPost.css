@@ -2,23 +2,25 @@
     padding-top: 80px;
     /* Space for fixed header */
     min-height: 100vh;
-    color: white;
+    color: var(--text-primary);
     background-attachment: fixed;
     display: flex;
     justify-content: center;
     padding-bottom: 50px;
+    transition: var(--transition);
 }
 
 .blog-container {
     max-width: 900px;
     width: 90%;
-    background: rgba(0, 0, 0, 0.6);
+    background: var(--card-bg);
     backdrop-filter: blur(15px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid var(--border-color-subtle);
     border-radius: 20px;
     overflow: hidden;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+    box-shadow: var(--box-shadow);
     animation: fadeIn 0.8s ease-out;
+    transition: var(--transition);
 }
 
 .blog-header-image {
@@ -37,40 +39,46 @@
 
 .blog-category {
     display: inline-block;
-    background: rgba(97, 218, 251, 0.2);
-    color: #61dafb;
+    background: var(--accent-primary-light);
+    color: var(--accent-primary);
     padding: 5px 12px;
     border-radius: 20px;
     font-size: 0.9rem;
     font-weight: 600;
     margin-right: 15px;
+    transition: var(--transition);
 }
 
 .blog-date {
-    color: #aaa;
+    color: var(--text-secondary);
     font-size: 0.9rem;
+    transition: var(--transition);
 }
 
 .blog-title {
     font-size: 2.5rem;
     margin: 15px 0 25px 0;
     line-height: 1.2;
-    background: linear-gradient(90deg, #fff, #aaa);
+    background: linear-gradient(90deg, var(--text-primary), var(--text-secondary));
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
+    transition: var(--transition);
 }
 
 .blog-body {
     font-size: 1.1rem;
     line-height: 1.8;
-    color: #ddd;
+    color: var(--text-secondary);
+    transition: var(--transition);
 }
 
 .blog-body h3 {
-    color: #fff;
+    color: var(--text-primary);
     margin-top: 30px;
     margin-bottom: 15px;
     font-size: 1.5rem;
+    transition: var(--transition);
 }
 
 .blog-body p {
@@ -79,24 +87,25 @@
 
 .back-btn-container {
     margin-top: 40px;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    border-top: 1px solid var(--border-color-subtle);
     padding-top: 20px;
 }
 
 .back-btn {
     background: transparent;
-    border: 1px solid #61dafb;
-    color: #61dafb;
+    border: 1px solid var(--accent-primary);
+    color: var(--accent-primary);
     padding: 10px 20px;
     border-radius: 5px;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: var(--transition);
     font-size: 1rem;
 }
 
 .back-btn:hover {
-    background: #61dafb;
-    color: #000;
+    background: var(--accent-hover);
+    color: var(--btn-text);
+    box-shadow: var(--btn-box-shadow);
 }
 
 .not-found {

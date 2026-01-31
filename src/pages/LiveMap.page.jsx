@@ -58,7 +58,7 @@ function LiveMap() {
 
     return (
         <div className="page-container">
-            <h1 className="page-title" style={{ textAlign: 'center', marginTop: '1rem', color: 'white' }}>Live ISS Tracker</h1>
+            <h1 className="page-title" style={{ textAlign: 'center', marginTop: '1rem', color: 'var(--text-primary)' }}>Live ISS Tracker</h1>
 
             {loading ? (
                 <div className="loading-map">Loading ISS Position...</div>

@@ -4,17 +4,16 @@
 }
 
 .month-title {
-  color: #00e5ff;
+  color: var(--accent-primary);
   font-size: 1.3rem;
   font-weight: bold;
   letter-spacing: 2px;
   margin-bottom: 1.5rem;
   text-transform: uppercase;
   text-align: center;
-  text-shadow:
-    0 0 15px rgba(0, 229, 255, 1),
-    0 0 30px rgba(0, 229, 255, 0.5);
+  text-shadow: 0 0 15px var(--glow-color);
   animation: titlePulse 2s ease-in-out infinite;
+  transition: var(--transition);
 }
 
 @keyframes slideInLeft {
@@ -34,33 +33,28 @@
   0%,
   100% {
     text-shadow:
-      0 0 15px rgba(0, 229, 255, 0.8),
-      0 0 30px rgba(0, 229, 255, 0.4);
+      0 0 15px var(--glow-color),
+      0 0 30px var(--shadow);
   }
 
   50% {
     text-shadow:
-      0 0 20px rgba(0, 229, 255, 1),
-      0 0 40px rgba(0, 229, 255, 0.6);
+      0 0 20px var(--accent-primary),
+      0 0 40px var(--glow-color);
   }
 }
 
 .calendar {
-  background: linear-gradient(135deg,
-      rgba(5, 11, 30, 0.8),
-      rgba(10, 20, 45, 0.7));
+  background: var(--card-bg);
   position: relative;
-  border: 2px solid rgba(0, 229, 255, 0.6);
+  border: 2px solid var(--border-color-subtle);
   border-radius: 24px;
   padding: 28px;
   gap: 10px;
-  box-shadow:
-    0 0 50px rgba(0, 229, 255, 0.4),
-    0 15px 40px rgba(0, 0, 0, 0.5),
-    0 25px 60px rgba(0, 0, 0, 0.7),
-    inset 0 0 40px rgba(0, 229, 255, 0.1);
+  box-shadow: var(--box-shadow);
   animation: fadeInUp 0.6s ease-out;
   backdrop-filter: blur(15px);
+  transition: var(--transition);
 }
 
 /* Orbital rings decoration */
@@ -71,7 +65,7 @@
   left: 50%;
   width: 80%;
   height: 80%;
-  border: 1px solid rgba(0, 229, 255, 0.1);
+  border: 1px solid var(--border-color-subtle);
   border-radius: 50%;
   transform: translate(-50%, -50%) rotateX(75deg);
   pointer-events: none;
@@ -93,10 +87,10 @@
   position: absolute;
   inset: -2px;
   background: linear-gradient(135deg,
-      rgba(0, 229, 255, 0.3),
+      var(--glow-color),
       transparent 40%,
       transparent 60%,
-      rgba(0, 229, 255, 0.3));
+      var(--glow-color));
   border-radius: 24px;
   z-index: -1;
   opacity: 0.4;
@@ -123,17 +117,16 @@
 }
 
 .day-name {
-  color: #00e5ff;
+  color: var(--accent-primary);
   text-align: center;
   padding: 0.6rem;
   font-size: 0.95rem;
   font-weight: 700;
   letter-spacing: 1.5px;
   text-transform: uppercase;
-  text-shadow:
-    0 0 15px rgba(0, 229, 255, 1),
-    0 0 30px rgba(0, 229, 255, 0.6);
+  text-shadow: 0 0 15px var(--glow-color);
   position: relative;
+  transition: var(--transition);
 }
 
 .day-name::after {
@@ -146,9 +139,9 @@
   height: 2px;
   background: linear-gradient(90deg,
       transparent,
-      rgba(0, 229, 255, 0.6),
+      var(--accent-primary),
       transparent);
-  box-shadow: 0 0 10px rgba(0, 229, 255, 0.8);
+  box-shadow: 0 0 10px var(--glow-color);
 }
 
 .calendar-grid {
@@ -193,32 +186,25 @@
 
 .calendar-day {
   aspect-ratio: 1;
-  border: 2px solid rgba(0, 229, 255, 0.5);
-  background: linear-gradient(135deg,
-      rgba(5, 15, 35, 0.95),
-      rgba(10, 25, 50, 0.9));
+  border: 2px solid var(--border-color-subtle);
+  background: var(--card-bg);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: var(--transition);
   border-radius: 12px;
   position: relative;
   padding: 0.6rem;
   min-height: 70px;
-  box-shadow:
-    inset 0 0 20px rgba(0, 229, 255, 0.1),
-    0 4px 12px rgba(0, 0, 0, 0.5),
-    0 0 15px rgba(0, 229, 255, 0.2);
+  box-shadow: var(--box-shadow);
   backdrop-filter: blur(4px);
 }
 
 .calendar-day.empty {
-  border: 1px solid rgba(0, 229, 255, 0.1);
-  background: linear-gradient(135deg,
-      rgba(1, 8, 20, 0.4),
-      rgba(5, 15, 30, 0.3));
+  border: 1px solid var(--border-color-subtle);
+  background: var(--card-bg-hover);
   cursor: default;
   opacity: 0.25;
   box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
@@ -233,7 +219,7 @@
   height: 1px;
   background: linear-gradient(90deg,
       transparent,
-      rgba(0, 229, 255, 0.2),
+      var(--border-color-subtle),
       transparent);
   top: 50%;
   left: -50%;
@@ -257,29 +243,17 @@
 }
 
 .calendar-day.has-day:hover {
-  background: linear-gradient(135deg,
-      rgba(0, 100, 150, 0.6),
-      rgba(0, 150, 200, 0.5));
-  box-shadow:
-    0 0 35px rgba(0, 229, 255, 0.9),
-    0 8px 25px rgba(0, 0, 0, 0.5),
-    0 0 55px rgba(0, 229, 255, 0.5),
-    inset 0 0 30px rgba(0, 229, 255, 0.4);
+  background: var(--accent-hover);
+  box-shadow: var(--btn-box-shadow);
   transform: translateY(-4px) scale(1.05);
-  border-color: rgba(0, 229, 255, 0.9);
+  border-color: var(--accent-primary);
 }
 
 .calendar-day.selected {
-  background: linear-gradient(135deg,
-      rgba(0, 120, 180, 0.8),
-      rgba(0, 180, 230, 0.7));
-  border: 2px solid #00e5ff;
+  background: var(--accent-hover);
+  border: 2px solid var(--accent-primary);
   animation: selectedGlow 2.5s infinite ease-in-out;
-  box-shadow:
-    0 0 30px rgba(0, 229, 255, 0.8),
-    0 8px 25px rgba(0, 0, 0, 0.6),
-    0 0 50px rgba(0, 229, 255, 0.5),
-    inset 0 0 30px rgba(0, 229, 255, 0.5);
+  box-shadow: var(--btn-box-shadow);
   transform: translateY(-2px) scale(1.05);
 }
 
@@ -289,9 +263,9 @@
   inset: -4px;
   border-radius: 18px;
   background: linear-gradient(45deg,
-      rgba(0, 229, 255, 0.4),
+      var(--glow-color),
       transparent 50%,
-      rgba(0, 229, 255, 0.4));
+      var(--glow-color));
   z-index: -1;
   animation: rotate 3s linear infinite;
 }
@@ -307,15 +281,14 @@
 }
 
 .day-number {
-  color: #ffffff;
+  color: var(--text-primary);
   font-size: 1.15rem;
   font-weight: 700;
   margin-bottom: 0.2rem;
-  text-shadow:
-    0 0 10px rgba(255, 255, 255, 0.7),
-    0 0 20px rgba(0, 229, 255, 0.5);
+  text-shadow: 0 0 10px var(--glow-color);
   position: relative;
   z-index: 2;
+  transition: var(--transition);
 }
 
 .event-indicators {
