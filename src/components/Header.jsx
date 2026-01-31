@@ -78,8 +78,10 @@ const Header = () => {
           <Link to="/weather" className={`nav-item ${location.pathname.startsWith("/weather") ? "active" : ""}`}>WEATHER</Link>
           <Link to="/learn" className={`nav-item ${location.pathname.startsWith("/learn") ? "active" : ""}`}>LEARN</Link>
           <Link to="/dashboard" className={`nav-item ${location.pathname.startsWith("/dashboard") ? "active" : ""}`}>DASHBOARD</Link>
+        </nav>
 
-          {/* Auth Section */}
+        {/* Right Actions */}
+        <div className="header-actions">
           {isAuthenticated ? (
             <div className="user-profile" ref={userMenuRef} onClick={() => setShowUserMenu(!showUserMenu)}>
               <div className="user-avatar-small">
@@ -107,11 +109,8 @@ const Header = () => {
           ) : (
             <Link to="/Auth" className="nav-item get-started">Get started</Link>
           )}
-
-        </nav>
-
-        {/* Theme Toggle */}
-        <ThemeToggle />
+          <ThemeToggle />
+        </div>
 
         {/* Hamburger Menu for Mobile */}
         <button
