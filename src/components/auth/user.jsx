@@ -215,25 +215,36 @@ export default function Auth() {
         {/* About Section - Appears below logged in page when scrolling */}
         <div className="about-section">
           <div className="mission-section">
-            <div className="mission-content">
-              <div className="section-label">INSTITUTIONAL BRIEFING</div>
-              <h2 className="mission-heading">
-                Our <span>Mission.</span>
-              </h2>
-              <p className="mission-description">
-                SpaceScope was founded on a singular premise: the cosmos should be accessible to everyone. We've built an immersive gateway to the stars, combining real-time orbital data with interactive education to empower the next generation of astronomers, explorers, and dreamers.
-              </p>
-              <div className="mission-actions">
-                <button className="explore-btn">
-                  Begin Exploration →
-                </button>
-                <div className="active-cadets">
-                  <div className="cadet-icons">
-                    <div className="cadet-avatar">👨‍🚀</div>
-                    <div className="cadet-avatar">👩‍🚀</div>
-                    <div className="cadet-avatar">👨‍🚀</div>
-                  </div>
-                  <span className="cadet-count">ACTIVE CADETS</span>
+            <div className="mission-content-wrapper">
+              <div className="mission-text-column">
+                <div className="section-label">LIVE TRACKING</div>
+                <h2 className="mission-heading">
+                  International Space Station: <span>Live tracking</span>
+                </h2>
+
+                <h3 className="iss-subtitle">Where is the ISS?</h3>
+                <p className="mission-description">
+                  The International Space Station (ISS) is a habitable space station that orbits Earth at an average speed of about 28,000 kilometers per hour (17,500 miles per hour). It serves as a laboratory and observatory, where astronauts and cosmonauts conduct experiments in fields such as biology, physics, astronomy, and materials science.
+                </p>
+
+                <p className="iss-fun-fact">
+                  <strong>Fun fact:</strong> Astronauts on the ISS recycle <strong>93% of water</strong>, including moisture from sweat and urine, to ensure a sustainable water supply.
+                </p>
+
+              </div>
+
+              <div className="mission-video-column">
+                <div className="video-container">
+                  <iframe
+                    width="100%"
+                    height="100%"
+                    src="https://www.youtube.com/embed/I6kcpC5USL8"
+                    title="YouTube video player"
+                    frameBorder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    referrerPolicy="strict-origin-when-cross-origin"
+                    allowFullScreen
+                  ></iframe>
                 </div>
               </div>
             </div>
@@ -511,26 +522,37 @@ export default function Auth() {
         {/* About Section - Appears below login page when scrolling */}
         <div className="about-section">
           <div className="mission-section">
-            <div className="mission-content">
-              <div className="section-label">INSTITUTIONAL BRIEFING</div>
-              <h2 className="mission-heading">
-                Our <span>Mission.</span>
-              </h2>
-              <p className="mission-description">
-                SpaceScope was founded on a singular premise: the cosmos should be accessible to everyone. We've built an immersive gateway to the stars, combining real-time orbital data with interactive education to empower the next generation of astronomers, explorers, and dreamers.
-              </p>
-              <div className="mission-actions">
-                <div className="active-cadets">
-                  <div className="cadet-icons">
-                    <div className="cadet-avatar">👨‍🚀</div>
-                    <div className="cadet-avatar">👩‍🚀</div>
-                    <div className="cadet-avatar">👨‍🚀</div>
-                  </div>
-                  <span className="cadet-count">ACTIVE CADETS</span>
+            <div className="mission-content-wrapper">
+              <div className="mission-text-column">
+                <div className="section-label">LIVE TRACKING</div>
+                <h2 className="mission-heading">
+                  International Space Station: <span>Live tracking</span>
+                </h2>
+
+                <h3 className="iss-subtitle">Where is the ISS?</h3>
+                <p className="mission-description">
+                  The International Space Station (ISS) is a habitable space station that orbits Earth at an average speed of about 28,000 kilometers per hour (17,500 miles per hour). It serves as a laboratory and observatory, where astronauts and cosmonauts conduct experiments in fields such as biology, physics, astronomy, and materials science.
+                </p>
+
+                <p className="iss-fun-fact">
+                  <strong>Fun fact:</strong> Astronauts on the ISS recycle <strong>93% of water</strong>, including moisture from sweat and urine, to ensure a sustainable water supply.
+                </p>
+
+              </div>
+
+              <div className="mission-video-column">
+                <div className="video-container">
+                  <iframe
+                    width="100%"
+                    height="100%"
+                    src="https://www.youtube.com/embed/I6kcpC5USL8"
+                    title="YouTube video player"
+                    frameBorder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    referrerPolicy="strict-origin-when-cross-origin"
+                    allowFullScreen
+                  ></iframe>
                 </div>
-                <button className="explore-btn">
-                  GET STARTED
-                </button>
               </div>
             </div>
           </div>

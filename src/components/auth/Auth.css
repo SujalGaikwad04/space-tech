@@ -7,10 +7,11 @@
 .page-container {
   min-height: 100vh;
   width: 100%;
-  background: radial-gradient(ellipse at top right, rgba(139, 69, 189, 0.4), transparent 50%),
-    radial-gradient(ellipse at bottom left, rgba(91, 33, 182, 0.5), transparent 50%),
-    radial-gradient(ellipse at center, rgba(20, 184, 166, 0.15), transparent 70%),
-    linear-gradient(135deg, #0a0e27 0%, #1a1438 50%, #0f0a1e 100%);
+  background-image: url('/auth-bg.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
 }
 
 .auth-wrapper {
@@ -707,12 +708,21 @@ form input:focus {
   .auth-hero p {
     margin: 20px auto 0;
   }
+
+  /* Stack Mission Section on Tablet/Mobile */
+  .mission-content-wrapper {
+    flex-direction: column;
+    gap: 40px;
+  }
 }
 
 @media (max-width: 480px) {
   .auth-wrapper {
-    padding: 20px;
-    gap: 30px;
+    flex-direction: column-reverse;
+    /* Form on top, Hero text below */
+    padding: 80px 20px 40px 20px;
+    gap: 60px;
+    align-items: stretch;
   }
 
   .auth-card {
@@ -759,9 +769,7 @@ form input:focus {
   width: 100%;
   padding: 0 40px 100px 40px;
   margin: 0;
-  margin-top: -80px;
   position: relative;
-  z-index: 10;
 }
 
 .about-section>* {
@@ -770,13 +778,35 @@ form input:focus {
   margin-right: auto;
 }
 
-/* Mission Section */
+/* Mission Section - Two Column Layout */
 .mission-section {
   margin-bottom: 100px;
 }
 
-.mission-content {
+.mission-content-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 60px;
+  justify-content: space-between;
+}
+
+.mission-text-column {
+  flex: 1;
   max-width: 600px;
+}
+
+.mission-video-column {
+  flex: 1;
+  max-width: 600px;
+}
+
+.video-container {
+  width: 100%;
+  aspect-ratio: 16/9;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(20, 184, 166, 0.3);
 }
 
 .section-label {
@@ -810,12 +840,33 @@ form input:focus {
   text-shadow: 0 0 30px rgba(20, 184, 166, 0.6);
 }
 
+.iss-subtitle {
+  font-size: 24px;
+  font-weight: 600;
+  color: #e2e8f0;
+  margin-bottom: 15px;
+}
+
 .mission-description {
   font-size: 16px;
   line-height: 1.7;
   color: rgba(255, 255, 255, 0.7);
-  margin-bottom: 35px;
-  max-width: 550px;
+  margin-bottom: 25px;
+  max-width: 100%;
+}
+
+.iss-fun-fact {
+  background: rgba(20, 184, 166, 0.1);
+  border-left: 4px solid #14b8a6;
+  padding: 15px 20px;
+  border-radius: 0 10px 10px 0;
+  font-size: 14px;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.iss-fun-fact strong {
+  color: #14b8a6;
 }
 
 .mission-actions {
@@ -824,6 +875,7 @@ form input:focus {
   justify-content: space-between;
   gap: 30px;
   flex-wrap: wrap;
+  margin-top: 30px;
 }
 
 .explore-btn {
@@ -881,6 +933,8 @@ form input:focus {
   letter-spacing: 1px;
   font-weight: 500;
 }
+
+
 
 /* Capabilities Section */
 .capabilities-section {

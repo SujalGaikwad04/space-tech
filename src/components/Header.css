@@ -221,10 +221,53 @@
   background: var(--accent-hover);
 }
 
+/* Mobile Auth Item (Hidden on Desktop) */
+.mobile-auth-item {
+  display: none;
+  width: 100%;
+  margin-top: 10px;
+  border-top: 1px solid var(--border-color-subtle);
+  padding-top: 10px;
+}
+
 /* Mobile Styles */
 @media (max-width: 768px) {
   .nav {
     display: none;
+  }
+
+  /* When nav is open (Mobile Menu) */
+  .nav.nav-open {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 60px;
+    left: 0;
+    right: 0;
+    background: var(--header-bg);
+    backdrop-filter: blur(15px);
+    padding: 20px;
+    border-bottom: 1px solid var(--border-color-subtle);
+    gap: 10px;
+  }
+
+  /* Show mobile auth items in the menu */
+  .mobile-auth-item {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  /* Hide Desktop Auth Buttons in Header Actions */
+  .header-actions .get-started,
+  .header-actions .user-profile {
+    display: none;
+  }
+
+  /* Adjust Header Actions Position for Mobile */
+  .header-actions {
+    right: 60px;
+    /* Move left to make space for hamburger */
   }
 
   .hamburger {
@@ -232,8 +275,9 @@
   }
 
   .logo-section {
-    left: 50%;
-    transform: translateX(-50%);
+    left: 20px;
+    transform: none;
+    /* Align logo left on mobile too for cleaner look */
   }
 }
 
@@ -249,5 +293,22 @@
   .planet-icon {
     width: 20px;
     height: 20px;
+  }
+
+  /* Mobile Auth Button Styles */
+  .get-started-mobile {
+    background: var(--accent-primary);
+    color: var(--btn-text);
+    text-align: center;
+    justify-content: center;
+    box-shadow: 0 0 10px var(--glow-color);
+  }
+
+  .user-info-mobile {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(255, 255, 255, 0.05);
+    border: none;
   }
 }
