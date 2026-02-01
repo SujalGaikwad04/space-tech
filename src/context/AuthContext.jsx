@@ -118,7 +118,6 @@ export const AuthProvider = ({ children }) => {
     logout,
     checkUsernameExists,
     checkEmailExists,
-    checkEmailExists,
     isAuthenticated: !!user,
     updateUserStats: (points) => {
       if (!user) return;

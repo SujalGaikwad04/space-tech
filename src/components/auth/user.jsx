@@ -127,206 +127,465 @@ export default function Auth() {
     return (
 
 
-      <div className="auth-wrapper">
+      <div className="page-container">
+        <div className="auth-wrapper">
+          <div className="auth-card">
+            <div className="logged-in-header">
+              <h2>Already Logged In</h2>
+            </div>
 
+            <div className="user-info">
+              <div className="user-avatar">
+                {user.username.charAt(0).toUpperCase()}
+              </div>
+              <div className="user-details">
+                <h3>{user.fullName}</h3>
+                <p className="username-display">@{user.username}</p>
+                <p className="email-display">{user.email}</p>
+              </div>
+            </div>
 
-        {/* fixed background  */}
+            <div className="user-stats">
+              <div className="stat-item">
+                <span className="stat-value">{user.learningStreak}</span>
+                <span className="stat-label">Day Streak</span>
+              </div>
+              <div className="stat-item">
+                <span className="stat-value">{user.totalXP}</span>
+                <span className="stat-label">Total XP</span>
+              </div>
+              <div className="stat-item">
+                <span className="stat-value">Level {user.level}</span>
+                <span className="stat-label">Current Level</span>
+              </div>
+            </div>
 
-        {/* <img src="moon.jpg" className="bg-video" /> */}
+            {success && <div className="success-message">{success}</div>}
 
-        {/* fix background ended */}
-
-
-
-
-        <div className="auth-card">
-          <div className="logged-in-header">
-            <h2>Already Logged In</h2>
+            <div className="logged-in-actions">
+              <button className="dashboard-btn" onClick={() => navigate("/dashboard")}>
+                Go to Dashboard
+              </button>
+              <button className="learn-btn" onClick={() => navigate("/learn")}>
+                Continue Learning
+              </button>
+              <button className="logout-btn" onClick={handleLogout}>
+                Logout
+              </button>
+            </div>
           </div>
 
-          <div className="user-info">
-            <div className="user-avatar">
-              {user.username.charAt(0).toUpperCase()}
-            </div>
-            <div className="user-details">
-              <h3>{user.fullName}</h3>
-              <p className="username-display">@{user.username}</p>
-              <p className="email-display">{user.email}</p>
-            </div>
-          </div>
+          <div className="auth-hero">
+            <h1>
+              Welcome Back, <span>{user.username}</span>
+            </h1>
+            <div className="cyan-underline"></div>
 
-          <div className="user-stats">
-            <div className="stat-item">
-              <span className="stat-value">{user.learningStreak}</span>
-              <span className="stat-label">Day Streak</span>
+            <div className="did-you-know">
+              <div className="know-header">
+                <svg className="lightbulb-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <path d="M9 18h6"></path>
+                  <path d="M10 22h4"></path>
+                  <path d="M15.09 14c.18-.98.65-1.74 1.41-2.5A4.65 4.65 0 0 0 18 8a6 6 0 0 0-12 0c0 1.33.47 2.48 1.5 3.5A4.65 4.65 0 0 0 8.91 14"></path>
+                </svg>
+                <span>DID YOU KNOW?</span>
+              </div>
+              <p className="space-fact">
+                The universe is not only stranger than we suppose, but stranger than we can suppose.
+              </p>
             </div>
-            <div className="stat-item">
-              <span className="stat-value">{user.totalXP}</span>
-              <span className="stat-label">Total XP</span>
-            </div>
-            <div className="stat-item">
-              <span className="stat-value">Level {user.level}</span>
-              <span className="stat-label">Current Level</span>
-            </div>
-          </div>
 
-          {success && <div className="success-message">{success}</div>}
-
-          <div className="logged-in-actions">
-            <button className="dashboard-btn" onClick={() => navigate("/dashboard")}>
-              Go to Dashboard
-            </button>
-            <button className="learn-btn" onClick={() => navigate("/learn")}>
-              Continue Learning
-            </button>
-            <button className="logout-btn" onClick={handleLogout}>
-              Logout
-            </button>
+            <div className="space-stats">
+              <div className="stat-card">
+                <div className="stat-number">2.5k+</div>
+                <div className="stat-description">SATELLITES TRACKED</div>
+              </div>
+              <div className="stat-card">
+                <div className="stat-number">140+</div>
+                <div className="stat-description">EXOPLANETS FOUND</div>
+              </div>
+              <div className="stat-card">
+                <div className="stat-number">0.8s</div>
+                <div className="stat-description">SIGNAL LATENCY</div>
+              </div>
+            </div>
           </div>
         </div>
 
-        <div className="auth-hero">
-          <h1>
-            Welcome Back, <span>{user.username}</span>
-          </h1>
-          <p>
-            "The universe is not only stranger than we suppose, but stranger than
-            we can suppose."
-          </p>
+        {/* About Section - Appears below logged in page when scrolling */}
+        <div className="about-section">
+          <div className="mission-section">
+            <div className="mission-content">
+              <div className="section-label">INSTITUTIONAL BRIEFING</div>
+              <h2 className="mission-heading">
+                Our <span>Mission.</span>
+              </h2>
+              <p className="mission-description">
+                SpaceScope was founded on a singular premise: the cosmos should be accessible to everyone. We've built an immersive gateway to the stars, combining real-time orbital data with interactive education to empower the next generation of astronomers, explorers, and dreamers.
+              </p>
+              <div className="mission-actions">
+                <button className="explore-btn">
+                  Begin Exploration →
+                </button>
+                <div className="active-cadets">
+                  <div className="cadet-icons">
+                    <div className="cadet-avatar">👨‍🚀</div>
+                    <div className="cadet-avatar">👩‍🚀</div>
+                    <div className="cadet-avatar">👨‍🚀</div>
+                  </div>
+                  <span className="cadet-count">ACTIVE CADETS</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="capabilities-section">
+            <h3 className="capabilities-heading">Platform Capabilities</h3>
+            <p className="capabilities-subtitle">Advanced tools for interstellar discovery.</p>
+
+            <div className="capability-cards">
+              <div className="capability-card">
+                <div className="capability-icon satellite-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <path d="M12 2v20M2 12h20M6.3 6.3l11.4 11.4M17.7 6.3L6.3 17.7"></path>
+                    <circle cx="12" cy="12" r="3"></circle>
+                  </svg>
+                </div>
+                <h4 className="capability-title">Satellite Tracking</h4>
+                <p className="capability-description">
+                  Monitor 2,500+ active satellites in real-time. View orbital paths, perigee data, and upcoming flyovers for your specific coordinates.
+                </p>
+                <div className="capability-tag">LIVE TELEMETRY</div>
+              </div>
+
+              <div className="capability-card">
+                <div className="capability-icon exoplanet-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <circle cx="12" cy="12" r="6"></circle>
+                    <circle cx="12" cy="12" r="2"></circle>
+                  </svg>
+                </div>
+                <h4 className="capability-title">Exoplanet Discovery</h4>
+                <p className="capability-description">
+                  Browse the catalog of confirmed worlds beyond our solar system. Analyze atmospheric compositions and habitability indexes.
+                </p>
+                <div className="capability-tag">NASA DATA INTEGRATION</div>
+              </div>
+
+              <div className="capability-card">
+                <div className="capability-icon modules-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                    <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                  </svg>
+                </div>
+                <h4 className="capability-title">Interactive Modules</h4>
+                <p className="capability-description">
+                  Engage with 3D celestial mechanics simulations. Master complex astrophysics concepts through gamified learning paths.
+                </p>
+                <div className="capability-tag">LXD OPTIMIZED</div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="auth-wrapper">
-      <div className="auth-card">
-        <div className="tab-switch">
-          <button
-            className={mode === "login" ? "active" : ""}
-            onClick={() => setMode("login")}
-          >
-            Login
-          </button>
-          <button
-            className={mode === "register" ? "active" : ""}
-            onClick={() => setMode("register")}
-          >
-            Register
-          </button>
+    <>
+      <div className="page-container">
+        <div className="auth-wrapper">
+          <div className="auth-card">
+            <div className="tab-switch">
+              <button
+                className={mode === "login" ? "active" : ""}
+                onClick={() => setMode("login")}
+              >
+                Login
+              </button>
+              <button
+                className={mode === "register" ? "active" : ""}
+                onClick={() => setMode("register")}
+              >
+                Register
+              </button>
+            </div>
+
+            {error && <div className="error-message">{error}</div>}
+            {success && <div className="success-message">{success}</div>}
+
+            <form onSubmit={handleSubmit}>
+              {mode === "register" && (
+                <>
+                  <label>FULL NAME</label>
+                  <input
+                    type="text"
+                    name="fullName"
+                    placeholder="Enter your full name"
+                    value={formData.fullName}
+                    onChange={handleChange}
+                  />
+
+                  <label>MISSION CONTROL EMAIL</label>
+                  <input
+                    type="email"
+                    name="email"
+                    placeholder="commander@spacescope.io"
+                    value={formData.email}
+                    onChange={handleChange}
+                  />
+
+                  <label>USERNAME / DISPLAY NAME</label>
+                  <input
+                    type="text"
+                    name="username"
+                    placeholder="Choose a username"
+                    value={formData.username}
+                    onChange={handleChange}
+                  />
+                  {showPopup && formData.username && (
+                    <div className="username-popup">
+                      Wait.. I think I have seen this user before...
+                    </div>
+                  )}
+                </>
+              )}
+
+              {mode === "login" && (
+                <>
+                  <label>MISSION CONTROL EMAIL</label>
+                  <input
+                    type="text"
+                    name="email"
+                    placeholder="commander@spacescope.io"
+                    value={formData.email}
+                    onChange={handleChange}
+                  />
+                  {showPopup && formData.email && (
+                    <div className="username-popup">
+                      Wait.. I think I have seen this user before...
+                    </div>
+                  )}
+                </>
+              )}
+
+              <label>ACCESS KEY</label>
+              <div className="password-input-wrapper">
+                <input
+                  type="password"
+                  name="password"
+                  placeholder="Enter password"
+                  value={formData.password}
+                  onChange={handleChange}
+                />
+                <svg className="lock-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                  <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                </svg>
+              </div>
+
+              {mode === "register" && (
+                <>
+                  <label>CONFIRM ACCESS KEY</label>
+                  <div className="password-input-wrapper">
+                    <input
+                      type="password"
+                      name="confirmPassword"
+                      placeholder="Re-enter password"
+                      value={formData.confirmPassword}
+                      onChange={handleChange}
+                    />
+                    <svg className="lock-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                      <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                    </svg>
+                  </div>
+                </>
+              )}
+
+              {mode === "login" && (
+                <div className="login-options">
+                  <div className="remember">
+                    <input
+                      type="checkbox"
+                      name="remember"
+                      checked={formData.remember}
+                      onChange={handleChange}
+                    />
+                    <span className="remember-me">Remember?</span>
+                  </div>
+                  <a href="#" className="forgot-password">Forgot Password?</a>
+                </div>
+              )}
+
+              <button className="submit-btn" type="submit">
+                {mode === "login" ? "Launch Dashboard" : "Create Account →"}
+              </button>
+            </form>
+
+            {mode === "login" && (
+              <>
+                <div className="social-login-divider">
+                  <span>OR INITIATE LINK VIA</span>
+                </div>
+
+                <div className="social-login-buttons">
+                  <button className="social-btn" type="button" aria-label="Login with option 1">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                      <circle cx="12" cy="7" r="4"></circle>
+                    </svg>
+                  </button>
+                  <button className="social-btn" type="button" aria-label="Login with option 2">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <circle cx="12" cy="12" r="10"></circle>
+                      <circle cx="12" cy="12" r="4"></circle>
+                      <line x1="4.93" y1="4.93" x2="9.17" y2="9.17"></line>
+                      <line x1="14.83" y1="14.83" x2="19.07" y2="19.07"></line>
+                      <line x1="14.83" y1="9.17" x2="19.07" y2="4.93"></line>
+                      <line x1="14.83" y1="9.17" x2="18.36" y2="5.64"></line>
+                      <line x1="4.93" y1="19.07" x2="9.17" y2="14.83"></line>
+                    </svg>
+                  </button>
+                  <button className="social-btn" type="button" aria-label="Login with option 3">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <circle cx="12" cy="12" r="10"></circle>
+                      <line x1="2" y1="12" x2="22" y2="12"></line>
+                      <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                    </svg>
+                  </button>
+                </div>
+
+                <p className="guest-link">
+                  New cadet? <a href="#">Explore as Guest</a>
+                </p>
+              </>
+            )}
+
+            {mode === "register" && (
+              <p className="warning">
+                Restricted area. Unauthorized access will be logged.
+              </p>
+            )}
+          </div>
+
+          <div className="auth-hero">
+            <h1>
+              Explore the <span>Unknown.</span>
+            </h1>
+            <div className="cyan-underline"></div>
+
+            <div className="did-you-know">
+              <div className="know-header">
+                <svg className="lightbulb-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <path d="M9 18h6"></path>
+                  <path d="M10 22h4"></path>
+                  <path d="M15.09 14c.18-.98.65-1.74 1.41-2.5A4.65 4.65 0 0 0 18 8a6 6 0 0 0-12 0c0 1.33.47 2.48 1.5 3.5A4.65 4.65 0 0 0 8.91 14"></path>
+                </svg>
+                <span>DID YOU KNOW?</span>
+              </div>
+              <p className="space-fact">
+                Light from the Sun takes 8 minutes to reach Earth. By the time you see the sunrise, the Sun is already high in the sky.
+              </p>
+            </div>
+
+            <div className="space-stats">
+              <div className="stat-card">
+                <div className="stat-number">2.5k+</div>
+                <div className="stat-description">SATELLITES TRACKED</div>
+              </div>
+              <div className="stat-card">
+                <div className="stat-number">140+</div>
+                <div className="stat-description">EXOPLANETS FOUND</div>
+              </div>
+              <div className="stat-card">
+                <div className="stat-number">0.8s</div>
+                <div className="stat-description">SIGNAL LATENCY</div>
+              </div>
+            </div>
+          </div>
         </div>
 
-        {error && <div className="error-message">{error}</div>}
-        {success && <div className="success-message">{success}</div>}
-
-        <form onSubmit={handleSubmit}>
-          {mode === "register" && (
-            <>
-              <label>FULL NAME</label>
-              <input
-                type="text"
-                name="fullName"
-                placeholder="Enter your full name"
-                value={formData.fullName}
-                onChange={handleChange}
-              />
-
-              <label>EMAIL ADDRESS</label>
-              <input
-                type="email"
-                name="email"
-                placeholder="you@example.com"
-                value={formData.email}
-                onChange={handleChange}
-              />
-
-              <label>USERNAME / DISPLAY NAME</label>
-              <input
-                type="text"
-                name="username"
-                placeholder="Choose a username"
-                value={formData.username}
-                onChange={handleChange}
-              />
-              {showPopup && formData.username && (
-                <div className="username-popup">
-                  Wait.. I think I have seen this user before...
+        {/* About Section - Appears below login page when scrolling */}
+        <div className="about-section">
+          <div className="mission-section">
+            <div className="mission-content">
+              <div className="section-label">INSTITUTIONAL BRIEFING</div>
+              <h2 className="mission-heading">
+                Our <span>Mission.</span>
+              </h2>
+              <p className="mission-description">
+                SpaceScope was founded on a singular premise: the cosmos should be accessible to everyone. We've built an immersive gateway to the stars, combining real-time orbital data with interactive education to empower the next generation of astronomers, explorers, and dreamers.
+              </p>
+              <div className="mission-actions">
+                <div className="active-cadets">
+                  <div className="cadet-icons">
+                    <div className="cadet-avatar">👨‍🚀</div>
+                    <div className="cadet-avatar">👩‍🚀</div>
+                    <div className="cadet-avatar">👨‍🚀</div>
+                  </div>
+                  <span className="cadet-count">ACTIVE CADETS</span>
                 </div>
-              )}
-            </>
-          )}
-
-          {mode === "login" && (
-            <>
-              <label>EMAIL OR USERNAME</label>
-              <input
-                type="text"
-                name="email"
-                placeholder="Enter email or username"
-                value={formData.email}
-                onChange={handleChange}
-              />
-              {showPopup && formData.email && (
-                <div className="username-popup">
-                  Wait.. I think I have seen this user before...
-                </div>
-              )}
-            </>
-          )}
-
-          <label>PASSWORD</label>
-          <input
-            type="password"
-            name="password"
-            placeholder="••••••••"
-            value={formData.password}
-            onChange={handleChange}
-          />
-
-          {mode === "register" && (
-            <>
-              <label>CONFIRM PASSWORD</label>
-              <input
-                type="password"
-                name="confirmPassword"
-                placeholder="••••••••"
-                value={formData.confirmPassword}
-                onChange={handleChange}
-              />
-            </>
-          )}
-
-          {mode === "login" && (
-            <div className="remember">
-              <input
-                type="checkbox"
-                name="remember"
-                checked={formData.remember}
-                onChange={handleChange}
-              />
-              <span className="remember-me">Remember?</span>
+                <button className="explore-btn">
+                  GET STARTED
+                </button>
+              </div>
             </div>
-          )}
+          </div>
 
-          <button className="submit-btn" type="submit">
-            {mode === "login" ? "Initiate Login →" : "Create Account →"}
-          </button>
-        </form>
+          <div className="capabilities-section">
+            <h3 className="capabilities-heading">Platform Capabilities</h3>
+            <p className="capabilities-subtitle">Advanced tools for interstellar discovery.</p>
 
-        <p className="warning">
-          Restricted area. Unauthorized access will be logged.
-        </p>
+            <div className="capability-cards">
+              <div className="capability-card">
+                <div className="capability-icon satellite-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <path d="M12 2v20M2 12h20M6.3 6.3l11.4 11.4M17.7 6.3L6.3 17.7"></path>
+                    <circle cx="12" cy="12" r="3"></circle>
+                  </svg>
+                </div>
+                <h4 className="capability-title">Satellite Tracking</h4>
+                <p className="capability-description">
+                  Monitor 2,500+ active satellites in real-time. View orbital paths, perigee data, and upcoming flyovers for your specific coordinates.
+                </p>
+                <div className="capability-tag">LIVE TELEMETRY</div>
+              </div>
+
+              <div className="capability-card">
+                <div className="capability-icon exoplanet-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <circle cx="12" cy="12" r="6"></circle>
+                    <circle cx="12" cy="12" r="2"></circle>
+                  </svg>
+                </div>
+                <h4 className="capability-title">Exoplanet Discovery</h4>
+                <p className="capability-description">
+                  Browse the catalog of confirmed worlds beyond our solar system. Analyze atmospheric compositions and habitability indexes.
+                </p>
+                <div className="capability-tag">NASA DATA INTEGRATION</div>
+              </div>
+
+              <div className="capability-card">
+                <div className="capability-icon modules-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                    <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                  </svg>
+                </div>
+                <h4 className="capability-title">Interactive Modules</h4>
+                <p className="capability-description">
+                  Engage with 3D celestial mechanics simulations. Master complex astrophysics concepts through gamified learning paths.
+                </p>
+                <div className="capability-tag">LXD OPTIMIZED</div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-
-      <div className="auth-hero">
-        <h1>
-          Explore the <span>Unknown</span>
-        </h1>
-        <p>
-          “The universe is not only stranger than we suppose, but stranger than
-          we can suppose.”
-        </p>
-      </div>
-    </div>
+    </>
   );
 }
