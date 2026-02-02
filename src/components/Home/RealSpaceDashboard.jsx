@@ -17,8 +17,8 @@ const RealSpaceDashboard = () => {
     setSolar("Low (last 24h)");
   }, []);
 
-   const navigate = useNavigate();
-  
+  const navigate = useNavigate();
+
 
   return (
     <section className="dashboard-section">
@@ -60,7 +60,7 @@ const RealSpaceDashboard = () => {
           </div>
 
           <div className="dashboard-card">
-            <div className="dash-content"onClick={() => navigate("/weather")}>
+            <div className="dash-content" onClick={() => navigate("/weather")}>
               <h3>ASTRONAUTS IN SPACE</h3>
               <p className="highlight-text">{astronauts ? astronauts.number : 7}</p>
               <p className="sub-text">on ISS</p>

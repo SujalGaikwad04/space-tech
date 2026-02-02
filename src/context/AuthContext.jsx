@@ -119,6 +119,20 @@ export const AuthProvider = ({ children }) => {
     checkUsernameExists,
     checkEmailExists,
     isAuthenticated: !!user,
+    getLeaderboard: (limit = 10) => {
+      try {
+        const users = JSON.parse(localStorage.getItem('users') || '[]');
+        // Sort by totalXP descending
+        const sortedUsers = users
+          .map(({ password, ...userWithoutPassword }) => userWithoutPassword)
+          .sort((a, b) => (b.totalXP || 0) - (a.totalXP || 0));
+
+        return limit ? sortedUsers.slice(0, limit) : sortedUsers;
+      } catch (error) {
+        console.error('Failed to get leaderboard', error);
+        return [];
+      }
+    },
     updateUserStats: (points) => {
       if (!user) return;
 

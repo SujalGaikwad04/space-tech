@@ -1,20 +1,21 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { blogData } from '../components/learn/blogData'; // Adjust path if needed
+import { useBlog } from '../context/BlogContext';
 import './BlogPost.css';
 
 const BlogPost = () => {
     const { id } = useParams();
     const navigate = useNavigate();
+    const { getBlogById } = useBlog();
     const [post, setPost] = useState(null);
 
     useEffect(() => {
-        const foundPost = blogData.find(p => p.id === parseInt(id));
+        const foundPost = getBlogById(id);
         if (foundPost) {
             setPost(foundPost);
             window.scrollTo(0, 0); // Scroll to top on load
         }
-    }, [id]);
+    }, [id, getBlogById]);
 
     if (!post) {
         return (

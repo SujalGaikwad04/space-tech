@@ -24,32 +24,35 @@ import Auth from "./components/auth/user";
 
 /* Context */
 import { AuthProvider } from "./context/AuthContext";
+import { BlogProvider } from "./context/BlogContext";
 
 function App() {
   return (
     <AuthProvider>
-      <BrowserRouter>
-        <Header />
+      <BlogProvider>
+        <BrowserRouter>
+          <Header />
 
-        <Routes>
-          <Route path="/" element={<Homepage />} />
-          <Route path="/events" element={<Eventspage />} />
-          <Route path="/mission" element={<Missionpage />} />
-          <Route path="/weather" element={<Weatherpage />} />
-          <Route path="/dashboard" element={<Dashboardpage />} />
-          <Route path="/live-map" element={<LiveMap />} />
-          <Route path="/Auth" element={<Auth />} />
+          <Routes>
+            <Route path="/" element={<Homepage />} />
+            <Route path="/events" element={<Eventspage />} />
+            <Route path="/mission" element={<Missionpage />} />
+            <Route path="/weather" element={<Weatherpage />} />
+            <Route path="/dashboard" element={<Dashboardpage />} />
+            <Route path="/live-map" element={<LiveMap />} />
+            <Route path="/Auth" element={<Auth />} />
 
 
-          {/* Learning routes */}
-          <Route path="/learn" element={<Learn />} />
-          <Route path="/blog/:id" element={<BlogPost />} />
-          <Route path="/whatif" element={<WhatIf />} />
-          <Route path="/quiz" element={<Detailquiz />} />
-        </Routes>
+            {/* Learning routes */}
+            <Route path="/learn" element={<Learn />} />
+            <Route path="/blog/:id" element={<BlogPost />} />
+            <Route path="/whatif" element={<WhatIf />} />
+            <Route path="/quiz" element={<Detailquiz />} />
+          </Routes>
 
-        <Footer />
-      </BrowserRouter>
+          <Footer />
+        </BrowserRouter>
+      </BlogProvider>
     </AuthProvider>
   );
 }

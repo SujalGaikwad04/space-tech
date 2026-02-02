@@ -1,3 +1,5 @@
+import { createContext, useContext, useState } from 'react';
+
 export const blogData = [
     {
         id: 1,
@@ -74,5 +76,81 @@ export const blogData = [
       <p>Satellites are our eyes in the sky for monitoring the health of our planet. They track deforestation in the Amazon, measure rising sea levels, and monitor air quality in cities. This data is crucial for understanding climate change and enforcing environmental regulations.</p>
       <p>In short, space technology isn't just about exploring the unknown; it's about improving life right here on Earth.</p>
     `
+    },
+    {
+        id: 6,
+        category: "Space Facts",
+        image: "kalua.avif",
+        title: "The Mysteries of Black Holes",
+        description: "Exploring the most enigmatic objects in the universe.",
+        date: "28/01/2026",
+        authName: "SpaceTech Team",
+        content: `
+      <p>Black holes are regions of spacetime where gravity is so strong that nothing—no particles or even electromagnetic radiation such as light—can escape from it. The theory of general relativity predicts that a sufficiently compact mass can deform spacetime to form a black hole.</p>
+      <h3>Event Horizon</h3>
+      <p>The boundary of the region from which no escape is possible is called the event horizon. Although the event horizon has an enormous effect on the fate and circumstances of an object crossing it, no locally detectable features appear to be observed.</p>
+      <h3>Singularities</h3>
+      <p>At the center of a black hole, as described by general relativity, lies a gravitational singularity, a region where the spacetime curvature becomes infinite.</p>
+    `
+    },
+    {
+        id: 7,
+        category: "Science",
+        image: "hawking.webp",
+        title: "Understanding Hawking Radiation",
+        description: "Stephen Hawking's ground-breaking theory on black hole thermodynamics.",
+        date: "30/01/2026",
+        authName: "SpaceTech Team",
+        content: `
+      <p>Hawking radiation is theoretical thermal radiation that is hypothesized to be released outside a black hole's event horizon because of relativistic quantum effects.</p>
+      <h3>A Slow Evaporation</h3>
+      <p>This radiation reduces the black hole's mass and rotational energy, which is known as black hole evaporation. Because of this, black holes that do not gain mass through other means are expected to shrink and ultimately vanish.</p>
+    `
+    },
+    {
+        id: 8,
+        category: "Cosmology",
+        image: "dark.webp",
+        title: "The Search for Dark Matter",
+        description: "The invisible substance that holds galaxies together.",
+        date: "01/02/2026",
+        authName: "SpaceTech Team",
+        content: `
+      <p>Dark matter is a hypothetical form of matter that appears to not interact with light or the electromagnetic field. It is implied by gravitational effects on visible matter, such as stars and galaxies.</p>
+      <h3>The Missing Mass</h3>
+      <p>Calculations show that many galaxies would fly apart, or that they would not have formed or would not move as they do, if they did not contain a large amount of unseen matter.</p>
+    `
     }
 ];
+
+// Create the Blog Context
+const BlogContext = createContext();
+
+// Custom hook to use the Blog Context
+export const useBlog = () => {
+    const context = useContext(BlogContext);
+    if (!context) {
+        throw new Error('useBlog must be used within a BlogProvider');
+    }
+    return context;
+};
+
+// Blog Provider Component
+export const BlogProvider = ({ children }) => {
+    const [blogs] = useState(blogData);
+
+    const getBlogById = (id) => {
+        return blogs.find(blog => blog.id === parseInt(id));
+    };
+
+    const value = {
+        blogs,
+        getBlogById
+    };
+
+    return (
+        <BlogContext.Provider value={value}>
+            {children}
+        </BlogContext.Provider>
+    );
+};

@@ -123,11 +123,8 @@ const Header = () => {
           ) : (
             <Link to="/Auth" className="nav-item get-started">Get started</Link>
           )}
-
+          <ThemeToggle />
         </div>
-
-        {/* Theme Toggle */}
-        <ThemeToggle />
 
         {/* Hamburger Menu for Mobile */}
         <button

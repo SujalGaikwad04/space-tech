@@ -1,12 +1,11 @@
 import "./learn.css";
 import Quiz from "../quiz/quiz";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
-
+import { useBlog } from "../../context/BlogContext";
 
 // whatif data trial
-
 const scenarios = [
   {
     id: "moon",
@@ -37,67 +36,55 @@ const scenarios = [
       "Stronger gravity would crush most life forms. Humans could barely move, buildings would collapse under their own weight, and Earth’s structure would dramatically change."
   }
 ];
-
 // whatif data trial ended
 
-
-
-
-import { blogData } from "./blogData";
-
-
-
-
-
-
-
 function Learn() {
-  const { user, isAuthenticated } = useAuth();
+  const { user, isAuthenticated, getLeaderboard } = useAuth();
+  const { blogs } = useBlog();
 
   // what if logic start
-
   const [activeScenario, setActiveScenario] = useState(scenarios[0]);
   const navigate = useNavigate();
 
+  // Get leaderboard data
+  const [leaderboardData, setLeaderboardData] = useState([]);
+
+  // Update leaderboard when component mounts or user changes
+  useEffect(() => {
+    setLeaderboardData(getLeaderboard(10));
+  }, [user]);
+
+  // Calculate user's rank
+  const getUserRank = () => {
+    if (!isAuthenticated || !user) return 0;
+
+    // Get full leaderboard (all users)
+    const fullLeaderboard = getLeaderboard(1000); // Get all users
+    const userRank = fullLeaderboard.findIndex(
+      player => player.username === user.username
+    );
+
+    return userRank !== -1 ? userRank + 1 : 0; // +1 because index is 0-based
+  };
   //  what if endedd
 
   // blog logic start
-
-
   const [activeFilter, setActiveFilter] = useState("All");
 
   const filteredNews =
     activeFilter === "All"
-      ? blogData
-      : blogData.filter(item => item.category === activeFilter);
-
+      ? (blogs || []) // Safety check
+      : (blogs || []).filter(item => item.category === activeFilter);
   //  blog section ended
-
-
 
   return (
     <>
-
       {/* fixed background  */}
-
-      <img src="stars.gif" className="bg-video" />
-
+      <img src="stars.gif" className="bg-video" alt="stars" />
       {/* fix background ended */}
 
-
-
-
       {/* stats showcase section */}
-
       <section className="stu-sec">
-        {/* Video Background */}
-
-        {/* Content */}
-
-
-
-
-
         <h1 className="headers">Welcome back, {isAuthenticated ? user.username : "Guest"}!</h1>
         <span className="stu-lower">
           Keep up the great work! You're on a {isAuthenticated ? user.learningStreak : 0}-day learning streak.
@@ -105,9 +92,20 @@ function Learn() {
 
         <div className="box-container-2">
           <div className="boxy">
-            <img src="" alt="" className="svgs" />
-            <h1 className="titles">{isAuthenticated ? user.learningStreak : 0} days</h1>
-            <span className="titles-info">Learning Streak</span>
+            <div className="svgs" style={{
+              fontSize: '40px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              background: 'linear-gradient(135deg, #FFD700, #FFA500)',
+              borderRadius: '12px'
+            }}>
+              🏆
+            </div>
+            <h1 className="titles">
+              {isAuthenticated ? (getUserRank() > 0 ? `#${getUserRank()}` : 'N/A') : 'N/A'}
+            </h1>
+            <span className="titles-info">Your Rank</span>
           </div>
 
           <div className="boxy">
@@ -128,56 +126,98 @@ function Learn() {
             <span className="titles-info">Level Progress</span>
           </div>
         </div>
-
       </section>
-
-
       {/* stats showcase section ended */}
 
+      {/* new cards started */}
+      <div className="app-bg">
+        <div className="dashboard">
 
+          {/* Left Card */}
+          <div className="card learning-card">
+            <h3 className="card-title">Learning Events</h3>
+            <p className="card-subtitle">
+              Test your knowledge and explore scenarios
+            </p>
 
+            <button className="primary-btn"
+              onClick={() => navigate("/quiz")} >
+              📘 Take Quiz
+            </button>
 
-      {/* text section starts */}
-      <section className="hero-sec">
-        <div className="hero-icon">
-          <svg viewBox="0 0 24 24" fill="none" strokeWidth="2">
-            <path d="M12 2c4 2 7 6 7 10-4 1-7 1-7 1s0-3-1-7c0 0-4 3-7 7 4 0 7 1 7 1s-3 3-5 5c4-1 8-4 10-8 2-4 2-8 1-9-1-1-5-1-9 1z" />
-          </svg>
+            <button className="secondary-btn"
+              onClick={() => navigate("/whatif")}>
+              💡 What If Scenarios
+            </button>
+          </div>
+
+          {/* Middle Card */}
+          <div className="card space-card" onClick={() => navigate('/solar-system')} style={{ cursor: 'pointer' }}>
+            <h3 className="card-title">3D Space Drive</h3>
+            <p className="card-subtitle">Explore cosmic information</p>
+
+            <div className="space-visual">
+              🚀
+            </div>
+
+            <div className="stats">
+              <div className="stat-row">
+                <span>Event</span>
+                <span>Solar system</span>
+              </div>
+              <div className="stat-row">
+                <span>mission complete</span>
+                <span>0</span>
+              </div>
+              <div className="stat-row">
+                <span>xp earn</span>
+                <span>0</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Right Card */}
+          <div className="card leaderboard-card">
+            <h3 className="card-title">🏆 Leaderboard</h3>
+            <p className="card-subtitle">Top space explorers</p>
+
+            {leaderboardData.length > 0 ? (
+              <>
+                {leaderboardData.slice(0, 5).map((player, index) => {
+                  const isCurrentUser = user && player.username === user.username;
+                  const medal = index === 0 ? '🥇' : index === 1 ? '🥈' : index === 2 ? '🥉' : `#${index + 1}`;
+
+                  return (
+                    <div
+                      key={player.id || player.username}
+                      className={`leader ${index > 2 ? 'muted' : ''} ${isCurrentUser ? 'current-user' : ''}`}
+                    >
+                      <span>{medal} {player.username || player.fullName}</span>
+                      <span>
+                        Lvl {player.level || 1} • {player.totalXP || 0} XP
+                      </span>
+                    </div>
+                  );
+                })}
+              </>
+            ) : (
+              <div className="leader muted">
+                <span>No users yet</span>
+                <span>Be the first!</span>
+              </div>
+            )}
+
+            {leaderboardData.length > 5 && (
+              <button className="outline-btn" onClick={() => navigate('/leaderboard')}>
+                View Full Leaderboard
+              </button>
+            )}
+          </div>
+
         </div>
-
-        <h1 className="hero-title">EXPLORE THE COSMOS</h1>
-
-        <p className="hero-desc">
-          Dive into space exploration with interactive simulations, real mission
-          stories, and cosmic discoveries that bridge the gap between space and
-          Earth.
-        </p>
-
-        <a href="#" className="hero-cta">Start Exploring</a>
-
-        <div className="hero-scroll"></div>
-      </section>
-
-      {/* text section ended */}
-
-
-
-      {/* quiz section start */}
-      <section className="quiz">
-        <Quiz />
-      </section>
-
-
-      {/* quiz section  ended */}
-
-
-
-
-
-
+      </div>
 
       {/* blog section started*/}
-
       <section className="news-page">
         {/* Header */}
         <header className="news-header">
@@ -187,7 +227,7 @@ function Learn() {
 
           {/* Filter Buttons */}
           <div className="filter-bar">
-            {["All", "Mission Updates", "Space Facts", "Technology"].map(
+            {["All", "Mission Updates", "Space Facts", "Technology", "Science", "Cosmology", "Community", "Theory", "Observation", "Question"].slice(0, 6).map(
               (filter) => (
                 <button
                   key={filter}
@@ -199,6 +239,13 @@ function Learn() {
                 </button>
               )
             )}
+            <button
+              className="filter-btn create-blog-btn"
+              onClick={() => navigate("/create-blog")}
+              style={{ background: 'linear-gradient(90deg, #00d2ff, #3a7bd5)', border: 'none', color: 'white' }}
+            >
+              + Write a Blog
+            </button>
           </div>
         </header>
 
@@ -209,7 +256,7 @@ function Learn() {
               <img src={item.image} alt={item.title} />
               <div className="card-content">
                 <span className="tag">{item.category}</span>
-                <span className="date">{item.date}</span>
+                <span className="date">{item.date} • {item.authName || "SpaceTech Team"}</span>
                 <h3 className="line-clamp-2">{item.title}</h3>
                 <p className="line-clamp-3">{item.description}</p>
                 <button className="read-more-btn" onClick={() => navigate(`/blog/${item.id}`)}>Read More →</button>
@@ -218,59 +265,8 @@ function Learn() {
           ))}
         </div>
       </section>
-
       {/* blog section ended */}
-
-
-
-
-
-
-      {/* what if started */}
-      <section className="whatif-container app">
-        <header className="whatif-header">
-          <h1>WHAT-IF SCENARIOS</h1>
-          <p>Explore hypothetical cosmic events and their consequences</p>
-        </header>
-
-        <div className="whatif-content">
-          {/* LEFT SIDE BUTTONS */}
-          <div className="scenario-list">
-            {scenarios.map((scenario) => (
-              <button
-                key={scenario.id}
-                className={`scenario-btn ${activeScenario.id === scenario.id ? "active" : ""
-                  }`}
-                onClick={() => setActiveScenario(scenario)}
-              >
-                <span className="icon">{scenario.icon}</span>
-                <span className="text">{scenario.title}</span>
-              </button>
-            ))}
-          </div>
-
-          {/* RIGHT SIDE DISPLAY */}
-          <div className="scenario-display">
-            <div className="display-icon">{activeScenario.icon}</div>
-
-            <h2>{activeScenario.title}</h2>
-
-            <p>{activeScenario.description}</p>
-
-            <button
-              className="simulate-btn"
-              onClick={() => navigate("/whatif")}
-            >
-              ⚡ Explore now
-            </button>
-          </div>
-        </div>
-      </section>
-
-
     </>
-
-
   );
 }
 
