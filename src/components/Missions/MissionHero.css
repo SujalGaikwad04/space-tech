@@ -1,0 +1,67 @@
+/* 🌍 FIXED BACKGROUND — IDENTICAL TO HOME PAGE */
+.home-bg {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+  z-index: -10;
+  pointer-events: none;
+}
+
+/* MISSION HERO */
+.mission-hero {
+  width: 100%;
+  padding: 120px 20px 40px;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+}
+
+/* TITLE */
+.mission-title {
+  font-size: 3rem;
+  font-weight: 800;
+  letter-spacing: 8px;
+  color: var(--accent-primary);
+  margin: 0;
+  text-shadow: 0 0 15px var(--glow-color);
+  transition: var(--transition);
+}
+
+/* SUBTITLE */
+.mission-subtitle {
+  margin-top: 0.75rem;
+  font-size: 1rem;
+  color: var(--text-secondary);
+  letter-spacing: 1.2px;
+  font-weight: 300;
+  transition: var(--transition);
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .mission-hero {
+    padding: 100px 15px 30px;
+  }
+
+  .mission-title {
+    font-size: 2.2rem;
+    letter-spacing: 5px;
+  }
+
+  .mission-subtitle {
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .mission-hero {
+    padding: 80px 15px 20px;
+  }
+
+  .mission-title {
+    font-size: 1.8rem;
+    letter-spacing: 3px;
+  }
+}

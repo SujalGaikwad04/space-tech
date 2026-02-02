@@ -1,0 +1,117 @@
+.era-selection {
+  background: var(--card-bg);
+  border: 2px solid var(--accent-primary);
+  border-radius: 14px;
+  padding: 2.2rem;
+  margin: 2.5rem auto;
+  max-width: 920px;
+  box-shadow: var(--box-shadow);
+  position: relative;
+  transition: var(--transition);
+}
+
+/* top glow divider */
+.era-selection::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 8%;
+  right: 8%;
+  height: 1px;
+  background: linear-gradient(to right,
+      transparent,
+      var(--accent-primary),
+      transparent);
+}
+
+/* LABEL */
+.era-label {
+  color: var(--text-primary);
+  font-size: 1.1rem;
+  font-weight: 700;
+  letter-spacing: 2.5px;
+  margin-bottom: 2rem;
+  text-transform: uppercase;
+  text-shadow: 0 0 10px var(--glow-color);
+  transition: var(--transition);
+}
+
+/* GRID */
+.era-categories {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2.2rem;
+}
+
+/* CARD */
+.era-category {
+  background: var(--card-bg);
+  border: 1px solid var(--border-color-subtle);
+  border-radius: 12px;
+  padding: 1.5rem;
+  position: relative;
+  transition: var(--transition);
+}
+
+/* hover glow */
+.era-category:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--btn-box-shadow);
+  border-color: var(--accent-primary);
+}
+
+/* ICON */
+.era-icon {
+  font-size: 2.2rem;
+  margin-bottom: 0.8rem;
+  filter: drop-shadow(0 0 10px var(--glow-color));
+}
+
+/* TITLE */
+.era-category h4 {
+  color: var(--accent-primary);
+  font-size: 1rem;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  margin: 0.5rem 0 1.2rem 0;
+  text-transform: uppercase;
+  transition: var(--transition);
+}
+
+/* LIST */
+.era-category ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.era-category li {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  margin-bottom: 0.6rem;
+  padding-left: 1.2rem;
+  position: relative;
+  opacity: 0.9;
+  transition: var(--transition);
+}
+
+/* glowing bullet */
+.era-category li::before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  color: var(--accent-primary);
+  text-shadow: 0 0 8px var(--glow-color);
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+  .era-categories {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .era-selection {
+    padding: 1.6rem;
+  }
+}

@@ -1,0 +1,114 @@
+/* App Container */
+.app {
+  min-height: 100vh;
+  background: var(--bg-gradient);
+  color: var(--text-primary);
+  transition: var(--transition);
+}
+
+/* Main Content */
+.main-content {
+  padding-top: 80px;
+}
+
+/* Hero Section */
+.hero {
+  min-height: calc(100vh - 80px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background:
+    radial-gradient(ellipse at top, var(--shadow) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, var(--shadow) 0%, transparent 40%);
+  position: relative;
+  overflow: hidden;
+  transition: var(--transition);
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-image:
+    radial-gradient(2px 2px at 20% 30%, var(--star-color-1), transparent),
+    radial-gradient(2px 2px at 60% 70%, var(--star-color-2), transparent),
+    radial-gradient(1px 1px at 50% 50%, var(--star-color-2), transparent),
+    radial-gradient(1px 1px at 80% 10%, var(--star-color-2), transparent),
+    radial-gradient(2px 2px at 90% 60%, var(--star-color-2), transparent),
+    radial-gradient(1px 1px at 33% 80%, var(--star-color-2), transparent);
+  background-size: 200% 200%;
+  background-position: 0% 0%;
+  opacity: 0.5;
+  animation: stars 120s linear infinite;
+}
+
+@keyframes stars {
+  from {
+    background-position: 0% 0%;
+  }
+
+  to {
+    background-position: 100% 100%;
+  }
+}
+
+.hero-title {
+  font-size: 4rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-secondary) 50%, var(--accent-primary) 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 1rem;
+  text-shadow: 0 0 40px var(--glow-color);
+  letter-spacing: 2px;
+  z-index: 1;
+  position: relative;
+  transition: var(--transition);
+}
+
+.hero-subtitle {
+  font-size: 1.5rem;
+  color: var(--text-secondary);
+  font-weight: 300;
+  letter-spacing: 1px;
+  z-index: 1;
+  position: relative;
+  transition: var(--transition);
+}
+
+/* Content Sections */
+.content-section {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 6rem 2rem;
+  min-height: 70vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.content-section h2 {
+  font-size: 3rem;
+  color: var(--accent-primary);
+  margin-bottom: 1.5rem;
+  text-shadow: 0 0 20px var(--glow-color);
+  letter-spacing: 1px;
+  transition: var(--transition);
+}
+
+.content-section p {
+  font-size: 1.25rem;
+  color: var(--text-secondary);
+  line-height: 1.8;
+  max-width: 800px;
+  transition: var(--transition);
+}
+
+/* Smooth Scrolling */
+html {
+  scroll-behavior: smooth;
+}

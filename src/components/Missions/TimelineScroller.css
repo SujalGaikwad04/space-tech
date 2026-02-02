@@ -1,0 +1,132 @@
+.timeline-scroller {
+  background: var(--card-bg);
+  border: 2px solid var(--accent-primary);
+  border-radius: 16px;
+  padding: 1.8rem 2rem;
+  margin: 2.5rem auto;
+  max-width: 1000px;
+  box-shadow: var(--box-shadow);
+  backdrop-filter: blur(10px);
+  transition: var(--transition);
+}
+
+/* HEADER */
+.timeline-header {
+  margin-bottom: 1.2rem;
+}
+
+.timeline-header h3 {
+  color: var(--text-primary);
+  font-size: 1.1rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  margin: 0;
+  text-transform: uppercase;
+  transition: var(--transition);
+}
+
+/* TRACK */
+.timeline-track {
+  display: flex;
+  align-items: center;
+  overflow-x: auto;
+  padding: 1.2rem 0;
+  scrollbar-width: none;
+}
+
+.timeline-track::-webkit-scrollbar {
+  display: none;
+}
+
+/* ERA GROUP */
+.timeline-era-wrapper {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+/* ERA BUTTON */
+.timeline-era {
+  background: transparent;
+  border: none;
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  font-weight: 600;
+  padding: 0.5rem 1.1rem;
+  cursor: pointer;
+  transition: var(--transition);
+  white-space: nowrap;
+  position: relative;
+  text-shadow: 0 0 8px var(--glow-color);
+}
+
+/* DOT UNDER ERA */
+.timeline-era::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -8px;
+  transform: translateX(-50%);
+  width: 6px;
+  height: 6px;
+  background: var(--accent-primary);
+  border-radius: 50%;
+  box-shadow: 0 0 10px var(--glow-color);
+  opacity: 0.6;
+}
+
+/* HOVER */
+.timeline-era:hover {
+  color: var(--text-primary);
+  transform: scale(1.12);
+  text-shadow: 0 0 15px var(--glow-color);
+}
+
+/* ACTIVE ERA */
+.timeline-era.active {
+  color: var(--text-primary);
+  transform: scale(1.2);
+  text-shadow: 0 0 18px var(--glow-color);
+}
+
+.timeline-era.active::after {
+  width: 10px;
+  height: 10px;
+  opacity: 1;
+}
+
+/* CONNECTOR LINE */
+.timeline-connector {
+  width: 60px;
+  height: 2px;
+  background: linear-gradient(to right,
+      var(--accent-primary-light),
+      var(--accent-primary),
+      var(--accent-primary-light));
+  margin: 0 0.2rem;
+  box-shadow: 0 0 12px var(--glow-color);
+}
+
+/* ARROW */
+.timeline-arrow {
+  color: var(--accent-primary);
+  font-size: 1.6rem;
+  margin-left: 0.6rem;
+  text-shadow: 0 0 12px var(--glow-color);
+  animation: pulse 2s infinite;
+}
+
+/* ANIMATION */
+@keyframes pulse {
+
+  0%,
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  50% {
+    opacity: 0.6;
+    transform: translateX(6px);
+  }
+}

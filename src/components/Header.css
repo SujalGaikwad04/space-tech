@@ -1,0 +1,307 @@
+/* Header Container */
+.header {
+  background: var(--header-bg);
+  backdrop-filter: blur(10px);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  border-bottom: 1px solid var(--border-color-subtle);
+  padding: 10px 0;
+  transition: var(--transition);
+}
+
+.header-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 60px;
+}
+
+/* Logo Section */
+.logo-section {
+  position: absolute;
+  left: 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.planet-icon {
+  color: var(--accent-primary);
+  filter: drop-shadow(0 0 5px var(--glow-color));
+  transition: var(--transition);
+}
+
+.logo-text {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--accent-primary);
+  letter-spacing: 0.5px;
+  transition: var(--transition);
+}
+
+/* Header Actions (Right Side) */
+.header-actions {
+  position: absolute;
+  right: 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* Navigation */
+.nav {
+  display: flex;
+  align-items: center;
+  gap: clamp(10px, 1.5vw, 20px);
+}
+
+.nav-item {
+  color: var(--text-secondary);
+  text-decoration: none;
+  padding: 8px clamp(12px, 1.5vw, 24px);
+  border-radius: 20px;
+  font-size: clamp(11px, 1vw, 13px);
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  background: var(--card-bg);
+  border: 1px solid var(--border-color-subtle);
+  transition: var(--transition);
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.nav-item:hover {
+  background: var(--card-bg-hover);
+  border-color: var(--accent-primary);
+  box-shadow: 0 0 10px var(--glow-color);
+  color: var(--heading-color);
+  transform: translateY(-1px);
+}
+
+.nav-item.active {
+  background: var(--accent-primary-light);
+  border-color: var(--accent-primary);
+  color: var(--heading-color);
+  box-shadow: 0 0 15px var(--glow-color);
+  text-shadow: 0 0 8px var(--glow-color);
+  transform: translateY(-1px);
+}
+
+.nav-item.get-started {
+  background: var(--accent-primary);
+  color: var(--btn-text);
+  border-color: var(--accent-primary);
+}
+
+.nav-item.get-started:hover {
+  background: var(--accent-hover);
+  border-color: var(--accent-hover);
+  box-shadow: 0 0 15px var(--glow-color);
+}
+
+/* User Profile Dropdown */
+.user-profile {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  padding: 6px 12px;
+  border-radius: 20px;
+  background: var(--card-bg);
+  border: 1px solid var(--border-color-subtle);
+  transition: var(--transition);
+}
+
+.user-profile:hover {
+  background: var(--card-bg-hover);
+  border-color: var(--accent-primary);
+}
+
+.user-avatar-small {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--accent-primary);
+  color: var(--btn-text);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.user-name {
+  color: var(--text-primary);
+  font-size: 13px;
+  font-weight: 600;
+  transition: var(--transition);
+}
+
+/* User Dropdown Menu */
+.user-dropdown {
+  position: absolute;
+  top: 120%;
+  right: 0;
+  background: var(--dropdown-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 8px 0;
+  min-width: 180px;
+  box-shadow: var(--box-shadow);
+  z-index: 1001;
+  backdrop-filter: blur(10px);
+}
+
+.dropdown-item {
+  padding: 10px 16px;
+  color: var(--text-primary);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  transition: var(--transition);
+}
+
+.dropdown-item:hover {
+  background: var(--card-bg-hover);
+  color: var(--accent-primary);
+}
+
+.dropdown-item.logout {
+  color: var(--danger-color);
+}
+
+.dropdown-item.logout:hover {
+  background: var(--danger-bg);
+}
+
+.dropdown-divider {
+  height: 1px;
+  background: var(--border-color-subtle);
+  margin: 8px 0;
+}
+
+/* Hamburger Menu */
+.hamburger {
+  display: none;
+  position: absolute;
+  right: 20px;
+  flex-direction: column;
+  gap: 4px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+}
+
+.hamburger span {
+  width: 24px;
+  height: 2px;
+  background: var(--accent-primary);
+  transition: var(--transition);
+  border-radius: 2px;
+}
+
+.hamburger:hover span {
+  background: var(--accent-hover);
+}
+
+/* Mobile Auth Item (Hidden on Desktop) */
+.mobile-auth-item {
+  display: none;
+  width: 100%;
+  margin-top: 10px;
+  border-top: 1px solid var(--border-color-subtle);
+  padding-top: 10px;
+}
+
+/* Mobile Styles */
+@media (max-width: 768px) {
+  .nav {
+    display: none;
+  }
+
+  /* When nav is open (Mobile Menu) */
+  .nav.nav-open {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 60px;
+    left: 0;
+    right: 0;
+    background: var(--header-bg);
+    backdrop-filter: blur(15px);
+    padding: 20px;
+    border-bottom: 1px solid var(--border-color-subtle);
+    gap: 10px;
+  }
+
+  /* Show mobile auth items in the menu */
+  .mobile-auth-item {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  /* Hide Desktop Auth Buttons in Header Actions */
+  .header-actions .get-started,
+  .header-actions .user-profile {
+    display: none;
+  }
+
+  /* Adjust Header Actions Position for Mobile */
+  .header-actions {
+    right: 60px;
+    /* Move left to make space for hamburger */
+  }
+
+  .hamburger {
+    display: flex;
+  }
+
+  .logo-section {
+    left: 20px;
+    transform: none;
+    /* Align logo left on mobile too for cleaner look */
+  }
+}
+
+@media (max-width: 480px) {
+  .header-container {
+    height: 50px;
+  }
+
+  .logo-text {
+    font-size: 16px;
+  }
+
+  .planet-icon {
+    width: 20px;
+    height: 20px;
+  }
+
+  /* Mobile Auth Button Styles */
+  .get-started-mobile {
+    background: var(--accent-primary);
+    color: var(--btn-text);
+    text-align: center;
+    justify-content: center;
+    box-shadow: 0 0 10px var(--glow-color);
+  }
+
+  .user-info-mobile {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(255, 255, 255, 0.05);
+    border: none;
+  }
+}
