@@ -44,6 +44,7 @@ export const AuthProvider = ({ children }) => {
         fullName: userData.fullName,
         email: userData.email,
         username: userData.username,
+        location: userData.location,
         password: userData.password, // In production, this should be hashed
         createdAt: new Date().toISOString(),
         learningStreak: 0,

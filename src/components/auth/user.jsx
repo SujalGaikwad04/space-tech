@@ -15,6 +15,7 @@ export default function Auth() {
     fullName: "",
     email: "",
     username: "",
+    location: "",
     password: "",
     confirmPassword: "",
     remember: false,
@@ -51,7 +52,7 @@ export default function Auth() {
 
     if (mode === "register") {
       // Validation for registration
-      if (!formData.fullName || !formData.email || !formData.username || !formData.password || !formData.confirmPassword) {
+      if (!formData.fullName || !formData.email || !formData.username || !formData.location || !formData.password || !formData.confirmPassword) {
         setError("All fields are required");
         return;
       }
@@ -76,6 +77,7 @@ export default function Auth() {
         fullName: formData.fullName,
         email: formData.email,
         username: formData.username,
+        location: formData.location,
         password: formData.password,
       });
 
@@ -142,6 +144,7 @@ export default function Auth() {
                 <h3>{user.fullName}</h3>
                 <p className="username-display">@{user.username}</p>
                 <p className="email-display">{user.email}</p>
+                <p className="location-display">📍 {user.location}</p>
               </div>
             </div>
 
@@ -361,6 +364,15 @@ export default function Auth() {
                       Wait.. I think I have seen this user before...
                     </div>
                   )}
+
+                  <label>LOCATION</label>
+                  <input
+                    type="text"
+                    name="location"
+                    placeholder="e.g. Cape Canaveral, FL"
+                    value={formData.location}
+                    onChange={handleChange}
+                  />
                 </>
               )}
 
