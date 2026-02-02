@@ -191,6 +191,33 @@ export const AuthProvider = ({ children }) => {
       } catch (e) {
         console.error("Failed to update user stats in storage", e);
       }
+    },
+    updateUserLocation: (newLocation) => {
+      if (!user) return;
+
+      const updatedUser = {
+        ...user,
+        location: newLocation
+      };
+
+      // Update state
+      setUser(updatedUser);
+
+      // Update localStorage 'currentUser'
+      localStorage.setItem('currentUser', JSON.stringify(updatedUser));
+
+      // Update this user in the 'users' array
+      try {
+        const users = JSON.parse(localStorage.getItem('users') || '[]');
+        const userIndex = users.findIndex(u => u.username === user.username);
+
+        if (userIndex !== -1) {
+          users[userIndex] = { ...users[userIndex], ...updatedUser };
+          localStorage.setItem('users', JSON.stringify(users));
+        }
+      } catch (e) {
+        console.error("Failed to update user location in storage", e);
+      }
     }
   };
 

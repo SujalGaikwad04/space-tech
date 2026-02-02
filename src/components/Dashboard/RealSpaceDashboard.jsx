@@ -1,47 +1,99 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useAuth } from "../../context/AuthContext";
+import { useNavigate } from "react-router-dom";
+import { useEventsData } from "../Events/useEventsData";
+import { useMissionsData } from "../Missions/useMissionsData";
 import "./RealSpaceDashboard.css";
 
 const RealSpaceDashboard = () => {
   const { user, isAuthenticated } = useAuth();
+  const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState("horizon");
 
-  // Debug: Log user data
-  console.log('Dashboard - User:', user);
-  console.log('Dashboard - isAuthenticated:', isAuthenticated);
-  if (user) {
-    console.log('Dashboard - totalXP:', user.totalXP);
-    console.log('Dashboard - level:', user.level);
-    console.log('Dashboard - Progress %:', Math.min((user.totalXP || 0) % 50 * 2, 100));
-  }
+  // Get current date info for events
+  const today = new Date();
+  const currentMonth = today.getMonth();
+  const currentYear = today.getFullYear();
+  const currentDay = today.getDate();
+
+  // Fetch real events from the same source as the Events page
+  const { allEventsData, loading } = useEventsData(currentMonth, currentYear);
+
+  // Fetch real missions from the same source as the Missions page
+  const { missions, loading: missionsLoading } = useMissionsData();
+
+  // Filter for upcoming events (today and future)
+  const upcomingEvents = allEventsData
+    .filter(event => event.day >= currentDay)
+    .sort((a, b) => a.day - b.day)
+    .slice(0, 3); // Show top 3
+
+  // Get top 3 upcoming missions
+  const upcomingMissions = missions.slice(0, 3);
+
+  // Helper function to format mission time
+  const formatMissionTime = (dateString) => {
+    const missionDate = new Date(dateString);
+    const now = new Date();
+    const diffMs = missionDate - now;
+    const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+    const diffHours = Math.floor(diffMs / (1000 * 60 * 60));
+
+    if (diffDays === 0) {
+      const hours = missionDate.getHours();
+      const minutes = missionDate.getMinutes();
+      return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')} ${hours >= 12 ? 'PM' : 'AM'}`;
+    } else if (diffDays === 1) {
+      return `TOMORROW ${missionDate.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })}`;
+    } else if (diffDays < 30) {
+      return `IN ${diffDays} DAYS`;
+    } else {
+      return missionDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+    }
+  };
+
+  // Helper function to get mission icon
+  const getMissionIcon = (mission, index) => {
+    if (mission.name?.toLowerCase().includes('iss') || mission.name?.toLowerCase().includes('station')) {
+      return '🛰️';
+    } else if (mission.name?.toLowerCase().includes('hubble') || mission.name?.toLowerCase().includes('telescope')) {
+      return '🔭';
+    } else if (mission.name?.toLowerCase().includes('mars') || mission.name?.toLowerCase().includes('planet')) {
+      return '🔴';
+    } else if (mission.name?.toLowerCase().includes('moon') || mission.name?.toLowerCase().includes('lunar')) {
+      return '🌙';
+    } else if (index === 0) {
+      return '🚀';
+    } else if (index === 1) {
+      return '🛸';
+    } else {
+      return '🌌';
+    }
+  };
+
+  const getEventBadge = (day) => {
+    if (day === currentDay) return { text: "TODAY", class: "today" };
+    if (day === currentDay + 1) return { text: "TOMORROW", class: "tomorrow" };
+
+    // Format Month name (e.g., FEB 5)
+    const monthNames = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
+    return { text: `${monthNames[currentMonth]} ${day}`, class: "future" };
+  };
 
   return (
     <div className="space-dashboard">
-      {/* Background */}
       <div className="space-bg"></div>
 
-      {/* Header */}
       <header className="space-header">
         <div className="header-left">
           <h1 className="welcome-title">WELCOME BACK, {isAuthenticated ? user.username.toUpperCase() : "GUEST"}</h1>
           <p className="location-info">
             <span className="location-icon">📍</span>
-            GMT-7:00 | CAPE CANAVERAL, FL
+            GMT-7:00 | {isAuthenticated && user?.location ? user.location.toUpperCase() : "Mumabi,India"}
           </p>
-        </div>
-        <div className="header-right">
-          <div className="status-badge">
-            <span className="status-label">SYSTEM STATUS</span>
-            <span className="status-value nominal">NOMINAL</span>
-          </div>
-          <div className="status-badge">
-            <span className="status-label">ORBIT</span>
-            <span className="status-value">408 KM</span>
-          </div>
         </div>
       </header>
 
-      {/* Tab Navigation */}
       <nav className="tab-navigation">
         <button
           className={`tab-btn ${activeTab === "horizon" ? "active" : ""}`}
@@ -51,11 +103,8 @@ const RealSpaceDashboard = () => {
         </button>
       </nav>
 
-      {/* Main Content */}
       <div className="dashboard-grid">
-        {/* Left Column - Main Content */}
         <div className="main-content">
-          {/* Celestial Events */}
           <section className="celestial-events">
             <div className="section-header">
               <h2>Celestial Events</h2>
@@ -63,32 +112,39 @@ const RealSpaceDashboard = () => {
             </div>
 
             <div className="events-grid">
-              <div className="event-card">
-                <div className="event-time-badge">
-                  <div className="badge-countdown">T-MINUS</div>
-                  <div className="badge-time">4H 20M</div>
-                </div>
-                <div className="event-content">
-                  <h3 className="event-title">Perseids Meteor Shower</h3>
-                  <p className="event-description">
-                    Peak visibility expected tonight at 02:00 UTC. Clear skies predicted.
-                  </p>
-                </div>
-                <button className="event-action-btn">JOIN OBSERVATION</button>
-              </div>
-
-              <div className="event-card">
-                <div className="event-time-badge tomorrow">
-                  <div className="badge-countdown">TOMORROW</div>
-                </div>
-                <div className="event-content">
-                  <h3 className="event-title">Partial Lunar Eclipse</h3>
-                  <p className="event-description">
-                    Visual alignment of Earth, Moon, and Sun occurring at 14:30 UTC.
-                  </p>
-                </div>
-                <button className="event-action-btn">SET ALERT</button>
-              </div>
+              {loading ? (
+                <div className="loading-state">Syncing celestial data...</div>
+              ) : upcomingEvents.length > 0 ? (
+                upcomingEvents.map((event, index) => {
+                  const badge = getEventBadge(event.day);
+                  return (
+                    <div
+                      key={index}
+                      className="event-card clickable"
+                      onClick={() => navigate('/events', { state: { selectedDay: event.day } })}
+                    >
+                      <div className={`event-time-badge ${badge.class}`}>
+                        <div className="badge-countdown">{badge.text}</div>
+                        {event.day === currentDay && <div className="badge-time">LIVE</div>}
+                      </div>
+                      <div className="event-icon">
+                        {event.icon}
+                      </div>
+                      <div className="event-content">
+                        <h3 className="event-title">{event.title}</h3>
+                        <p className="event-description">
+                          {event.time} • {event.visibilityText} • {event.moonPhase}
+                        </p>
+                      </div>
+                      <button className="event-action-btn">
+                        <span>{event.day === currentDay ? "JOIN OBSERVATION" : "SET ALERT"}</span>
+                      </button>
+                    </div>
+                  );
+                })
+              ) : (
+                <div className="no-events">No upcoming events scheduled.</div>
+              )}
             </div>
           </section>
 
@@ -97,8 +153,12 @@ const RealSpaceDashboard = () => {
             <h2 className="section-title">Deep Sky Recommendations</h2>
 
             <div className="sky-recommendations-grid">
-              <div className="sky-card">
-                <div className="sky-image" style={{ backgroundImage: 'url(/andromeda-nebula.jpeg)' }}>
+              <div
+                className="sky-card"
+                onClick={() => navigate('/sky-object/andromeda')}
+                style={{ cursor: 'pointer' }}
+              >
+                <div className="sky-image" style={{ backgroundImage: 'url(/andromeda-nebula.png)' }}>
                   <div className="sky-overlay"></div>
                 </div>
                 <div className="sky-content">
@@ -108,8 +168,12 @@ const RealSpaceDashboard = () => {
                 </div>
               </div>
 
-              <div className="sky-card">
-                <div className="sky-image" style={{ backgroundImage: 'url(/moon-crater.jpeg)' }}>
+              <div
+                className="sky-card"
+                onClick={() => navigate('/sky-object/tycho')}
+                style={{ cursor: 'pointer' }}
+              >
+                <div className="sky-image" style={{ backgroundImage: 'url(/moon-crater.png)' }}>
                   <div className="sky-overlay"></div>
                 </div>
                 <div className="sky-content">
@@ -132,20 +196,31 @@ const RealSpaceDashboard = () => {
             </div>
 
             <div className="reminder-list">
-              <div className="reminder-item active">
-                <h4>ISS Overhead Pass</h4>
-                <p className="reminder-time">15:28 PM • MAG -3.5</p>
-              </div>
-
-              <div className="reminder-item">
-                <h4>Hubble Transit</h4>
-                <p className="reminder-time">TOMORROW 03:12 AM</p>
-              </div>
-
-              <div className="reminder-item">
-                <h4>Mars Retrograde</h4>
-                <p className="reminder-time">IN 12 DAYS</p>
-              </div>
+              {missionsLoading ? (
+                <div className="loading-state">Loading missions...</div>
+              ) : upcomingMissions.length > 0 ? (
+                upcomingMissions.map((mission, index) => (
+                  <div
+                    key={mission.id || index}
+                    className={`reminder-item ${index === 0 ? 'active' : ''} clickable`}
+                    onClick={() => navigate('/missions')}
+                  >
+                    <div className="reminder-header">
+                      <span className="reminder-mission-icon">
+                        {getMissionIcon(mission, index)}
+                      </span>
+                      <div className="reminder-content">
+                        <h4>{mission.name || 'Upcoming Mission'}</h4>
+                        <p className="reminder-time">
+                          {formatMissionTime(mission.net)}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                ))
+              ) : (
+                <div className="no-events">No upcoming missions scheduled.</div>
+              )}
             </div>
           </section>
 
