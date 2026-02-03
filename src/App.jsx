@@ -7,11 +7,13 @@ import CreateBlog from "./pages/CreateBlog.page";
 /* Core Pages */
 import Homepage from "./pages/Homepage";
 import Eventspage from "./pages/Eventspage";
+import EventDetailsPage from "./pages/EventDetailsPage";
 import Missionpage from "./pages/Missionpage";
 import Weatherpage from "./pages/Weatherpage";
 import Dashboardpage from "./pages/Dashboardpage";
 import LiveMap from "./pages/LiveMap.page";
 import BlogPost from "./pages/BlogPost.page";
+import SkyObjectDetail from "./pages/SkyObjectDetail.page";
 
 /* Learning Section Components */
 import Learn from "./components/learn/learn";
@@ -39,11 +41,13 @@ function App() {
           <Routes>
             <Route path="/" element={<Homepage />} />
             <Route path="/events" element={<Eventspage />} />
+            <Route path="/event-details" element={<EventDetailsPage />} />
             <Route path="/mission" element={<Missionpage />} />
             <Route path="/weather" element={<Weatherpage />} />
             <Route path="/dashboard" element={<Dashboardpage />} />
             <Route path="/live-map" element={<LiveMap />} />
             <Route path="/Auth" element={<Auth />} />
+            <Route path="/sky-object/:objectId" element={<SkyObjectDetail />} />
 
 
             {/* Learning routes */}
