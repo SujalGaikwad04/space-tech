@@ -130,19 +130,59 @@ export const useEventsData = (currentMonth, currentYear, location = "Mumbai, Ind
             day: 5,
             icon: "🌠",
             type: "meteor",
-            title: "Geminids Meteor Shower",
-            time: "9:00 PM - 3:00 AM",
-            description: "One of the best meteor showers. Debris from asteroid 3200 Phaethon.",
-            moonPhase: "Moon: 40% (Moderate sky)"
+            title: "Perseids Meteor Shower Peak",
+            description: "The most popular meteor shower of the year is peaking tonight. Expect up to 100 meteors per hour in dark sky areas.",
+            time: "Peak: 02:00 AM - 04:30 AM",
+            location: "Radiant: Constellation Perseus",
+            tag: "METEOR SHOWER",
+            buttonText: "Set Reminder",
+            secondaryButtonText: "View Guide",
+            image: "/events/meteor-shower.png",
+            primaryAction: "https://calendar.google.com/calendar/r/eventedit?text=Perseids+Meteor+Shower&dates=20260812T200000Z/20260813T040000Z&details=Watch+the+Perseids+Meteor+Shower!&location=Dark+Sky+Area",
+            secondaryAction: "https://solarsystem.nasa.gov/asteroids-comets-and-meteors/meteors-and-meteorites/perseids/in-depth/"
+          },
+          {
+            day: 15,
+            icon: "🌑",
+            type: "eclipse",
+            title: "Annular Solar Eclipse",
+            description: "An annular solar eclipse occurs when the Moon passes between the Sun and Earth while it is at its farthest point from Earth.",
+            time: "Western Hemisphere Visibility",
+            tag: "ECLIPSE",
+            buttonText: "Details",
+            secondaryButtonText: "View Path Map",
+            image: "/events/solar-eclipse.png",
+            warning: "Requires certified solar viewing glasses. Do not look directly at the sun.",
+            primaryAction: "https://solarsystem.nasa.gov/eclipses/future-eclipses/eclipse-2023-oct-14/",
+            secondaryAction: "https://svs.gsfc.nasa.gov/5073"
+          },
+          {
+            day: 21,
+            icon: "🪐",
+            type: "conjunction",
+            title: "Jupiter & Saturn Conjunction",
+            description: "A rare great conjunction of the gas giants. Visible low on the western horizon just after sunset.",
+            time: "Best viewed: 18:45 - 19:30",
+            location: "Low on Western Horizon",
+            tag: "PLANETARY",
+            buttonText: "Add to Calendar",
+            image: "/events/conjunction.png",
+            primaryAction: "https://calendar.google.com/calendar/r/eventedit?text=Jupiter+and+Saturn+Conjunction&dates=20261221T184500/20261221T193000&details=Watch+Jupiter+and+Saturn+Conjunction&location=Western+Horizon",
+            secondaryAction: null
           },
           {
             day: 28,
-            icon: "🌕",
-            type: "moon",
-            title: "Full Moon",
-            time: "All Night",
-            description: "The moon is fully illuminated from Earth's perspective.",
-            moonPhase: "Moon: 100% (Full Moon)"
+            icon: "🛰️",
+            type: "man-made",
+            title: "International Space Station",
+            description: "Bright pass of the ISS. Visible for 6 minutes.",
+            time: "Start: 20:42 | Duration: 6 min",
+            location: "Visible over Mumbai, NY",
+            tag: "MAN-MADE",
+            buttonText: "Track Live",
+            image: "/events/iss.jpg",
+            primaryAction: "https://spotthestation.nasa.gov/tracking_map.cfm",
+            secondaryAction: null
           }
         ];
 
@@ -185,29 +225,68 @@ export const useEventsData = (currentMonth, currentYear, location = "Mumbai, Ind
         setCalendarEvents(calEvents);
       } catch (err) {
         console.error("Error fetching NASA data:", err);
-        // Fallback (same location-aware logic)
-        const localEvents = [];
-        const locLower = location.toLowerCase();
-
-        if (locLower.includes("mumbai") || locLower.includes("india")) {
-          localEvents.push({
-            day: 12,
+        // Fallback to sample events with full data
+        const fallbackEvents = [
+          {
+            day: 5,
+            icon: "🌠",
+            type: "meteor",
+            title: "Perseids Meteor Shower Peak",
+            description: "The most popular meteor shower of the year is peaking tonight. Expect up to 100 meteors per hour in dark sky areas.",
+            time: "Peak: 02:00 AM - 04:30 AM",
+            location: "Radiant: Constellation Perseus",
+            tag: "METEOR SHOWER",
+            buttonText: "Set Reminder",
+            secondaryButtonText: "View Guide",
+            image: "/events/meteor-shower.png",
+            primaryAction: "https://calendar.google.com/calendar/r/eventedit?text=Perseids+Meteor+Shower&dates=20260812T200000Z/20260813T040000Z&details=Watch+the+Perseids+Meteor+Shower!&location=Dark+Sky+Area",
+            secondaryAction: "https://solarsystem.nasa.gov/asteroids-comets-and-meteors/meteors-and-meteorites/perseids/in-depth/"
+          },
+          {
+            day: 15,
+            icon: "🌑",
+            type: "eclipse",
+            title: "Annular Solar Eclipse",
+            description: "An annular solar eclipse occurs when the Moon passes between the Sun and Earth while it is at its farthest point from Earth.",
+            time: "Western Hemisphere Visibility",
+            tag: "ECLIPSE",
+            buttonText: "Details",
+            secondaryButtonText: "View Path Map",
+            image: "/events/solar-eclipse.png",
+            warning: "Requires certified solar viewing glasses. Do not look directly at the sun.",
+            primaryAction: "https://solarsystem.nasa.gov/eclipses/future-eclipses/eclipse-2023-oct-14/",
+            secondaryAction: "https://svs.gsfc.nasa.gov/5073"
+          },
+          {
+            day: 21,
+            icon: "🪐",
+            type: "conjunction",
+            title: "Jupiter & Saturn Conjunction",
+            description: "A rare great conjunction of the gas giants. Visible low on the western horizon just after sunset.",
+            time: "Best viewed: 18:45 - 19:30",
+            location: "Low on Western Horizon",
+            tag: "PLANETARY",
+            buttonText: "Add to Calendar",
+            image: "/events/conjunction.png",
+            primaryAction: "https://calendar.google.com/calendar/r/eventedit?text=Jupiter+and+Saturn+Conjunction&dates=20261221T184500/20261221T193000&details=Watch+Jupiter+and+Saturn+Conjunction&location=Western+Horizon",
+            secondaryAction: null
+          },
+          {
+            day: 28,
             icon: "🛰️",
-            type: "iss",
-            title: "Bright ISS Pass (Mumbai)",
-            time: "7:15 PM - 7:22 PM",
-            visibility: 5,
-            visibilityText: "Perfect Visibility (Overhead)",
-            description: "The International Space Station will pass directly over Mumbai."
-          });
-        }
-
-        const globalRaw = [
-          { day: 5, icon: "🌠", type: "meteor", title: "Geminids Meteor Shower", time: "9:00 PM", description: "Peak night." },
-          { day: 28, icon: "🌕", type: "moon", title: "Full Moon", time: "All Night", description: "Brightest of the month." }
+            type: "man-made",
+            title: "International Space Station",
+            description: "Bright pass of the ISS. Visible for 6 minutes.",
+            time: "Start: 20:42 | Duration: 6 min",
+            location: "Visible over Mumbai, NY",
+            tag: "MAN-MADE",
+            buttonText: "Track Live",
+            image: "/events/iss.jpg",
+            primaryAction: "https://spotthestation.nasa.gov/tracking_map.cfm",
+            secondaryAction: null
+          }
         ];
 
-        const fallbackEvents = [...localEvents, ...globalRaw.map(e => ({ ...e, ...getVisibilityForLocation(e, location) }))];
         setAllEventsData(fallbackEvents);
 
         const calEvents = fallbackEvents.map(e => ({

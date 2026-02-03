@@ -4,6 +4,7 @@ import LocationSelector from "../components/Events/LocationSelector";
 import EventsCalendar from "../components/Events/EventsCalendar";
 import SelectedDayDetails from "../components/Events/SelectedDayDetails";
 import EventsActions from "../components/Events/EventsActions";
+import EventsList from "../components/Events/EventsList";
 import { useEventsData } from "../components/Events/useEventsData";
 import { useSelectedEvent } from "../components/Events/useSelectedEvent";
 import "../components/Events/EventsPageContainer.css";
@@ -87,11 +88,64 @@ function Eventspage() {
     setSelectedDay(day);
   };
 
+  // Filter Logic
+  const getFilteredEvents = () => {
+    if (activeFilters.length === 0 || activeFilters.includes("ALL")) {
+      return allEventsData;
+    }
+
+    return allEventsData.filter(event => {
+      // Check if event matches at least one active filter
+      return activeFilters.some(filter => {
+        switch (filter) {
+          case "METEOR SHOWERS":
+            return event.type === "meteor";
+          case "ECLIPSES":
+            return event.type === "eclipse";
+          case "ISS PASSES":
+            return event.type === "man-made" || event.type === "iss";
+          case "PLANETARY":
+            return event.type === "conjunction" || event.type === "moon" || event.type === "planet";
+          case "AURORA":
+            return event.type === "aurora";
+          case "TONIGHT":
+            // Simple check matches current selected day or today
+            return event.day === selectedDay;
+          case "THIS WEEK":
+            // Simplified week check: event day is within 7 days of selected day
+            return event.day >= selectedDay && event.day <= selectedDay + 7;
+          default:
+            return false;
+        }
+      });
+    });
+  };
+
+  const filteredEventsForList = getFilteredEvents().filter(e => e.description); // Ensure only rich events are shown in list
+
   const handleFilterChange = (filter) => {
-    if (activeFilters.includes(filter)) {
-      setActiveFilters(activeFilters.filter(f => f !== filter));
+    if (filter === "ALL") {
+      setActiveFilters(["ALL"]);
     } else {
-      setActiveFilters([...activeFilters, filter]);
+      let newFilters = [...activeFilters];
+      if (newFilters.includes("ALL")) {
+        newFilters = [];
+      }
+
+      if (newFilters.includes(filter)) {
+        newFilters = newFilters.filter(f => f !== filter);
+      } else {
+        newFilters.push(filter);
+      }
+
+      // If no filters left, default to empty (which implies ALL logic if we want, or explicit "ALL")
+      // But typically empty means showing everything or nothing? 
+      // Let's say empty means "ALL" visually but effectively we handle it in getFilteredEvents
+      if (newFilters.length === 0) {
+        newFilters = ["ALL"];
+      }
+
+      setActiveFilters(newFilters);
     }
   };
 
@@ -153,6 +207,7 @@ function Eventspage() {
           />
         </div>
 
+        <EventsList events={filteredEventsForList} />
         <EventsActions />
       </div>
     </div>
