@@ -1,4 +1,5 @@
 import { createContext, useContext, useState, useEffect } from 'react';
+import { getRankName, getNextRankName } from '../utils/rankUtils';
 
 const AuthContext = createContext();
 
@@ -158,6 +159,8 @@ export const AuthProvider = ({ children }) => {
     getAllUsers,
     getLeaderboard,
     isAuthenticated: !!user,
+    getRankName,
+    getNextRankName,
     updateUserStats: (points) => {
       if (!user) return;
 

@@ -172,15 +172,19 @@ const UpcomingEvents = ({ events = MOCK_EVENTS }) => {
                     </div>
                     <h4 className="event-title">{event.title}</h4>
                     <div className="event-meta">
-                      <span className="event-location">{event.location}</span>
+                      <span className="event-location">📍 {event.location}</span>
                     </div>
                   </div>
 
                   <div className="event-actions">
-                    <button className="event-btn secondary">
+                    <button className="premium-btn event-btn secondary" onClick={() => navigate("/live-map")}>
+                      <span className="shimmer-effect"></span>
+                      <span className="scan-line"></span>
                       View Map
                     </button>
-                    <button className="event-btn primary">
+                    <button className="premium-btn event-btn primary">
+                      <span className="shimmer-effect"></span>
+                      <span className="scan-line"></span>
                       Interactive
                     </button>
                   </div>

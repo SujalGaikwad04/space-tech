@@ -54,7 +54,9 @@ export default function HeroSection() {
                 onChange={(e) => setCity(e.target.value)}
                 className="hero-input"
               />
-              <button className="hero-search-btn">
+              <button className="premium-btn hero-search-btn">
+                <span className="shimmer-effect"></span>
+                <span className="scan-line"></span>
                 🔍 Find Events
               </button>
             </div>

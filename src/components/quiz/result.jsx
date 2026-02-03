@@ -4,30 +4,40 @@ const Result = ({ userAnswers, questions, resetQuiz = () => { } }) => {
   const correctAnswers = userAnswers.filter((answer) => answer).length;
 
   return (
-    <div className="results">
-      <h2>Results</h2>
-      <p>
-        You answered {correctAnswers} out of {questions.length} questions.
-        <br />
-        <strong>You earned {correctAnswers * 2} XP!</strong>
-        <br />
-        <span onClick={resetQuiz} style={{ cursor: "pointer", textDecoration: "underline" }}>Click here to Retry</span>
+    <div className="results-card">
+      <h2>Mission Report</h2>
+      <p className="stu-lower">
+        You answered {correctAnswers} out of {questions.length} questions correctly.
       </p>
-      <ul>
+
+      <div className="xp-badge">
+        🚀 +{correctAnswers * 2} XP Gained
+      </div>
+
+      <ul className="results-list">
         {questions.map((question, index) => {
+          const isCorrect = userAnswers[index];
           return (
-            <li key={index} data-correct={userAnswers[index]}>
-              Q{index + 1}. {question.question}
-              <b>
-                {userAnswers[index]
-                  ? ""
-                  : `- ${question.answerOptions.find((ans) => ans.isCorrect).text
-                  }`}
-              </b>
+            <li
+              key={index}
+              className={`result-item ${isCorrect ? 'correct' : 'wrong'}`}
+            >
+              <div style={{ fontWeight: '700', marginBottom: '5px' }}>
+                Q{index + 1}. {question.question}
+              </div>
+              <div style={{ opacity: 0.8, fontSize: '0.9em' }}>
+                {isCorrect
+                  ? "✓ Correct Mission Data"
+                  : `✗ Error: Correct answer was "${question.answerOptions.find((ans) => ans.isCorrect).text}"`}
+              </div>
             </li>
           );
         })}
       </ul>
+
+      <button className="retry-btn" onClick={resetQuiz}>
+        Launch Another Mission
+      </button>
     </div>
   );
 };

@@ -24,7 +24,11 @@ const ExploreFeatures = () => {
           <div className="card-content">
             <h3>VISIBILITY MAP</h3>
             <p>Check if you can see celestial events from your city</p>
-            <button className="card-link" onClick={() => navigate("/live-map")} style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0, font: 'inherit', color: 'inherit' }}> [ Try Now → ] </button>
+            <button className="premium-btn card-link" onClick={() => navigate("/live-map")}>
+              <span className="shimmer-effect"></span>
+              <span className="scan-line"></span>
+              Try Now →
+            </button>
           </div>
         </div>
 
@@ -34,7 +38,11 @@ const ExploreFeatures = () => {
           <div className="card-content">
             <h3>MISSION TRACK</h3>
             <p>Follow current space missions in real-time</p>
-            <button className="card-link" onClick={() => navigate("/mission")} style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0, font: 'inherit', color: 'inherit' }}> [ Try Now → ] </button>
+            <button className="premium-btn card-link" onClick={() => navigate("/mission")}>
+              <span className="shimmer-effect"></span>
+              <span className="scan-line"></span>
+              Try Now →
+            </button>
           </div>
         </div>
 
@@ -44,7 +52,11 @@ const ExploreFeatures = () => {
           <div className="card-content">
             <h3>SATELLITE IMPACT</h3>
             <p>See how space technology solves Earth problems</p>
-           <button className="card-link" onClick={() => navigate("/blog/5")} style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0, font: 'inherit', color: 'inherit' }}> [ Try Now → ] </button>
+            <button className="premium-btn card-link" onClick={() => navigate("/blog/5")}>
+              <span className="shimmer-effect"></span>
+              <span className="scan-line"></span>
+              Try Now →
+            </button>
           </div>
         </div>
       </div>

@@ -78,7 +78,7 @@ export const blogData = [
   {
     id: 6,
     category: "Space Facts",
-    image: "kalua.avif",
+    image: "blak.avif",
     title: "The Mysteries of Black Holes",
     description: "Exploring the most enigmatic objects in the universe.",
     date: "28/01/2026",
@@ -94,7 +94,7 @@ export const blogData = [
   {
     id: 7,
     category: "Science",
-    image: "hawking.webp",
+    image: "hawk.jpg",
     title: "Understanding Hawking Radiation",
     description: "Stephen Hawking's ground-breaking theory on black hole thermodynamics.",
     date: "30/01/2026",
@@ -108,7 +108,21 @@ export const blogData = [
   {
     id: 8,
     category: "Cosmology",
-    image: "dark.webp",
+    image: "matter.jpg",
+    title: "The Search for Dark Matter",
+    description: "The invisible substance that holds galaxies together.",
+    date: "01/02/2026",
+    authName: "SpaceTech Team",
+    content: `
+      <p>Dark matter is a hypothetical form of matter that appears to not interact with light or the electromagnetic field. It is implied by gravitational effects on visible matter, such as stars and galaxies.</p>
+      <h3>The Missing Mass</h3>
+      <p>Calculations show that many galaxies would fly apart, or that they would not have formed or would not move as they do, if they did not contain a large amount of unseen matter.</p>
+    `
+  },
+  {
+    id: 8,
+    category: "Cosmology",
+    image: "matter.jpg",
     title: "The Search for Dark Matter",
     description: "The invisible substance that holds galaxies together.",
     date: "01/02/2026",

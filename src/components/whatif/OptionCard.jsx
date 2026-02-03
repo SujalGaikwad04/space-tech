@@ -1,5 +1,7 @@
+/* eslint-disable react/prop-types */
+
 function OptionCard({ data, active, disabled, onClick }) {
-  let className = "whatif-option";
+  let className = "whatif-option-card";
 
   if (active && data.correct) className += " correct";
   if (active && !data.correct) className += " wrong";
@@ -9,13 +11,14 @@ function OptionCard({ data, active, disabled, onClick }) {
     <div
       className={className}
       onClick={!disabled ? onClick : null}
+      style={{ cursor: disabled ? 'default' : 'pointer' }}
     >
-      <div className="whatif-option-text">
+      <div className="option-main-text">
         {data.text}
       </div>
 
       {active && (
-        <div className="whatif-explanation">
+        <div className="option-explanation">
           {data.explanation}
         </div>
       )}

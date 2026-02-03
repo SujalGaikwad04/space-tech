@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { useState } from "react";
 import OptionCard from "./OptionCard";
 
@@ -5,22 +6,12 @@ function Scenario({ scenario, onResult }) {
   const [selected, setSelected] = useState(null);
 
   return (
-    <>
-      {/* Header */}
-      <div className="whatif-header">
-        <div className="icon-circle"></div>
-        <h1 className="whatif-title">
-          <span>Test</span> Your Knowledge
-        </h1>
-      </div>
-
-      {/* Question */}
-      <div className="whatif-question-box">
+    <div className="scenario-card">
+      <h2 className="scenario-question">
         {scenario.question}
-      </div>
+      </h2>
 
-      {/* Options */}
-      <div className="whatif-options">
+      <div className="whatif-options-list">
         {scenario.options.map((opt, i) => (
           <OptionCard
             key={i}
@@ -36,7 +27,7 @@ function Scenario({ scenario, onResult }) {
           />
         ))}
       </div>
-    </>
+    </div>
   );
 }
 

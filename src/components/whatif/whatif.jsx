@@ -82,26 +82,52 @@ Rules:
       setScenario(parsed);
     } catch (error) {
       console.error("WhatIf fetch error:", error);
+      // Fallback scenario
+      setScenario({
+        question: "What would happen if Earth stopped rotating suddenly?",
+        options: [
+          { text: "Atmosphere would continue moving at 1000mph", correct: true, explanation: "The earth's rotation keeps the atmosphere in motion; a sudden stop would send everything flying east." },
+          { text: "Gravity would disappear", correct: false, explanation: "Gravity is caused by mass, not rotation." },
+          { text: "The moon would crash into us", correct: false, explanation: "The moon's orbit is independent of Earth's rotation speed." }
+        ]
+      });
     } finally {
       setLoading(false);
     }
   };
 
   useEffect(() => {
-    fetchScenario();
+    fetchQuestions();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  return (
-    <div className="whatif-root">
-      <div className="whatif-card">
-        {loading && <div className="loader">Generating scenario...</div>}
+  const fetchQuestions = () => {
+    fetchScenario();
+  };
 
-        {!loading && scenario && (
+  return (
+    <div className="whatif-wrapper">
+      {/* Background stars gif */}
+      <img src="/stars.gif" className="bg-video" alt="Stars" />
+
+      <div className="whatif-container">
+        <h1 className="whatif-main-title">Cosmic What-If?</h1>
+
+        {loading ? (
+          <div className="whatif-loader">
+            <div className="spinner" style={{ margin: '0 auto' }}></div>
+            <div className="loader-text">Simulating Universe...</div>
+          </div>
+        ) : (
           <>
-            <Scenario scenario={scenario} onResult={handleScenarioResult} />
-            <button className="whatif-next-btn" onClick={fetchScenario}>
-              Try Another Scenario
-            </button>
+            {scenario && (
+              <>
+                <Scenario scenario={scenario} onResult={handleScenarioResult} />
+                <button className="whatif-btn" onClick={fetchScenario}>
+                  Explore New Scenario
+                </button>
+              </>
+            )}
           </>
         )}
       </div>

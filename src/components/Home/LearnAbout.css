@@ -1,152 +1,135 @@
 .learn-section {
-  max-width: 1400px;
-  margin: 40px auto 60px;
-  padding: 0 20px;
-  font-family: 'Segoe UI', sans-serif;
+  max-width: 1540px;
+  margin: 60px auto;
+  padding: 0 40px;
 }
 
 .learn-content-box {
-  background: var(--card-bg);
-  border: 2px solid var(--border-color-subtle);
-  border-radius: 12px;
-  padding: 2rem;
-  box-shadow: 0 0 40px var(--shadow);
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: 24px;
+  padding: 4rem;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(25px);
   position: relative;
-  backdrop-filter: blur(10px);
-  transition: var(--transition);
 }
-
 
 .learn-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 1.25rem;
-  margin-top: 2rem;
+  gap: 24px;
+  margin-top: 3rem;
 }
 
 .learn-card {
-  background: var(--card-bg);
-  border: 1px solid var(--border-color-subtle);
-  border-radius: 10px;
-  padding: 1.25rem;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--glass-border);
+  border-radius: 16px;
+  padding: 30px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  transition: var(--transition);
+  transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
   cursor: pointer;
+  height: 140px;
+  /* Uniform height */
 }
 
 .learn-card:hover {
-  background: var(--accent-primary-light);
+  background: rgba(0, 217, 255, 0.05);
   border-color: var(--accent-primary);
-  transform: translateY(-5px);
-  box-shadow: 0 8px 25px var(--shadow);
+  transform: translateY(-8px);
+  box-shadow: 0 15px 35px rgba(0, 217, 255, 0.1);
 }
 
 .learn-content h3 {
+  font-family: 'Rajdhani', sans-serif;
   color: var(--accent-primary);
-  font-size: 0.85rem;
-  margin: 0 0 0.35rem 0;
-  letter-spacing: 1px;
+  font-size: 1.4rem;
+  margin-bottom: 8px;
+  letter-spacing: 2px;
   font-weight: 700;
-  transition: var(--transition);
+  text-transform: uppercase;
 }
 
 .learn-content p {
   color: var(--text-secondary);
-  font-size: 0.85rem;
+  font-size: 1.2rem;
   margin: 0;
   line-height: 1.4;
-  transition: var(--transition);
+  font-weight: 500;
 }
 
 .learn-icon {
-  width: 48px;
-  height: 48px;
-  background-color: var(--accent-primary-light);
-  border: 1px solid var(--border-color-subtle);
-  border-radius: 8px;
+  width: 64px;
+  height: 64px;
+  background: rgba(0, 217, 255, 0.05);
+  border: 1px solid var(--glass-border);
+  border-radius: 12px;
   flex-shrink: 0;
-  margin-left: 1rem;
+  margin-left: 2rem;
   position: relative;
   transition: var(--transition);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .learn-card:hover .learn-icon {
-  background-color: var(--accent-hover);
-  border-color: var(--accent-primary);
-  transform: scale(1.1);
+  background-color: var(--accent-primary);
+  color: #000;
+  transform: rotate(10deg) scale(1.1);
+  box-shadow: 0 0 20px var(--glow-color);
 }
 
-/* Pseudo-icons */
+/* Pseudo-icons styling */
+.learn-icon::before {
+  font-size: 32px;
+  transition: var(--transition);
+}
+
+.learn-card:hover .learn-icon::before {
+  filter: brightness(0);
+  /* Make emoji black when bg is cyan */
+}
+
 .student-icon::before {
   content: '🎓';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-size: 20px;
 }
 
 .enthusiast-icon::before {
   content: '🔭';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-size: 20px;
 }
 
 .educator-icon::before {
   content: '📚';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-size: 20px;
 }
 
 .quiz-icon::before {
   content: '📝';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-size: 20px;
 }
 
-@media (max-width: 1024px) {
-  .learn-section {
-    padding: 0 1.5rem;
-  }
-
+@media (max-width: 1200px) {
   .learn-grid {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
-@media (max-width: 600px) {
-  .learn-grid {
-    grid-template-columns: 1fr;
-  }
-}
-
-@media (max-width: 480px) {
+@media (max-width: 768px) {
   .learn-section {
-    padding: 0 1rem;
-    margin: 30px auto 40px;
+    padding: 0 20px;
   }
 
   .learn-content-box {
-    padding: 1.25rem;
+    padding: 2.5rem;
+  }
+
+  .learn-grid {
+    grid-template-columns: 1fr;
   }
 
   .learn-card {
-    padding: 1rem;
-  }
-
-  .learn-icon {
-    width: 40px;
-    height: 40px;
+    height: auto;
+    padding: 25px;
   }
 }

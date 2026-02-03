@@ -155,8 +155,8 @@ export default function Auth() {
                 <span className="stat-label">Total XP</span>
               </div>
               <div className="stat-item">
-                <span className="stat-value">Level {user.level}</span>
-                <span className="stat-label">Current Level</span>
+                <span className="stat-value" style={{ fontSize: '1.6rem' }}>{useAuth().getRankName(user.level)}</span>
+                <span className="stat-label">Current Rank</span>
               </div>
             </div>
 

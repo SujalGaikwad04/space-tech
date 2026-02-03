@@ -1,272 +1,258 @@
 import "./learn.css";
-import Quiz from "../quiz/quiz";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import { useBlog } from "../../context/BlogContext";
-
-// whatif data trial
-const scenarios = [
-  {
-    id: "moon",
-    icon: "🌙",
-    title: "What if the Moon disappeared?",
-    description:
-      "Earth’s tilt would become unstable, causing extreme climate shifts. Tides would shrink to one-third their size, and nights would become significantly darker across the planet."
-  },
-  {
-    id: "sun",
-    icon: "☀️",
-    title: "What if the Sun was twice as big?",
-    description:
-      "A much larger Sun would dramatically increase solar radiation. Earth’s oceans could evaporate, temperatures would soar, and life as we know it would likely not survive."
-  },
-  {
-    id: "atmosphere",
-    icon: "🌍",
-    title: "What if Earth had no atmosphere?",
-    description:
-      "Without an atmosphere, Earth would lose its ability to retain heat, protect against radiation, and support liquid water. The surface would resemble the Moon—barren and lifeless."
-  },
-  {
-    id: "gravity",
-    icon: "⚛️",
-    title: "What if gravity was 10x stronger?",
-    description:
-      "Stronger gravity would crush most life forms. Humans could barely move, buildings would collapse under their own weight, and Earth’s structure would dramatically change."
-  }
-];
-// whatif data trial ended
+import RankProgressionModal from "./RankProgressionModal";
 
 function Learn() {
-  const { user, isAuthenticated, getLeaderboard } = useAuth();
+  const { user, isAuthenticated, getLeaderboard, getRankName, getNextRankName } = useAuth();
   const { blogs } = useBlog();
-
-  // what if logic start
-  const [activeScenario, setActiveScenario] = useState(scenarios[0]);
   const navigate = useNavigate();
 
-  // Get leaderboard data
-  const [leaderboardData, setLeaderboardData] = useState([]);
+  // Rank modal state
+  const [isRankModalOpen, setIsRankModalOpen] = useState(false);
 
-  // Update leaderboard when component mounts or user changes
+  // Leaderboard logic
+  const [leaderboardData, setLeaderboardData] = useState([]);
   useEffect(() => {
     setLeaderboardData(getLeaderboard(10));
-  }, [user]);
+  }, [user, getLeaderboard]);
 
-  // Calculate user's rank
   const getUserRank = () => {
     if (!isAuthenticated || !user) return 0;
-
-    // Get full leaderboard (all users)
-    const fullLeaderboard = getLeaderboard(1000); // Get all users
+    const fullLeaderboard = getLeaderboard(1000);
     const userRank = fullLeaderboard.findIndex(
       player => player.username === user.username
     );
-
-    return userRank !== -1 ? userRank + 1 : 0; // +1 because index is 0-based
+    return userRank !== -1 ? userRank + 1 : 0;
   };
-  //  what if endedd
 
-  // blog logic start
+  // Blog logic
   const [activeFilter, setActiveFilter] = useState("All");
+  const [searchQuery, setSearchQuery] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 9;
 
-  const filteredNews =
-    activeFilter === "All"
-      ? (blogs || []) // Safety check
-      : (blogs || []).filter(item => item.category === activeFilter);
-  //  blog section ended
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [activeFilter, searchQuery]);
+
+  const filteredNews = (blogs || []).filter(item => {
+    const matchesFilter = activeFilter === "All" || item.category === activeFilter;
+    const matchesSearch = item.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      item.description.toLowerCase().includes(searchQuery.toLowerCase());
+    return matchesFilter && matchesSearch;
+  });
+
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = filteredNews.slice(indexOfFirstItem, indexOfLastItem);
+  const totalPages = Math.ceil(filteredNews.length / itemsPerPage);
+
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   return (
-    <>
-      {/* fixed background  */}
-      <img src="stars.gif" className="bg-video" alt="stars" />
-      {/* fix background ended */}
+    <div className="learn-page-wrapper">
+      {/* Fixed background gif */}
+      <img src="stars.gif" className="bg-video" alt="Starry Cosmos" />
 
-      {/* stats showcase section */}
+      {/* Hero & Stats Section */}
       <section className="stu-sec">
-        <h1 className="headers">Welcome back, {isAuthenticated ? user.username : "Guest"}!</h1>
-        <span className="stu-lower">
-          Keep up the great work! You're on a {isAuthenticated ? user.learningStreak : 0}-day learning streak.
-        </span>
+        <h1 className="headers">
+          {isAuthenticated ? `Welcome back, ${user.username}!` : "Welcome, Explorer!"}
+        </h1>
+        <p className="stu-lower">
+          {isAuthenticated
+            ? `You've maintained a ${user.learningStreak || 0}-day learning streak! The cosmos awaits your next discovery.`
+            : "Embark on a journey through the stars. Start learning to earn XP and climb the leaderboard."}
+        </p>
 
         <div className="box-container-2">
           <div className="boxy">
-            <div className="svgs" style={{
-              fontSize: '40px',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              background: 'linear-gradient(135deg, #FFD700, #FFA500)',
-              borderRadius: '12px'
-            }}>
-              🏆
-            </div>
+            <span className="svgs">🏆</span>
             <h1 className="titles">
-              {isAuthenticated ? (getUserRank() > 0 ? `#${getUserRank()}` : 'N/A') : 'N/A'}
+              {isAuthenticated ? (getUserRank() > 0 ? `#${getUserRank()}` : 'N/A') : '--'}
             </h1>
-            <span className="titles-info">Your Rank</span>
+            <span className="titles-info">Global Rank</span>
           </div>
 
           <div className="boxy">
-            <img src="" alt="" className="svgs" />
+            <span className="svgs">⚡</span>
             <h1 className="titles">{isAuthenticated ? user.totalXP || 0 : 0}</h1>
             <span className="titles-info">Total XP</span>
           </div>
 
-          <div className="boxy">
-            <img src="" alt="" className="svgs" />
-            <h1 className="titles">Level {isAuthenticated ? user.level || 1 : 1}</h1>
-            <span className="titles-info">Current Level</span>
+          <div className="boxy" onClick={() => setIsRankModalOpen(true)} style={{ cursor: 'pointer' }}>
+            <span className="svgs">🚀</span>
+            <h1 className="titles" style={{ fontSize: '1.8rem' }}>{isAuthenticated ? getRankName(user.level) : getRankName(1)}</h1>
+            <span className="titles-info">Rank (Click to View)</span>
           </div>
 
           <div className="boxy">
-            <img src="" alt="" className="svgs" />
-            <h1 className="titles">{isAuthenticated ? Math.min((user.totalXP || 0) % 50 * 2, 100) : 0}%</h1>
+            <span className="svgs">🎯</span>
+            <h1 className="titles">
+              {isAuthenticated ? `${Math.min((user.totalXP || 0) % 50 * 2, 100)}%` : '0%'}
+            </h1>
             <span className="titles-info">Level Progress</span>
           </div>
         </div>
       </section>
-      {/* stats showcase section ended */}
 
-      {/* new cards started */}
+      {/* Dashboard Section */}
       <div className="app-bg">
         <div className="dashboard">
 
-          {/* Left Card */}
+          {/* Card 1: Knowledge Hub */}
           <div className="card learning-card">
-            <h3 className="card-title">Learning Events</h3>
+            <h3 className="card-title">Knowledge Hub</h3>
             <p className="card-subtitle">
-              Test your knowledge and explore scenarios
+              Challenge yourself with cosmic quizzes or explore fascinating "What If" scenarios.
             </p>
 
-            <button className="primary-btn"
-              onClick={() => navigate("/quiz")} >
-              📘 Take Quiz
-            </button>
+            <div className="mascot-container">
+              <img src="banda.gif" alt="Study Companion" className="mascot-gif" />
+            </div>
 
-            <button className="secondary-btn"
-              onClick={() => navigate("/whatif")}>
-              💡 What If Scenarios
-            </button>
+            <div style={{ marginTop: 'auto' }}>
+              <button className="primary-btn" onClick={() => navigate("/quiz")}>
+                <span>📘</span> Take the Quiz
+              </button>
+              <button className="secondary-btn" onClick={() => navigate("/whatif")}>
+                <span>💡</span> Explore Scenarios
+              </button>
+            </div>
           </div>
 
-          {/* Middle Card */}
+          {/* Card 2: Interstellar Drive */}
           <div className="card space-card" onClick={() => navigate('/solar-system')} style={{ cursor: 'pointer' }}>
-            <h3 className="card-title">3D Space Drive</h3>
-            <p className="card-subtitle">Explore cosmic information</p>
+            <h3 className="card-title">Cosmic Explorer</h3>
+            <p className="card-subtitle">Dive into the 3D Solar System and discover planetary secrets.</p>
 
-            <div className="space-visual">
-              🚀
-            </div>
+            <div className="space-visual">🛸</div>
 
             <div className="stats">
               <div className="stat-row">
-                <span>Event</span>
-                <span>Solar system</span>
+                <span>Destination</span>
+                <span>Solar System</span>
               </div>
               <div className="stat-row">
-                <span>mission complete</span>
-                <span>0</span>
-              </div>
-              <div className="stat-row">
-                <span>xp earn</span>
-                <span>0</span>
+                <span>System Status</span>
+                <span>Fully Operational</span>
               </div>
             </div>
           </div>
 
-          {/* Right Card */}
+          {/* Card 3: Hall of Fame */}
           <div className="card leaderboard-card">
-            <h3 className="card-title">🏆 Leaderboard</h3>
-            <p className="card-subtitle">Top space explorers</p>
+            <h3 className="card-title">Hall of Fame</h3>
+            <p className="card-subtitle">Compete with the top space explorers across the galaxy.</p>
 
-            {leaderboardData.length > 0 ? (
-              <>
-                {leaderboardData.slice(0, 5).map((player, index) => {
+            <div className="leaderboard-mini-list">
+              {leaderboardData.length > 0 ? (
+                leaderboardData.slice(0, 4).map((player, index) => {
                   const isCurrentUser = user && player.username === user.username;
                   const medal = index === 0 ? '🥇' : index === 1 ? '🥈' : index === 2 ? '🥉' : `#${index + 1}`;
-
                   return (
-                    <div
-                      key={player.id || player.username}
-                      className={`leader ${index > 2 ? 'muted' : ''} ${isCurrentUser ? 'current-user' : ''}`}
-                    >
-                      <span>{medal} {player.username || player.fullName}</span>
-                      <span>
-                        Lvl {player.level || 1} • {player.totalXP || 0} XP
-                      </span>
+                    <div key={player.username} className={`leader ${isCurrentUser ? 'current-user' : ''}`}>
+                      <span>{medal} {player.username}</span>
+                      <span>{getRankName(player.level)} • {player.totalXP || 0} XP</span>
                     </div>
                   );
-                })}
-              </>
-            ) : (
-              <div className="leader muted">
-                <span>No users yet</span>
-                <span>Be the first!</span>
-              </div>
-            )}
+                })
+              ) : (
+                <div className="leader"><span>Initializing...</span></div>
+              )}
+            </div>
 
-            {leaderboardData.length > 5 && (
-              <button className="outline-btn" onClick={() => navigate('/leaderboard')}>
-                View Full Leaderboard
-              </button>
-            )}
+            <button className="outline-btn" onClick={() => navigate('/leaderboard')}>
+              View All Rankings
+            </button>
           </div>
-
         </div>
       </div>
 
-      {/* blog section started*/}
+      {/* News & Stories Section */}
       <section className="news-page">
-        {/* Header */}
         <header className="news-header">
-          <div className="icon">📘</div>
-          <h1>Space News & Stories</h1>
-          <p>Latest updates from the cosmos</p>
+          <h1 className="headers">Space Stories</h1>
+          <p className="stu-lower" style={{ marginBottom: '1.5rem', top: 0, left: 0, position: 'relative' }}>
+            The latest transmissions and discoveries from across the cosmos.
+          </p>
 
-          {/* Filter Buttons */}
+          <div className="search-container">
+            <span className="search-icon">🔍</span>
+            <input
+              type="text"
+              placeholder="Search cosmic transmissions..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="search-input"
+            />
+          </div>
+
           <div className="filter-bar">
-            {["All", "Mission Updates", "Space Facts", "Technology", "Science", "Cosmology", "Community", "Theory", "Observation", "Question"].slice(0, 6).map(
-              (filter) => (
-                <button
-                  key={filter}
-                  className={`filter-btn ${activeFilter === filter ? "active" : ""
-                    }`}
-                  onClick={() => setActiveFilter(filter)}
-                >
-                  {filter}
-                </button>
-              )
-            )}
+            {["All", "Mission Updates", "Space Facts", "Technology", "Science", "Cosmology"].map(filter => (
+              <button
+                key={filter}
+                className={`filter-btn ${activeFilter === filter ? "active" : ""}`}
+                onClick={() => setActiveFilter(filter)}
+              >
+                {filter}
+              </button>
+            ))}
             <button
-              className="filter-btn create-blog-btn"
+              className="filter-btn"
               onClick={() => navigate("/create-blog")}
-              style={{ background: 'linear-gradient(90deg, #00d2ff, #3a7bd5)', border: 'none', color: 'white' }}
+              style={{ background: 'var(--accent-primary)', color: '#000', fontWeight: 'bold' }}
             >
-              + Write a Blog
+              + Transmit Story
             </button>
           </div>
         </header>
 
-        {/* Cards Grid */}
         <div className="card-grid">
-          {filteredNews.map((item) => (
+          {currentItems.map((item) => (
             <article className="news-card" key={item.id}>
-              <img src={item.image} alt={item.title} />
+              <img src={item.image} alt={item.title} loading="lazy" />
               <div className="card-content">
-                <span className="tag">{item.category}</span>
-                <span className="date">{item.date} • {item.authName || "SpaceTech Team"}</span>
+                <div style={{ marginBottom: '10px' }}>
+                  <span className="tag">{item.category}</span>
+                  <span className="date">{item.date}</span>
+                </div>
                 <h3 className="line-clamp-2">{item.title}</h3>
                 <p className="line-clamp-3">{item.description}</p>
-                <button className="read-more-btn" onClick={() => navigate(`/blog/${item.id}`)}>Read More →</button>
+                <button className="read-more-btn" onClick={() => navigate(`/blog/${item.id}`)}>
+                  Read Transmission <span>→</span>
+                </button>
               </div>
             </article>
           ))}
         </div>
+
+        {totalPages > 1 && (
+          <div className="pagination-wrapper">
+            {Array.from({ length: totalPages }, (_, i) => (
+              <button
+                key={i + 1}
+                className={`page-btn ${currentPage === i + 1 ? "active" : ""}`}
+                onClick={() => paginate(i + 1)}
+              >
+                {i + 1}
+              </button>
+            ))}
+          </div>
+        )}
       </section>
-      {/* blog section ended */}
-    </>
+
+      {/* Rank Progression Modal */}
+      <RankProgressionModal
+        isOpen={isRankModalOpen}
+        onClose={() => setIsRankModalOpen(false)}
+        currentLevel={isAuthenticated ? user.level || 1 : 1}
+        currentXP={isAuthenticated ? user.totalXP || 0 : 0}
+      />
+    </div>
   );
 }
 

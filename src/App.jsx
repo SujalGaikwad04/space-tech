@@ -23,6 +23,7 @@ import SolarSystem from "./components/SolarSystem/SolarSystem";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
 import Auth from "./components/auth/user";
+import AiChat from "./components/AiChat/AiChat";
 
 /* Context */
 import { AuthProvider } from "./context/AuthContext";
@@ -54,6 +55,7 @@ function App() {
             <Route path="/solar-system" element={<SolarSystem />} />
           </Routes>
 
+          <AiChat />
           <Footer />
         </BrowserRouter>
       </BlogProvider>

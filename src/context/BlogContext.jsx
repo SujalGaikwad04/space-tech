@@ -17,13 +17,16 @@ export const BlogProvider = ({ children }) => {
         setBlogs(initialBlogData);
     }, []);
 
+    // Track user votes: { [blogId]: { [username]: 'like' | 'dislike' } }
+    const [userVotes, setUserVotes] = useState({});
+
     const addBlog = (newBlog) => {
         const blogWithId = {
             ...newBlog,
             id: blogs.length > 0 ? Math.max(...blogs.map(b => b.id)) + 1 : 1,
-            date: new Date().toLocaleDateString('en-GB'), // Format: DD/MM/YYYY
+            date: new Date().toLocaleDateString('en-GB'),
             likes: 0,
-            image: newBlog.image || 'default-space.jpg' // Fallback image
+            image: newBlog.image || 'default-space.jpg'
         };
         setBlogs([blogWithId, ...blogs]);
     };
@@ -46,22 +49,41 @@ export const BlogProvider = ({ children }) => {
         return comments[blogId] || [];
     };
 
-    const toggleLike = (blogId, type) => {
-        setLikes(prev => {
-            const currentLikes = prev[blogId] || { likeCount: 0, dislikeCount: 0 };
-            if (type === 'like') {
-                return {
-                    ...prev,
-                    [blogId]: { ...currentLikes, likeCount: currentLikes.likeCount + 1 }
-                };
-            } else if (type === 'dislike') {
-                return {
-                    ...prev,
-                    [blogId]: { ...currentLikes, dislikeCount: currentLikes.dislikeCount + 1 }
-                };
+    const toggleLike = (blogId, type, username) => {
+        if (!username) return;
+
+        setUserVotes(prevVotes => {
+            const blogVotes = prevVotes[blogId] || {};
+            const currentVote = blogVotes[username];
+
+            let newVote = type;
+            if (currentVote === type) {
+                // Clicking same button again removes the vote
+                newVote = null;
             }
-            return prev;
+
+            const newBlogVotes = { ...blogVotes, [username]: newVote };
+
+            // Recalculate counts based on all votes for this blog
+            const allUsernames = Object.keys(newBlogVotes);
+            const likeCount = allUsernames.filter(u => newBlogVotes[u] === 'like').length;
+            const dislikeCount = allUsernames.filter(u => newBlogVotes[u] === 'dislike').length;
+
+            setLikes(prevLikes => ({
+                ...prevLikes,
+                [blogId]: { likeCount, dislikeCount }
+            }));
+
+            return {
+                ...prevVotes,
+                [blogId]: newBlogVotes
+            };
         });
+    };
+
+    const getUserVote = (blogId, username) => {
+        if (!username || !userVotes[blogId]) return null;
+        return userVotes[blogId][username] || null;
     };
 
     const getBlogLikes = (blogId) => {
@@ -74,7 +96,8 @@ export const BlogProvider = ({ children }) => {
         addComment,
         getBlogComments,
         toggleLike,
-        getBlogLikes
+        getBlogLikes,
+        getUserVote
     };
 
     return (

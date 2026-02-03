@@ -8,7 +8,7 @@ import './BlogPost.css';
 const BlogPost = () => {
     const { id } = useParams();
     const navigate = useNavigate();
-    const { blogs, addComment, getBlogComments, toggleLike, getBlogLikes } = useBlog();
+    const { blogs, addComment, getBlogComments, toggleLike, getBlogLikes, getUserVote } = useBlog();
     const { user, isAuthenticated } = useAuth();
     const [post, setPost] = useState(null);
     const [newComment, setNewComment] = useState("");
@@ -17,6 +17,7 @@ const BlogPost = () => {
     // Get live data
     const comments = post ? getBlogComments(post.id) : [];
     const likesData = post ? getBlogLikes(post.id) : { likeCount: 0, dislikeCount: 0 };
+    const userVote = post && user ? getUserVote(post.id, user.username) : null;
 
     useEffect(() => {
         if (blogs.length > 0) {
@@ -44,8 +45,20 @@ const BlogPost = () => {
         setCommentError("");
     };
 
-    const handleLike = () => toggleLike(post.id, 'like');
-    const handleDislike = () => toggleLike(post.id, 'dislike');
+    const handleLike = () => {
+        if (!isAuthenticated) {
+            setCommentError("Please login to vote.");
+            return;
+        }
+        toggleLike(post.id, 'like', user.username);
+    };
+    const handleDislike = () => {
+        if (!isAuthenticated) {
+            setCommentError("Please login to vote.");
+            return;
+        }
+        toggleLike(post.id, 'dislike', user.username);
+    };
 
     if (!post) {
         return (
@@ -75,11 +88,17 @@ const BlogPost = () => {
 
                     <div className="blog-interactions">
                         <div className="vote-buttons">
-                            <button onClick={handleLike} className="vote-btn like-btn">
-                                👍 {likesData.likeCount}
+                            <button
+                                onClick={handleLike}
+                                className={`vote-btn like-btn ${userVote === 'like' ? 'active' : ''}`}
+                            >
+                                <span className="icon">👍</span> {likesData.likeCount}
                             </button>
-                            <button onClick={handleDislike} className="vote-btn dislike-btn">
-                                👎 {likesData.dislikeCount}
+                            <button
+                                onClick={handleDislike}
+                                className={`vote-btn dislike-btn ${userVote === 'dislike' ? 'active' : ''}`}
+                            >
+                                <span className="icon">👎</span> {likesData.dislikeCount}
                             </button>
                         </div>
                     </div>

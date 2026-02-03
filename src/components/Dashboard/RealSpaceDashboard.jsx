@@ -3,7 +3,7 @@ import { useAuth } from "../../context/AuthContext";
 import "./RealSpaceDashboard.css";
 
 const RealSpaceDashboard = () => {
-  const { user, isAuthenticated } = useAuth();
+  const { user, isAuthenticated, getRankName, getNextRankName } = useAuth();
   const [activeTab, setActiveTab] = useState("horizon");
 
   // Debug: Log user data
@@ -169,12 +169,12 @@ const RealSpaceDashboard = () => {
                 />
               </svg>
               <div className="rank-text">
-                <span className="rank-level">L{isAuthenticated ? user.level || 1 : 1}</span>
-                <span className="rank-label">STARGAZER</span>
+                <span className="rank-level" style={{ fontSize: '1.4rem' }}>{isAuthenticated ? getRankName(user.level) : getRankName(1)}</span>
+                <span className="rank-label">RANK</span>
               </div>
             </div>
 
-            <p className="rank-xp">{isAuthenticated ? (50 - ((user.totalXP || 0) % 50)) : 50} XP to next rank: <strong>Level {isAuthenticated ? (user.level || 1) + 1 : 2}</strong></p>
+            <p className="rank-xp">{isAuthenticated ? (50 - ((user.totalXP || 0) % 50)) : 50} XP to next rank: <strong>{isAuthenticated ? getNextRankName(user.level) : getNextRankName(1)}</strong></p>
 
             <div className="rank-badges">
               <button className="badge-btn">🌙</button>

@@ -1,13 +1,10 @@
 import { useEffect, useState } from "react";
-import "./Quiz.css";
+import "./quiz.css";
 import Question from "./question";
 import Result from "./result";
 import { useAuth } from "../../context/AuthContext";
 
 function Detailquiz() {
-
-
-
   const [questions, setQuestions] = useState([]);
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [userAnswers, setUserAnswers] = useState([]);
@@ -90,12 +87,30 @@ Rules:
 
       setQuestions([
         {
-          question: "What does HTML stand for?",
+          question: "Which galaxy is Earth located in?",
           answerOptions: [
-            { text: "Hyper Text Markup Language", isCorrect: true },
-            { text: "High Text Machine Language", isCorrect: false },
-            { text: "Hyperlinks Text Mark Language", isCorrect: false },
-            { text: "Home Tool Markup Language", isCorrect: false }
+            { text: "Milky Way", isCorrect: true },
+            { text: "Andromeda", isCorrect: false },
+            { text: "Sombrero", isCorrect: false },
+            { text: "Triangulum", isCorrect: false }
+          ]
+        },
+        {
+          question: "What is the largest planet in our solar system?",
+          answerOptions: [
+            { text: "Jupiter", isCorrect: true },
+            { text: "Saturn", isCorrect: false },
+            { text: "Neptune", isCorrect: false },
+            { text: "Earth", isCorrect: false }
+          ]
+        },
+        {
+          question: "Which of these is NOT a terrestrial planet?",
+          answerOptions: [
+            { text: "Neptune", isCorrect: true },
+            { text: "Mars", isCorrect: false },
+            { text: "Venus", isCorrect: false },
+            { text: "Mercury", isCorrect: false }
           ]
         }
       ]);
@@ -119,29 +134,38 @@ Rules:
     fetchQuestions();
   };
 
-  if (loading) return <h2>Loading questions...</h2>;
-
   return (
-    <div className="App">
-      <h1>World Quiz</h1>
+    <div className="quiz-wrapper">
+      {/* Background stars gif */}
+      <img src="/stars.gif" className="bg-video" alt="Stars" />
 
-      {currentQuestion < questions.length && (
-        <Question
-          question={questions[currentQuestion]}
-          onAnswerClick={handleNextQuestion}
-        />
-      )}
+      <div className="quiz-container">
+        <h1 className="quiz-header-title">Planetary Quiz</h1>
 
-      {currentQuestion === questions.length && (
-        <Result
-          userAnswers={userAnswers}
-          questions={questions}
-          resetQuiz={resetQuiz}
-        />
-      )}
+        {loading ? (
+          <div className="quiz-loader">
+            <div className="spinner"></div>
+            <p className="stu-lower">Analyzing Cosmic Data...</p>
+          </div>
+        ) : (
+          <>
+            {currentQuestion < questions.length && (
+              <Question
+                question={questions[currentQuestion]}
+                onAnswerClick={handleNextQuestion}
+              />
+            )}
 
-
-
+            {currentQuestion === questions.length && (
+              <Result
+                userAnswers={userAnswers}
+                questions={questions}
+                resetQuiz={resetQuiz}
+              />
+            )}
+          </>
+        )}
+      </div>
     </div>
   );
 }

@@ -3,8 +3,6 @@ import "./RealSpaceDashboard.css";
 import { useNavigate } from "react-router-dom";
 
 const RealSpaceDashboard = () => {
-  const [solar, setSolar] = useState(null);
-  const [satellites, setSatellites] = useState(null);
   const [astronauts, setAstronauts] = useState(null);
 
   useEffect(() => {
@@ -12,13 +10,9 @@ const RealSpaceDashboard = () => {
       .then(res => res.json())
       .then(data => setAstronauts(data))
       .catch(err => console.error(err));
-
-    setSatellites(4872);
-    setSolar("Low (last 24h)");
   }, []);
 
-   const navigate = useNavigate();
-  
+  const navigate = useNavigate();
 
   return (
     <section className="dashboard-section">
@@ -29,42 +23,62 @@ const RealSpaceDashboard = () => {
 
         <div className="dashboard-grid">
 
-          <div className="dashboard-card">
-            <div className="dash-content" onClick={() => navigate("/weather")} >
+          {/* SOLAR ACTIVITY */}
+          <div className="dashboard-card" onClick={() => navigate("/weather")}>
+            <div className="dash-content">
               <h3>SOLAR ACTIVITY</h3>
-              <p>Status: No Flares</p>
-              <p className="sub-text">min last 24h</p>
-              <button className="dash-btn">[ Details → ]</button>
+              <p className="highlight-text">No Flares</p>
+              <p className="sub-text">Status: Normal</p>
+              <button className="premium-btn dash-btn" onClick={(e) => { e.stopPropagation(); navigate("/weather"); }}>
+                <span className="shimmer-effect"></span>
+                <span className="scan-line"></span>
+                Details →
+              </button>
             </div>
             <div className="dash-visual solar-visual"></div>
           </div>
 
-          <div className="dashboard-card">
-            <div className="dash-content" onClick={() => navigate("/weather")}>
+          {/* EARTH ORBIT */}
+          <div className="dashboard-card" onClick={() => navigate("/weather")}>
+            <div className="dash-content">
               <h3>EARTH ORBIT</h3>
               <p className="highlight-text">1,234</p>
               <p className="sub-text">active satellites</p>
-              <button className="dash-btn">[ Track → ]</button>
+              <button className="premium-btn dash-btn" onClick={(e) => { e.stopPropagation(); navigate("/weather"); }}>
+                <span className="shimmer-effect"></span>
+                <span className="scan-line"></span>
+                Track →
+              </button>
             </div>
             <div className="dash-visual orbit-visual"></div>
           </div>
 
-          <div className="dashboard-card">
-            <div className="dash-content" onClick={() => navigate("/weather")}>
+          {/* SATELLITE TRAFFIC */}
+          <div className="dashboard-card" onClick={() => navigate("/weather")}>
+            <div className="dash-content">
               <h3>SATELLITE TRAFFIC</h3>
               <p className="highlight-text">4,872</p>
               <p className="sub-text">active objects</p>
-              <button className="dash-btn">[ View → ]</button>
+              <button className="premium-btn dash-btn" onClick={(e) => { e.stopPropagation(); navigate("/weather"); }}>
+                <span className="shimmer-effect"></span>
+                <span className="scan-line"></span>
+                View →
+              </button>
             </div>
             <div className="dash-visual traffic-visual"></div>
           </div>
 
-          <div className="dashboard-card">
-            <div className="dash-content"onClick={() => navigate("/weather")}>
+          {/* ASTRONAUTS */}
+          <div className="dashboard-card" onClick={() => navigate("/weather")}>
+            <div className="dash-content">
               <h3>ASTRONAUTS IN SPACE</h3>
-              <p className="highlight-text">{astronauts ? astronauts.number : 7}</p>
+              <p className="highlight-text">{astronauts ? astronauts.number : 12}</p>
               <p className="sub-text">on ISS</p>
-              <button className="dash-btn">[ Meet Crew → ]</button>
+              <button className="premium-btn dash-btn" onClick={(e) => { e.stopPropagation(); navigate("/weather"); }}>
+                <span className="shimmer-effect"></span>
+                <span className="scan-line"></span>
+                Meet Crew →
+              </button>
             </div>
             <div className="dash-visual astronaut-visual"></div>
           </div>
