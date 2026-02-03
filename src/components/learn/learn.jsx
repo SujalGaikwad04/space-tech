@@ -13,20 +13,27 @@ function Learn() {
   // Rank modal state
   const [isRankModalOpen, setIsRankModalOpen] = useState(false);
 
-  // Leaderboard logic
+  // Get leaderboard data
   const [leaderboardData, setLeaderboardData] = useState([]);
+  const [userRank, setUserRank] = useState(0);
   useEffect(() => {
-    setLeaderboardData(getLeaderboard(10));
-  }, [user, getLeaderboard]);
+    const fetchData = async () => {
+      const data = await getLeaderboard(10);
+      setLeaderboardData(data || []);
 
-  const getUserRank = () => {
-    if (!isAuthenticated || !user) return 0;
-    const fullLeaderboard = getLeaderboard(1000);
-    const userRank = fullLeaderboard.findIndex(
-      player => player.username === user.username
-    );
-    return userRank !== -1 ? userRank + 1 : 0;
-  };
+      if (isAuthenticated && user) {
+        // Get full leaderboard to find rank (simulated for now)
+        const fullList = await getLeaderboard(1000);
+        const rank = fullList.findIndex(player => player.username === user.username);
+        setUserRank(rank !== -1 ? rank + 1 : 0);
+      }
+    };
+
+    fetchData();
+  }, [user, isAuthenticated, getLeaderboard]);
+
+  // Calculate user's rank (now just returns state)
+  const getUserRank = () => userRank;
 
   // Blog logic
   const [activeFilter, setActiveFilter] = useState("All");

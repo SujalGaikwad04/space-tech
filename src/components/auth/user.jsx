@@ -34,18 +34,18 @@ export default function Auth() {
 
     // Check if username exists (for register mode)
     if (name === "username" && mode === "register" && value.length > 3) {
-      const exists = checkUsernameExists(value);
-      setShowPopup(exists);
+      checkUsernameExists(value).then(exists => setShowPopup(exists));
     } else if (name === "email" && mode === "login" && value.length > 0) {
       // Show popup for login mode
-      const exists = checkEmailExists(value) || checkUsernameExists(value);
-      setShowPopup(exists);
+      Promise.all([checkEmailExists(value), checkUsernameExists(value)]).then(([emailExists, userExists]) => {
+        setShowPopup(emailExists || userExists);
+      });
     } else if (value.length === 0) {
       setShowPopup(false);
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
     setSuccess("");
@@ -73,7 +73,7 @@ export default function Auth() {
       }
 
       // Attempt registration
-      const result = register({
+      const result = await register({
         fullName: formData.fullName,
         email: formData.email,
         username: formData.username,
@@ -97,7 +97,7 @@ export default function Auth() {
       }
 
       // Attempt login
-      const result = login(formData.email, formData.password);
+      const result = await login(formData.email, formData.password);
 
       if (result.success) {
         setSuccess("Login successful! Redirecting...");

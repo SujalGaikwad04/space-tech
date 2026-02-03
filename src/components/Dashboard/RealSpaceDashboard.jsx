@@ -84,7 +84,7 @@ const RealSpaceDashboard = () => {
   const currentDay = today.getDate();
 
   // Fetch real events from the same source as the Events page
-  const { allEventsData, loading } = useEventsData(currentMonth, currentYear);
+  const { allEventsData, loading } = useEventsData(currentMonth, currentYear, displayLocation);
 
   // Fetch real missions from the same source as the Missions page
   const { missions, loading: missionsLoading } = useMissionsData();
