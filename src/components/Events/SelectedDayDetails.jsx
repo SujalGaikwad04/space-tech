@@ -126,6 +126,15 @@ Check it out on RealSpace!
               <div className="stars">
                 {renderStars(event.visibility)}
               </div>
+              <div style={{
+                fontSize: '0.9rem',
+                color: event.visibility <= 2 ? '#ff4d4d' : event.visibility === 3 ? '#ffcc00' : '#4dff88',
+                marginTop: '5px',
+                fontStyle: 'italic',
+                fontWeight: '500'
+              }}>
+                {event.visibilityText}
+              </div>
             </div>
 
             <div className="event-description">

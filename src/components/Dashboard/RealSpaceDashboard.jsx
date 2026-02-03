@@ -3,12 +3,79 @@ import { useAuth } from "../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { useEventsData } from "../Events/useEventsData";
 import { useMissionsData } from "../Missions/useMissionsData";
+import LocationSelector from "../Events/LocationSelector";
 import "./RealSpaceDashboard.css";
 
 const RealSpaceDashboard = () => {
-  const { user, isAuthenticated } = useAuth();
+  const { user, isAuthenticated, updateUserLocation } = useAuth();
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState("horizon");
+  const [currentTime, setCurrentTime] = useState(new Date());
+  const [guestLocation, setGuestLocation] = useState("Mumbai, India");
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentTime(new Date());
+    }, 1000);
+    return () => clearInterval(timer);
+  }, []);
+
+  const getLocalTimeInfo = () => {
+    const locationStr = isAuthenticated ? (user?.location || "Mumbai, India") : guestLocation;
+    const city = locationStr.split(',')[0].trim().toLowerCase();
+
+    const cityToTimezone = {
+      "mumbai": "Asia/Kolkata",
+      "mumabi": "Asia/Kolkata", // Handling typo in user data
+      "london": "Europe/London",
+      "new york": "America/New_York",
+      "tokyo": "Asia/Tokyo",
+      "sydney": "Australia/Sydney",
+      "paris": "Europe/Paris",
+      "berlin": "Europe/Berlin",
+      "dubai": "Asia/Dubai",
+      "singapore": "Asia/Singapore",
+      "los angeles": "America/Los_Angeles",
+      "chicago": "America/Chicago",
+      "san francisco": "America/Los_Angeles",
+      "delhi": "Asia/Kolkata",
+      "bangalore": "Asia/Kolkata",
+      "chennai": "Asia/Kolkata",
+      "kolkata": "Asia/Kolkata",
+    };
+
+    const timezone = cityToTimezone[city] || Intl.DateTimeFormat().resolvedOptions().timeZone;
+
+    try {
+      const options = {
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+        hour12: false,
+        timeZone: timezone
+      };
+
+      const timeStr = new Intl.DateTimeFormat('en-GB', options).format(currentTime);
+
+      const parts = new Intl.DateTimeFormat('en-GB', {
+        timeZone: timezone,
+        timeZoneName: 'shortOffset'
+      }).formatToParts(currentTime);
+
+      const gmt = parts.find(p => p.type === 'timeZoneName')?.value || "GMT+0";
+
+      return { timeString: timeStr, gmtOffset: gmt, location: locationStr };
+    } catch (e) {
+      // Fallback to system time if timezone is invalid
+      return {
+        timeString: currentTime.toLocaleTimeString('en-GB'),
+        gmtOffset: "GMT" + (currentTime.getTimezoneOffset() <= 0 ? "+" : "-") + Math.abs(currentTime.getTimezoneOffset() / 60),
+        location: locationStr
+      };
+    }
+  };
+
+  const { timeString, gmtOffset, location: displayLocation } = getLocalTimeInfo();
 
   // Get current date info for events
   const today = new Date();
@@ -87,10 +154,27 @@ const RealSpaceDashboard = () => {
       <header className="space-header">
         <div className="header-left">
           <h1 className="welcome-title">WELCOME BACK, {isAuthenticated ? user.username.toUpperCase() : "GUEST"}</h1>
-          <p className="location-info">
-            <span className="location-icon">📍</span>
-            GMT-7:00 | {isAuthenticated && user?.location ? user.location.toUpperCase() : "Mumabi,India"}
-          </p>
+          <div className="location-info-container">
+            <p className="location-info">
+              <span className="location-icon">📍</span>
+              <span className="time-display">{timeString}</span>
+              <span className="gmt-display">| {gmtOffset}</span>
+              <span className="divider">|</span>
+              <span className="header-location-selector">
+                <LocationSelector
+                  location={displayLocation}
+                  hideButton={true}
+                  onLocationChange={(newLoc) => {
+                    if (isAuthenticated) {
+                      updateUserLocation(newLoc);
+                    } else {
+                      setGuestLocation(newLoc);
+                    }
+                  }}
+                />
+              </span>
+            </p>
+          </div>
         </div>
       </header>
 

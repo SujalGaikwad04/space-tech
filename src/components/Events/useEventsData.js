@@ -2,10 +2,40 @@ import { useState, useEffect } from "react";
 
 const API_KEY = "DEMO_KEY";
 
-export const useEventsData = (currentMonth, currentYear) => {
+export const useEventsData = (currentMonth, currentYear, location = "Mumbai, India") => {
   const [calendarEvents, setCalendarEvents] = useState([]);
   const [allEventsData, setAllEventsData] = useState([]);
   const [loading, setLoading] = useState(false);
+
+  // Helper to determine visibility based on location
+  const getVisibilityForLocation = (event, loc) => {
+    const locLower = loc.toLowerCase();
+    const isNorthernHighLat = locLower.includes("uk") || locLower.includes("london") || locLower.includes("canada") || locLower.includes("usa") || locLower.includes("united states") || locLower.includes("united kingdom") || locLower.includes("norway") || locLower.includes("sweden") || locLower.includes("finland") || locLower.includes("iceland") || locLower.includes("russia");
+    const isIndia = locLower.includes("india") || locLower.includes("mumbai") || locLower.includes("delhi");
+
+    // Logic for Aurora
+    if (event.type === "aurora") {
+      if (isNorthernHighLat) {
+        return { val: 5, text: "Excellent Visibility (High Latitude)" };
+      }
+      return { val: 1, text: "Not Visible (Too far south)" };
+    }
+
+    // Logic for Meteors
+    if (event.type === "meteor") {
+      // Arbitrary logic for demo: Geminids better in India, Orionids better in UK for this demo
+      if (event.title.includes("Geminids")) {
+        return isIndia ? { val: 4, text: "Good Visibility" } : { val: 2, text: "Poor Visibility (Horizon Low)" };
+      }
+      if (event.title.includes("Orionids")) {
+        return isNorthernHighLat ? { val: 5, text: "Great Visibility" } : { val: 2, text: "Fair Visibility" };
+      }
+      return { val: 3, text: "Moderate Visibility" };
+    }
+
+    // Default for others (Moon, etc)
+    return { val: 5, text: "Visible" };
+  };
 
   useEffect(() => {
     const fetchEvents = async () => {
@@ -20,37 +50,90 @@ export const useEventsData = (currentMonth, currentYear) => {
         );
         const gstData = await gstResponse.json();
 
-        // Sample meteor shower events for current month
-        const sampleEvents = [
+        // Dynamic local events based on location
+        const localEvents = [];
+        const locLower = location.toLowerCase();
+
+        // India/South Asia
+        if (locLower.includes("mumbai") || locLower.includes("india") || locLower.includes("delhi")) {
+          localEvents.push({
+            day: 12,
+            icon: "🛰️",
+            type: "iss",
+            title: "Bright ISS Pass (Mumbai)",
+            time: "7:15 PM - 7:22 PM",
+            visibility: 5,
+            visibilityText: "Perfect Visibility (Overhead)",
+            description: "The International Space Station will pass directly over Mumbai as a bright star-like object."
+          });
+        }
+
+        // Northern Latitudes (Iceland, UK, Norway, Canada, USA North)
+        if (locLower.includes("iceland") || locLower.includes("norway") || locLower.includes("sweden") || locLower.includes("uk") || locLower.includes("london") || locLower.includes("canada") || locLower.includes("alaska")) {
+          localEvents.push({
+            day: 18,
+            icon: "☁️",
+            type: "nlc",
+            title: "Noctilucent Clouds Season",
+            time: "Midnight - 2:00 AM",
+            visibility: 4,
+            visibilityText: "Good Visibility (Northern Latitudes)",
+            description: "Rare electric-blue 'night-shining' clouds may be visible at high latitudes."
+          });
+        }
+
+        // USA Specific
+        if (locLower.includes("usa") || locLower.includes("states") || locLower.includes("york") || locLower.includes("california")) {
+          localEvents.push({
+            day: 10,
+            icon: "🔭",
+            type: "observatory",
+            title: "Public Telescope Night",
+            time: "8:00 PM - 10:00 PM",
+            visibility: 5,
+            visibilityText: "Excellent",
+            description: "Local community observatories hosting open-sky viewing tonight."
+          });
+        }
+
+        // Southern Hemisphere (Australia, New Zealand, South Africa)
+        if (locLower.includes("australia") || locLower.includes("zealand") || locLower.includes("sydney") || locLower.includes("melbourne") || locLower.includes("africa")) {
+          localEvents.push({
+            day: 22,
+            icon: "🌌",
+            type: "milkyway",
+            title: "Southern Cross Visibility",
+            time: "11:00 PM",
+            visibility: 5,
+            visibilityText: "Crystal Clear",
+            description: "Prime time to view the Southern Cross and the Galactic Center from the Southern Hemisphere."
+          });
+        }
+
+        // East Asia (Japan, Tokyo)
+        if (locLower.includes("japan") || locLower.includes("tokyo") || locLower.includes("kyoto")) {
+          localEvents.push({
+            day: 14,
+            icon: "🪐",
+            type: "conjunction",
+            title: "Moon-Saturn Conjunction",
+            time: "6:30 PM",
+            visibility: 4,
+            visibilityText: "Good Visibility",
+            description: "A beautiful close approach between the Moon and the ringed planet Saturn, best seen from East Asia tonight."
+          });
+        }
+
+        // Sample global events with generated visibility
+        const globalEventsRaw = [
           {
             day: 5,
             icon: "🌠",
             type: "meteor",
             title: "Geminids Meteor Shower",
             time: "9:00 PM - 3:00 AM",
-            visibility: 3,
-            visibilityText: "Good Visibility",
+            description: "One of the best meteor showers. Debris from asteroid 3200 Phaethon.",
             moonPhase: "Moon: 40% (Moderate sky)"
-          },
-          {
-            day: 15,
-            icon: "🌌",
-            type: "aurora",
-            title: "Aurora Borealis Forecast",
-            time: "10:00 PM - 2:00 AM",
-            visibility: 2,
-            visibilityText: "Moderate Visibility",
-            moonPhase: "Moon: 65% (Bright sky)"
-          },
-          {
-            day: 21,
-            icon: "🌠",
-            type: "meteor",
-            title: "Orionids Meteor Shower Peak",
-            time: "2:00 AM - 5:00 AM",
-            visibility: 4,
-            visibilityText: "Excellent Visibility",
-            moonPhase: "Moon: 15% (Dark sky)"
           },
           {
             day: 28,
@@ -58,92 +141,80 @@ export const useEventsData = (currentMonth, currentYear) => {
             type: "moon",
             title: "Full Moon",
             time: "All Night",
-            visibility: 5,
-            visibilityText: "Perfect Visibility",
+            description: "The moon is fully illuminated from Earth's perspective.",
             moonPhase: "Moon: 100% (Full Moon)"
           }
         ];
 
-        // Process API aurora events
-        const auroraEvents = gstData.slice(0, 3).map((item) => {
-          const eventDate = new Date(item.startTime);
-          const day = eventDate.getDate();
-          return {
-            day,
-            icon: "🌌",
-            type: "aurora",
-            title: "Geomagnetic Storm (Aurora Possible)",
-            time: eventDate.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' }),
-            visibility: 3,
-            visibilityText: "Good Visibility (Weather Dependent)",
-            moonPhase: "Check local conditions",
-            apiData: item
-          };
+        // Apply visibility logic to global events
+        const globalEvents = globalEventsRaw.map(e => {
+          const viz = getVisibilityForLocation(e, location);
+          return { ...e, visibility: viz.val, visibilityText: viz.text };
         });
 
-        const allEvents = [...sampleEvents, ...auroraEvents];
+        // Add Aurora only if visible or it's a major event
+        const auroraEventsRaw = [
+          {
+            day: 15,
+            icon: "🌌",
+            type: "aurora",
+            title: "Aurora Borealis Forecast",
+            time: "10:00 PM - 2:00 AM",
+            description: "Predicted active aurora display in northern regions.",
+            moonPhase: "Moon: 65% (Bright sky)"
+          }
+        ];
+
+        const auroraEvents = auroraEventsRaw.map(e => {
+          const viz = getVisibilityForLocation(e, location);
+          return { ...e, visibility: viz.val, visibilityText: viz.text };
+        });
+
+        // Combine all
+        const allEvents = [...localEvents, ...globalEvents, ...auroraEvents];
         setAllEventsData(allEvents);
 
-        // Create calendar events (just day + icon)
+        // Create calendar events
         const calEvents = allEvents.map(e => ({
           day: e.day,
           icon: e.icon,
-          type: e.type
+          type: e.type,
+          isVisible: e.visibility > 1
         }));
 
         setCalendarEvents(calEvents);
       } catch (err) {
         console.error("Error fetching NASA data:", err);
-        // Fallback to sample events with full data
-        const fallbackEvents = [
-          {
-            day: 5,
-            icon: "🌠",
-            type: "meteor",
-            title: "Geminids Meteor Shower",
-            time: "9:00 PM - 3:00 AM",
-            visibility: 3,
-            visibilityText: "Good Visibility",
-            moonPhase: "Moon: 40% (Moderate sky)"
-          },
-          {
-            day: 15,
-            icon: "🌌",
-            type: "aurora",
-            title: "Aurora Borealis Forecast",
-            time: "10:00 PM - 2:00 AM",
-            visibility: 2,
-            visibilityText: "Moderate Visibility",
-            moonPhase: "Moon: 65% (Bright sky)"
-          },
-          {
-            day: 21,
-            icon: "🌠",
-            type: "meteor",
-            title: "Orionids Meteor Shower Peak",
-            time: "2:00 AM - 5:00 AM",
-            visibility: 4,
-            visibilityText: "Excellent Visibility",
-            moonPhase: "Moon: 15% (Dark sky)"
-          },
-          {
-            day: 28,
-            icon: "🌕",
-            type: "moon",
-            title: "Full Moon",
-            time: "All Night",
+        // Fallback (same location-aware logic)
+        const localEvents = [];
+        const locLower = location.toLowerCase();
+
+        if (locLower.includes("mumbai") || locLower.includes("india")) {
+          localEvents.push({
+            day: 12,
+            icon: "🛰️",
+            type: "iss",
+            title: "Bright ISS Pass (Mumbai)",
+            time: "7:15 PM - 7:22 PM",
             visibility: 5,
-            visibilityText: "Perfect Visibility",
-            moonPhase: "Moon: 100% (Full Moon)"
-          }
+            visibilityText: "Perfect Visibility (Overhead)",
+            description: "The International Space Station will pass directly over Mumbai."
+          });
+        }
+
+        const globalRaw = [
+          { day: 5, icon: "🌠", type: "meteor", title: "Geminids Meteor Shower", time: "9:00 PM", description: "Peak night." },
+          { day: 28, icon: "🌕", type: "moon", title: "Full Moon", time: "All Night", description: "Brightest of the month." }
         ];
 
+        const fallbackEvents = [...localEvents, ...globalRaw.map(e => ({ ...e, ...getVisibilityForLocation(e, location) }))];
         setAllEventsData(fallbackEvents);
 
         const calEvents = fallbackEvents.map(e => ({
           day: e.day,
           icon: e.icon,
-          type: e.type
+          type: e.type,
+          isVisible: (e.visibility || 5) > 1
         }));
         setCalendarEvents(calEvents);
       }
@@ -151,7 +222,8 @@ export const useEventsData = (currentMonth, currentYear) => {
     };
 
     fetchEvents();
-  }, [currentMonth, currentYear]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentMonth, currentYear, location]);
 
   return { calendarEvents, allEventsData, loading };
 };

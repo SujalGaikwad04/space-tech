@@ -143,6 +143,20 @@
   color: var(--text-muted);
 }
 
+.location-detect-btn {
+  background: rgba(0, 217, 255, 0.1);
+  border: 1px solid var(--accent-primary);
+  display: flex !important;
+  /* Ensure generic button display doesn't override */
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.location-detect-btn:hover {
+  background: var(--accent-primary);
+  color: #000;
+}
+
 .cancel-btn:hover {
   background: rgba(255, 255, 255, 0.05);
   border-color: var(--text-secondary);
