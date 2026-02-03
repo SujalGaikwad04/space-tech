@@ -5,13 +5,15 @@ export const useSelectedEvent = (selectedDay, allEventsData, currentMonth, curre
 
   useEffect(() => {
     const eventForDay = allEventsData.find(e => e.day === selectedDay);
-    
-    const monthNames = ["January", "February", "March", "April", "May", "June", 
-                        "July", "August", "September", "October", "November", "December"];
-    
+
+    const monthNames = ["January", "February", "March", "April", "May", "June",
+      "July", "August", "September", "October", "November", "December"];
+
     if (eventForDay) {
       setSelectedEventDetails({
+        ...eventForDay, // Spread all existing properties (description, actions, etc.)
         date: `${monthNames[currentMonth]} ${selectedDay}, ${currentYear}`,
+        // explicit overrides if needed for formatting
         time: eventForDay.time,
         title: eventForDay.title,
         icon: eventForDay.icon,

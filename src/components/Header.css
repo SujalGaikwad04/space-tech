@@ -1,15 +1,24 @@
 /* Header Container */
 .header {
-  background: var(--header-bg);
-  backdrop-filter: blur(10px);
+  background: transparent;
+  backdrop-filter: blur(0px);
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   z-index: 1000;
+  border-bottom: 1px solid transparent;
+  padding: 15px 0;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.header.scrolled {
+  background: rgba(13, 17, 23, 0.85);
+  /* Dark semi-transparent */
+  backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--border-color-subtle);
   padding: 10px 0;
-  transition: var(--transition);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
 }
 
 .header-container {
@@ -31,11 +40,21 @@
   gap: 12px;
 }
 
-.planet-icon {
+.logo-image {
+  height: 48px;
+  width: auto;
+  object-fit: contain;
+  /* mix-blend-mode: screen makes the black background transparent */
+  mix-blend-mode: screen;
+  filter: drop-shadow(0 0 8px rgba(0, 150, 255, 0.6));
+  /* Enhanced blue glow */
+}
+
+/*.planet-icon {
   color: var(--accent-primary);
   filter: drop-shadow(0 0 5px var(--glow-color));
   transition: var(--transition);
-}
+}*/
 
 .logo-text {
   font-size: 20px;

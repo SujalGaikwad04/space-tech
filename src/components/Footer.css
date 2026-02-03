@@ -1,9 +1,27 @@
+/* Footer Animation Keyframes */
+@keyframes twinkle {
+
+  0%,
+  100% {
+    opacity: 0.3;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 0.6;
+    transform: scale(1.05);
+  }
+}
+
 .footer {
   position: relative;
-  background: var(--footer-bg);
+  background: rgba(13, 17, 23, 0.6);
+  /* Semi-transparent base */
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   color: var(--text-primary);
   padding: 3rem 0 2rem;
-  border-top: 1px solid var(--border-color-subtle);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
   overflow: hidden;
   transition: var(--transition);
 }
@@ -27,6 +45,7 @@
   opacity: 0.4;
   pointer-events: none;
   z-index: -1;
+  animation: twinkle 8s infinite alternate ease-in-out;
 }
 
 .footer-container {
