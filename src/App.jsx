@@ -57,6 +57,9 @@ function App() {
             <Route path="/whatif" element={<WhatIf />} />
             <Route path="/quiz" element={<Detailquiz />} />
             <Route path="/solar-system" element={<SolarSystem />} />
+            <Route path="/solar-system" element={<SolarSystem />} />
+
+            {/* <Route path="/bg-preview" element={<BackgroundPreview />} /> REMOVED */}
           </Routes>
 
           <AiChat />

@@ -1,0 +1,236 @@
+/* Event Countdown Container */
+.event-countdown-container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 30px auto 40px;
+    background: linear-gradient(90deg, rgba(5, 10, 20, 0.95) 0%, rgba(10, 25, 45, 0.8) 50%, rgba(5, 10, 20, 0.95) 100%);
+    border: 1px solid rgba(0, 217, 255, 0.2);
+    border-radius: 16px;
+    padding: 30px 50px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(10px);
+}
+
+/* Background Earth/Planet Effect */
+.countdown-bg-effect {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('/backgrounds/earth-orbit.jpg');
+    /* You might need to ensure this asset exists or use a gradient fallback */
+    background-size: cover;
+    background-position: center;
+    opacity: 0.15;
+    z-index: 0;
+    mix-blend-mode: luminosity;
+    pointer-events: none;
+}
+
+.event-countdown-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: #00d9ff;
+    box-shadow: 0 0 15px #00d9ff;
+    z-index: 1;
+}
+
+/* Left Content: Title & Label */
+.countdown-info {
+    display: flex;
+    flex-direction: column;
+    z-index: 1;
+    max-width: 40%;
+}
+
+.next-event-label {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #00d9ff;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.pulsing-dot {
+    width: 8px;
+    height: 8px;
+    background-color: #00d9ff;
+    border-radius: 50%;
+    box-shadow: 0 0 10px #00d9ff;
+    animation: pulse-dot 2s infinite;
+}
+
+.countdown-event-title {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 3.6rem;
+    font-weight: 800;
+    color: #ffffff;
+    line-height: 1.1;
+    text-transform: uppercase;
+    margin: 0;
+}
+
+.countdown-event-title span {
+    color: #00d9ff;
+    text-shadow: 0 0 20px rgba(0, 217, 255, 0.4);
+}
+
+/* Center Content: Timer */
+.countdown-timer-wrapper {
+    display: flex;
+    gap: 40px;
+    z-index: 1;
+}
+
+.time-block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.time-value {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 4.2rem;
+    font-weight: 700;
+    color: #ffffff;
+    line-height: 1;
+    margin-bottom: 5px;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+}
+
+.time-label {
+    font-family: 'Urbanist', sans-serif;
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.5);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 600;
+}
+
+.time-separator {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 3rem;
+    color: rgba(255, 255, 255, 0.3);
+    margin-top: 5px;
+}
+
+/* Right Content: Button */
+.countdown-action {
+    z-index: 1;
+}
+
+.trajectory-btn {
+    background: #00d9ff;
+    color: #000;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 4px;
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 20px rgba(0, 217, 255, 0.3);
+}
+
+.trajectory-btn:hover {
+    background: #fff;
+    box-shadow: 0 0 30px rgba(255, 255, 255, 0.6);
+    transform: translateY(-2px);
+}
+
+.trajectory-btn svg {
+    width: 18px;
+    height: 18px;
+    transition: transform 0.3s ease;
+}
+
+.trajectory-btn:hover svg {
+    transform: translateX(5px);
+}
+
+@keyframes pulse-dot {
+    0% {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    50% {
+        opacity: 0.5;
+        transform: scale(0.8);
+    }
+
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+    .event-countdown-container {
+        flex-direction: column;
+        text-align: center;
+        gap: 30px;
+        padding: 30px;
+    }
+
+    .countdown-info {
+        max-width: 100%;
+        align-items: center;
+    }
+
+    .countdown-event-title {
+        font-size: 2.8rem;
+    }
+
+    .countdown-timer-wrapper {
+        gap: 20px;
+    }
+
+    .time-value {
+        font-size: 3rem;
+    }
+
+    .time-separator {
+        font-size: 2rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .countdown-timer-wrapper {
+        gap: 10px;
+    }
+
+    .time-value {
+        font-size: 2.2rem;
+    }
+
+    .time-separator {
+        display: none;
+        /* Hide separators on very small screens to fit */
+    }
+
+    .event-countdown-container {
+        padding: 20px;
+    }
+}

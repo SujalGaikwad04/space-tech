@@ -1,54 +1,87 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../context/AuthContext";
+import { addEventReminder, removeEventReminder, checkEventReminder } from "../../services/reminderService";
 import "./SelectedDayDetails.css";
 
 const SelectedDayDetails = ({ event, selectedDay }) => {
   const navigate = useNavigate();
+  const { user, isAuthenticated } = useAuth();
   const [reminderText, setReminderText] = useState("Add Reminder");
-  const [shareText, setShareText] = useState("Share");
+  const [hasReminder, setHasReminder] = useState(false);
+  const [reminderId, setReminderId] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   const isNoEvent = !event || event?.noEvent;
 
-  const handleViewDetails = () => {
-    navigate('/event-details', { state: { event } });
+  // Format date nicely (e.g., "February 4, 2026")
+  const formatDate = (dateIn) => {
+    // If dateIn is just a day number, construct date. 
+    // This is a rough estimation based on current props (event might just have day number)
+    // For now assuming event.date is a string or day. If it's a day, use selectedDay logic from parent if possible,
+    // but here we just display what we have or a placeholder.
+    return event?.date || `Day ${selectedDay}`;
   };
 
-  const handleAddReminder = () => {
-    setReminderText("Reminder Added! ✓");
-    // Simulate API call or local notification
-    setTimeout(() => {
-      alert(`Reminder set for ${event.title}! We'll notify you on the day.`);
+  useEffect(() => {
+    if (isAuthenticated && event && !isNoEvent) {
+      const checkReminder = async () => {
+        try {
+          const result = await checkEventReminder(event.title, event.date);
+          setHasReminder(result.hasReminder);
+          setReminderId(result.reminderId);
+          setReminderText(result.hasReminder ? "Reminder Added" : "Add Reminder");
+        } catch (error) {
+          console.error("Error checking reminder:", error);
+        }
+      };
+      checkReminder();
+    }
+  }, [event, isAuthenticated, isNoEvent]);
+
+  const handleAddReminder = async () => {
+    if (!isAuthenticated) {
+      alert("Please sign in to set reminders!");
+      navigate('/login');
+      return;
+    }
+
+    if (hasReminder && reminderId) {
+      // Remove logic
+      setIsLoading(true);
+      await removeEventReminder(reminderId);
+      setHasReminder(false);
+      setReminderId(null);
       setReminderText("Add Reminder");
-    }, 500);
+      setIsLoading(false);
+      return;
+    }
+
+    // Add logic
+    setIsLoading(true);
+    setReminderText("Adding...");
+    try {
+      const result = await addEventReminder({
+        eventTitle: event.title,
+        eventDate: event.date,
+        eventTime: event.time,
+        eventDescription: event.description,
+        location: user.location || "Your location"
+      });
+      setHasReminder(true);
+      setReminderId(result.reminderId);
+      setReminderText("Reminder Added");
+      alert(`✅ Reminder set for ${event.title}!`);
+    } catch (e) {
+      setReminderText("Add Reminder");
+    } finally {
+      setIsLoading(false);
+    }
   };
-
-  const handleShare = async () => {
-    const fullInfo = `
-🌌 *${event.title?.toUpperCase()}*
-📅 ${event.date} | ${event.time}
-⭐ Visibility: ${event.visibilityText || 'N/A'}
-🌔 ${event.moonPhase || 'N/A'}
-
-📝 ${event.description || 'No description available'}
-
-Check it out on RealSpace!
-`.trim();
-
-    // WhatsApp ONLY as strictly requested
-    const waUrl = `https://wa.me/?text=${encodeURIComponent(fullInfo)}`;
-    window.open(waUrl, '_blank');
-  };
-
-
 
   const renderStars = (rating = 5) => {
     return Array.from({ length: 5 }).map((_, i) => (
-      <span
-        key={i}
-        className={`star ${i < rating ? "filled" : "empty"}`}
-      >
-        ★
-      </span>
+      <span key={i} className={`star ${i < rating ? "filled" : "empty"}`}>★</span>
     ));
   };
 
@@ -56,126 +89,94 @@ Check it out on RealSpace!
     <div className="selected-day-section">
       <div className="details-card">
 
-        {/* 🟢 NO EVENT STATE */}
+        {/* --- NO EVENT STATE --- */}
         {isNoEvent && (
           <>
-            <div className="event-status">
-              🕒 No events scheduled
+            <div className="event-card-header">
+              <div className="event-title-main">NO CELESTIAL EVENTS</div>
+              <button className="info-icon-btn">i</button>
             </div>
 
-            <div className="event-title-main">
-              No Celestial Events
+            <div className="card-divider"></div>
+
+            <div className="event-datetime">
+              FEBRUARY {selectedDay}, 2026 | NO EVENTS SCHEDULED
             </div>
 
             <div className="event-visibility">
-              <div className="stars">
-                {renderStars(5)}
-              </div>
-              <span className="visibility-text">
-                (Clear Night Sky)
-              </span>
+              <span className="visibility-label">VISIBILITY RATING:</span>
+              <div className="stars">{renderStars(3)}</div>
+              <span className="visibility-text" style={{ color: '#00d9ff' }}>Clear Night Sky</span>
             </div>
 
-            <div className="event-note">
-              🪐 Check for general stargazing
+            <div className="event-description">
+              <span className="desc-label">EVENT DESCRIPTION</span>
+              <p>
+                On this night, the atmospheric conditions are expected to be exceptionally clear.
+                While no major planetary alignments or meteor showers are predicted, it's a perfect
+                opportunity for deep-space photography of the Orion Nebula and Pleiades cluster.
+              </p>
+              <button className="read-more-btn">READ MORE</button>
             </div>
+
+            {/* Quiet Orbit Center Graphic */}
+            <div className="center-icon-container">
+              <div className="center-icon quiet-moon">☾</div>
+            </div>
+            <div className="quiet-label">QUIET ORBIT</div>
 
             <div className="event-actions">
-              <button
-                className="action-btn-primary"
-                onClick={() => alert("Alert set for clear skies!")}
-              >
-                🔔 Set Alert
-              </button>
-
-              <button className="action-btn-secondary">
-                🗺️ View Visibility Map
-              </button>
-
-              <button
-                className="action-btn-secondary"
-                onClick={() => {
-                  navigator.clipboard.writeText("Clear skies tonight! Perfect for stargazing.");
-                  alert("Status copied to clipboard!");
-                }}
-              >
-                📤 Share
-              </button>
+              <button className="action-btn" onClick={() => alert("Reminder set for stargazing!")}>ADD REMINDER</button>
+              <button className="action-btn" onClick={() => {
+                navigator.clipboard.writeText("Clear skies tonight!");
+                alert("Copied to clipboard");
+              }}>SHARE EVENT</button>
+              <button className="action-btn">VIEW FULL SKY MAP</button>
             </div>
           </>
         )}
 
-        {/* 🔵 EVENT PRESENT STATE */}
+        {/* --- EVENT DETECTED STATE --- */}
         {!isNoEvent && (
           <>
             <div className="event-card-header">
-              <div className="event-title-main">
-                {event.title?.toUpperCase()}
-              </div>
-              <button className="info-icon-btn" onClick={handleViewDetails}>ⓘ</button>
+              <div className="event-title-main">{event.title}</div>
+              <button className="info-icon-btn" onClick={() => navigate('/event-details', { state: { event } })}>i</button>
             </div>
 
+            <div className="card-divider"></div>
+
             <div className="event-datetime">
-              {event.date} | {event.time}
+              {event.date || `FEBRUARY ${selectedDay}, 2026`} | {event.time || "ALL NIGHT"}
             </div>
 
             <div className="event-visibility">
-              <span className="visibility-label">
-                Visibility Rating:
-              </span>
-              <div className="stars">
-                {renderStars(event.visibility)}
-              </div>
-              <div style={{
-                fontSize: '0.9rem',
-                color: event.visibility <= 2 ? '#ff4d4d' : event.visibility === 3 ? '#ffcc00' : '#4dff88',
-                marginTop: '5px',
-                fontStyle: 'italic',
-                fontWeight: '500'
-              }}>
-                {event.visibilityText}
-              </div>
+              <span className="visibility-label">VISIBILITY RATING:</span>
+              <div className="stars">{renderStars(event.visibility || 4)}</div>
+              <span className="visibility-text">{event.visibilityText || "Good Visibility"}</span>
             </div>
 
             <div className="event-description">
-              <strong>Event Description</strong>
-              <p>
-                {event.description}
-              </p>
-              <button
-                className="read-more-btn"
-                onClick={handleViewDetails}
-              >
-                Read More
-              </button>
+              <span className="desc-label">EVENT DESCRIPTION</span>
+              <p>{event.description}</p>
+              <button className="read-more-btn" onClick={() => navigate('/event-details', { state: { event } })}>READ MORE</button>
             </div>
 
-            <div className="event-type">
-              <strong>Event Type</strong>
-              <div className="event-type-icon">
-                <span>{event.icon || "☄️"}</span>
-              </div>
+            {/* Event Type Center Graphic */}
+            <div className="center-icon-container">
+              <div className="center-icon">{event.icon || "🛰️"}</div>
             </div>
 
             <div className="event-actions">
-              <button
-                className="action-btn-primary"
-                onClick={handleAddReminder}
-              >
-                {reminderText}
+              <button className="action-btn" onClick={handleAddReminder} disabled={isLoading}>
+                {reminderText.toUpperCase()}
               </button>
-
-              <button
-                className="action-btn-secondary"
-                onClick={handleShare}
-              >
-                {shareText}
-              </button>
-
-
-
-              <button className="action-btn-secondary" onClick={handleViewDetails}>
-                View Details
+              <button className="action-btn" onClick={() => {
+                navigator.clipboard.writeText(`Check out ${event.title}!`);
+                alert("Link copied!");
+              }}>SHARE EVENT</button>
+              <button className="action-btn" onClick={() => navigate('/event-details', { state: { event } })}>
+                VIEW DETAILS
               </button>
             </div>
           </>

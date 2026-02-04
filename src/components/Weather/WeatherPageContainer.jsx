@@ -24,6 +24,12 @@ const WeatherPageContainer = () => {
 
   return (
     <div className="weather-page">
+      {/* 🌍 GLOBAL BACKGROUND */}
+      <img
+        src="/backgrounds/abstract-horizon.png"
+        alt="Abstract planet horizon"
+        className="home-bg"
+      />
       <div className="weather-container">
         <div className="weather-header">
           <h1 className="title">COSMIC WEATHER</h1>

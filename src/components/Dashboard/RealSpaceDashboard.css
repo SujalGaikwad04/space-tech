@@ -1,7 +1,9 @@
 /* Space Dashboard - Main Container */
 .space-dashboard {
   min-height: 100vh;
-  background: var(--bg-primary);
+  background: transparent;
+  /* Changed from var(--bg-primary) for global background */
+  /* Ensure overlapping works */
   color: var(--text-primary);
   padding: 90px 6rem 1.5rem 6rem;
   max-width: 1400px;

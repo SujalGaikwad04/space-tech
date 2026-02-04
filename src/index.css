@@ -11,6 +11,19 @@
   --glass-border: rgba(0, 229, 255, 0.15);
 }
 
+/* 🌍 GLOBAL FIXED BACKGROUND */
+.home-bg {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  /* Abstract Horizon Background */
+  object-fit: cover;
+  object-position: bottom;
+  z-index: -10;
+  pointer-events: none;
+}
+
 /* DARK MODE (Default) */
 [data-theme='dark'] {
   /* Backgrounds */

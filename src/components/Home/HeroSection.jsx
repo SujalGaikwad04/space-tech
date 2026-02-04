@@ -60,8 +60,8 @@ export default function HeroSection() {
     <>
       {/* 🌍 FIXED BACKGROUND FOR ENTIRE HOME */}
       <img
-        src="/earth.jpg"
-        alt="Earth from space"
+        src="/backgrounds/abstract-horizon.png"
+        alt="Abstract planet horizon"
         className="home-bg"
       />
 
