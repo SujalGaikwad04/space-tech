@@ -1,4 +1,4 @@
-const API_URL = 'http://localhost:5000/api';
+const API_URL = 'https://space-tech-l4nokgff3-sujalgaikwad04s-projects.vercel.app/api';
 
 // Get auth token from localStorage
 const getAuthToken = () => {
