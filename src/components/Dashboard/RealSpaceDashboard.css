@@ -68,6 +68,7 @@
   padding: 0.4rem 0.8rem;
   border-radius: 8px;
   border: 1px solid var(--border-color-subtle);
+  position: relative;
 }
 
 .time-display {
@@ -86,9 +87,10 @@
 }
 
 .divider {
-  color: var(--border-color-subtle);
-  opacity: 0.4;
-  margin: 0 2px;
+  color: var(--text-muted);
+  opacity: 0.5;
+  margin: 0 0.25rem;
+  font-weight: 300;
 }
 
 .location-name {
@@ -117,7 +119,17 @@
 }
 
 .header-location-selector .location-text {
-  display: none;
+  display: inline-block;
+  color: var(--text-secondary);
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.header-location-selector .location-text:hover {
+  color: var(--accent-primary);
+  text-shadow: 0 0 8px var(--glow-color);
 }
 
 .header-location-selector .change-btn {
