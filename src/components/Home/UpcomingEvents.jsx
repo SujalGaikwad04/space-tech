@@ -137,47 +137,56 @@ const UpcomingEvents = () => {
               <div className="no-events">No events found for this time range.</div>
             ) : (
               filteredEvents.map((event, index) => (
-                <article key={index} className="event-card">
-                  <div className="event-main">
-                    <div className="event-title-row">
-                      <span className="event-label">{getDateLabel(event.day)}</span>
-                      <span className="event-type">{event.type}</span>
+                <article
+                  key={index}
+                  className="event-card horizontal-card"
+                >
+                  {/* Left: Image Column */}
+                  <div
+                    className="event-image-col"
+                    style={event.image ? { backgroundImage: `url(${event.image})` } : {}}
+                  />
+
+                  {/* Right: Content Column */}
+                  <div className="event-content-col">
+                    <div className="event-header-row">
+                      <div className="badge-group">
+                        <span className="event-label">{getDateLabel(event.day)}</span>
+                        <span className="event-type">{event.type}</span>
+                      </div>
+                      <div className="visibility-badge">
+                        👁️ {event.visibilityText || "Visible"}
+                      </div>
                     </div>
-                    <h4 className="event-title">{event.title}</h4>
-                    <div className="event-meta">
-                      <div className="meta-row">
-                        <span className="event-location" title="Visibility">
-                          👁️ {event.visibilityText || "Visible"}
-                        </span>
+
+                    <div className="event-body">
+                      <h4 className="event-title">{event.title}</h4>
+                      <div className="event-time-row">
                         {event.time && (
-                          <span className="event-time" style={{ marginLeft: '15px' }}>
+                          <span className="event-time">
                             🕒 {event.time}
                           </span>
                         )}
                       </div>
                       <p className="event-desc-sim">{event.description}</p>
                     </div>
-                  </div>
 
-                  <div className="event-actions">
-                    {event.primaryAction && (
+                    <div className="event-actions">
+                      {event.primaryAction && (
+                        <button
+                          className="premium-btn event-btn primary"
+                          onClick={() => window.open(event.primaryAction, '_blank')}
+                        >
+                          <span className="btn-text">{event.buttonText || "Track Live"}</span>
+                        </button>
+                      )}
                       <button
-                        className="premium-btn event-btn primary"
-                        onClick={() => window.open(event.primaryAction, '_blank')}
+                        className="premium-btn event-btn secondary"
+                        onClick={() => navigate("/events", { state: { selectedDay: event.day } })}
                       >
-                        <span className="shimmer-effect"></span>
-                        <span className="scan-line"></span>
-                        {event.buttonText || "View Details"}
+                        <span className="btn-text">More Info</span>
                       </button>
-                    )}
-                    <button
-                      className="premium-btn event-btn secondary"
-                      onClick={() => navigate("/events", { state: { selectedDay: event.day } })}
-                    >
-                      <span className="shimmer-effect"></span>
-                      <span className="scan-line"></span>
-                      More Info
-                    </button>
+                    </div>
                   </div>
                 </article>
               ))

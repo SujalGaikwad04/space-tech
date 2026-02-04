@@ -210,7 +210,7 @@ export const AuthProvider = ({ children }) => {
     // getAllUsers, // Removed as it's not secure for frontend to have all users
     getLeaderboard,
     isAuthenticated: !!user,
-    isAuthenticated: !!user,
+
     getRankName,
     getNextRankName,
     updateUserStats,
