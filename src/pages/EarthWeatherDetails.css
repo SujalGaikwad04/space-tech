@@ -1,0 +1,14 @@
+/* EarthWeatherDetails.css */
+
+/* Custom overrides for the details page if any */
+.weather-page {
+    padding-top: 100px;
+    /* Adjust for header if needed */
+}
+
+/* Ensure the dashboard is responsive within the container */
+@media (max-width: 768px) {
+    .weather-container {
+        padding: 20px;
+    }
+}

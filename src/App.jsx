@@ -14,6 +14,8 @@ import Dashboardpage from "./pages/Dashboardpage";
 import LiveMap from "./pages/LiveMap.page";
 import BlogPost from "./pages/BlogPost.page";
 import SkyObjectDetail from "./pages/SkyObjectDetail.page";
+import SatelliteDetail from "./pages/SatelliteDetail.page";
+import EarthWeatherDetails from "./pages/EarthWeatherDetails";
 
 /* Learning Section Components */
 import Learn from "./components/learn/learn";
@@ -48,6 +50,8 @@ function App() {
             <Route path="/live-map" element={<LiveMap />} />
             <Route path="/Auth" element={<Auth />} />
             <Route path="/sky-object/:objectId" element={<SkyObjectDetail />} />
+            <Route path="/satellite-impact/:topicId" element={<SatelliteDetail />} />
+            <Route path="/earth-weather-details" element={<EarthWeatherDetails />} />
 
 
             {/* Learning routes */}

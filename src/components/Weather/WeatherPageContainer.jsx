@@ -3,6 +3,7 @@ import SolarActivity from "./SolarActivity";
 import AuroraForecast from "./AuroraForecast";
 import SatelliteImpact from "./SatelliteImpact";
 import WeatherActions from "./WeatherActions";
+import EarthWeatherBrief from "./EarthWeatherBrief";
 import "./WeatherPageContainer.css";
 
 const WeatherPageContainer = () => {
@@ -44,6 +45,7 @@ const WeatherPageContainer = () => {
         </div>
 
         <SatelliteImpact kpIndex={kpIndex} />
+        <EarthWeatherBrief />
       </div>
     </div>
   );
