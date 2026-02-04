@@ -85,6 +85,7 @@ export const useEventsData = (currentMonth, currentYear, location = "Mumbai, Ind
                 description: `Next confirmed sightings of the International Space Station over Mumbai. Look ${durationMin > 4 ? 'overhead' : 'towards the horizon'}.`,
                 buttonText: "Track Live Path",
                 primaryAction: "https://spotthestation.nasa.gov/tracking_map.cfm",
+                image: "/events/iss-mumbai.png",
                 warning: "Exact timing depends on orbit maintenance."
               });
             }
@@ -102,6 +103,7 @@ export const useEventsData = (currentMonth, currentYear, location = "Mumbai, Ind
               visibilityText: "Perfect Visibility (Simulated)",
               description: "High brightness pass predicted for tonight over Mumbai skies.",
               buttonText: "Track Live",
+              image: "/events/iss-mumbai.png",
               primaryAction: "https://spotthestation.nasa.gov/tracking_map.cfm"
             });
           }
@@ -240,7 +242,8 @@ export const useEventsData = (currentMonth, currentYear, location = "Mumbai, Ind
             title: "Aurora Borealis Forecast",
             time: "10:00 PM - 2:00 AM",
             description: "Predicted active aurora display in northern regions.",
-            moonPhase: "Moon: 65% (Bright sky)"
+            moonPhase: "Moon: 65% (Bright sky)",
+            image: "/events/meteor-shower.png" // Placeholder
           }
         ];
 

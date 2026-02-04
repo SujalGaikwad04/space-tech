@@ -1,24 +1,43 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import "./Footer.css";
 
 const Footer = () => {
+  /* 
+    Updated Footer Links Configuration 
+    - Internal routes use react-router-dom Link
+    - External partners use specific URLs
+    - Connect section remains non-functional
+  */
   const footerLinks = [
     {
       title: "PRODUCT",
-      links: ["Features", "Pricing", "API", "Roadmap"],
+      links: [
+        { name: "Home", path: "/", isExternal: false },
+        { name: "Solar System", path: "/solar-system", isExternal: false },
+        { name: "Live Map", path: "/live-map", isExternal: false },
+        { name: "Missions", path: "/mission", isExternal: false },
+      ],
     },
     {
       title: "RESOURCES",
-      links: ["Blog", "Help Center", "Documentation", "Status"],
+      links: [
+        { name: "Events", path: "/events", isExternal: false },
+        { name: "Weather", path: "/weather", isExternal: false },
+        { name: "Learn", path: "/learn", isExternal: false },
+        { name: "Quiz", path: "/quiz", isExternal: false },
+      ],
     },
     {
       title: "PARTNERS",
-      links: ["NASA", "ESA", "ISRO", "SpaceX"],
+      links: [
+        { name: "NASA", path: "https://www.nasa.gov/", isExternal: true },
+        { name: "ESA", path: "https://www.esa.int/", isExternal: true },
+        { name: "ISRO", path: "https://www.isro.gov.in/", isExternal: true },
+        { name: "SpaceX", path: "https://www.spacex.com/", isExternal: true },
+      ],
     },
-    {
-      title: "CONNECT",
-      links: ["Twitter", "Instagram", "Newsletter", "Contact"],
-    },
+
   ];
 
   return (
@@ -39,9 +58,27 @@ const Footer = () => {
               <h3 className="footer-title">{section.title}</h3>
               <ul className="footer-links">
                 {section.links.map((link) => (
-                  <li key={link} className="footer-link">
+                  <li key={link.name} className="footer-link">
                     <span className="link-icon">✦</span>
-                    <span>{link}</span>
+                    {/* Render logic: External -> <a>, Internal -> <Link>, Null -> <span> */}
+                    {link.path ? (
+                      link.isExternal ? (
+                        <a
+                          href={link.path}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="footer-nav-link"
+                        >
+                          {link.name}
+                        </a>
+                      ) : (
+                        <Link to={link.path} className="footer-nav-link">
+                          {link.name}
+                        </Link>
+                      )
+                    ) : (
+                      <span className="footer-nav-text">{link.name}</span>
+                    )}
                   </li>
                 ))}
               </ul>
@@ -49,22 +86,12 @@ const Footer = () => {
           ))}
         </div>
 
-        {/* Subscription */}
-        <div className="subscribe-wrapper">
-          <div className="subscribe-input-wrapper">
-            <span className="subscribe-label">[ @ Subscribe to space alerts]</span>
-            <input
-              type="email"
-              placeholder="Enter email [Subscribe]"
-              className="subscribe-input"
-            />
-          </div>
-        </div>
+
 
         {/* Footer bottom */}
         <div className="footer-bottom">
           <div className="footer-copyright">
-            <p>© 2024 SpaceScope. All rights reserved.</p>
+            <p>SpaceScope. All rights reserved.</p>
             <p className="footer-source">
               Data sources: NASA, ESA, NOAA, SpaceWeather.com
             </p>
