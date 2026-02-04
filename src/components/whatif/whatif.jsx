@@ -107,8 +107,8 @@ Rules:
 
   return (
     <div className="whatif-wrapper">
-      {/* Background stars gif */}
-      <img src="/stars.gif" className="bg-video" alt="Stars" />
+      {/* Background from Learn Page */}
+      <div className="whatif-bg"></div>
 
       <div className="whatif-container">
         <h1 className="whatif-main-title">Cosmic What-If?</h1>

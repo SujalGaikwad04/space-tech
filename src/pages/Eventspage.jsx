@@ -199,6 +199,62 @@ function Eventspage() {
           onFilterChange={handleFilterChange}
         />
 
+        {/* Community Contribution Banner */}
+        <div style={{
+          margin: '20px 0 30px 0',
+          padding: '25px',
+          background: 'linear-gradient(90deg, rgba(0,229,255,0.1) 0%, rgba(138,43,226,0.1) 100%)',
+          borderRadius: '16px',
+          border: '1px solid rgba(0,229,255,0.2)',
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          backdropFilter: 'blur(5px)',
+          boxShadow: '0 4px 20px rgba(0,0,0,0.2)'
+        }}>
+          <div>
+            <h3 style={{ margin: '0 0 5px 0', fontFamily: 'Rajdhani', fontSize: '1.4rem', color: '#fff', textTransform: 'uppercase', letterSpacing: '1px' }}>
+              Host a Community Event <span style={{ fontSize: '0.8rem', verticalAlign: 'middle' }}>🚀</span>
+            </h3>
+            <p style={{ margin: 0, color: 'rgba(255,255,255,0.6)', fontSize: '0.95rem' }}>
+              Organizing a watch party or workshop? Add it to the SpaceTech timeline.
+            </p>
+          </div>
+          <div style={{ display: 'flex', gap: '15px' }}>
+            <button
+              className="premium-btn"
+              onClick={() => window.location.href = '/community-events'}
+              style={{
+                padding: '10px 20px',
+                fontSize: '0.9rem',
+                background: 'transparent',
+                color: '#fff',
+                border: '1px solid rgba(255,255,255,0.3)',
+                cursor: 'pointer'
+              }}
+            >
+              Browse Events
+            </button>
+            <button
+              className="premium-btn"
+              onClick={() => window.location.href = '/create-event'}
+              style={{
+                padding: '10px 25px',
+                fontSize: '1rem',
+                background: '#fff',
+                color: '#000',
+                fontWeight: 'bold',
+                border: 'none',
+                boxShadow: '0 0 15px rgba(255,255,255,0.2)',
+                cursor: 'pointer'
+              }}
+            >
+              <span className="shimmer-effect"></span>
+              + Create Event
+            </button>
+          </div>
+        </div>
+
         <div className="location-and-time-row">
           <LocationSelector
             location={location}

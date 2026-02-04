@@ -136,8 +136,8 @@ Rules:
 
   return (
     <div className="quiz-wrapper">
-      {/* Background stars gif */}
-      <img src="/stars.gif" className="bg-video" alt="Stars" />
+      {/* Background from Learn Page */}
+      <div className="quiz-bg"></div>
 
       <div className="quiz-container">
         <h1 className="quiz-header-title">Planetary Quiz</h1>

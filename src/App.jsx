@@ -3,6 +3,9 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 /* Pages */
 // import LearnPage from "./pages/Learn.page"; // Unused import removed or commented out
 import CreateBlog from "./pages/CreateBlog.page";
+import CreateEvent from "./pages/CreateEvent.page";
+import CommunityEvents from "./pages/CommunityEvents.page";
+import CommunityEventDetails from "./pages/CommunityEventDetails.page";
 
 /* Core Pages */
 import Homepage from "./pages/Homepage";
@@ -43,6 +46,9 @@ function App() {
           <Routes>
             <Route path="/" element={<Homepage />} />
             <Route path="/events" element={<Eventspage />} />
+            <Route path="/create-event" element={<CreateEvent />} />
+            <Route path="/community-events" element={<CommunityEvents />} />
+            <Route path="/community-event/:id" element={<CommunityEventDetails />} />
             <Route path="/event-details" element={<EventDetailsPage />} />
             <Route path="/mission" element={<Missionpage />} />
             <Route path="/weather" element={<Weatherpage />} />
