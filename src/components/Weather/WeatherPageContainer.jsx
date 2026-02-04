@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import ParticleBackground from "../Home/ParticleBackground";
 import SolarActivity from "./SolarActivity";
 import AuroraForecast from "./AuroraForecast";
 import SatelliteImpact from "./SatelliteImpact";
@@ -26,11 +27,7 @@ const WeatherPageContainer = () => {
   return (
     <div className="weather-page">
       {/* 🌍 GLOBAL BACKGROUND */}
-      <img
-        src="/backgrounds/abstract-horizon.png"
-        alt="Abstract planet horizon"
-        className="home-bg"
-      />
+      <ParticleBackground />
       <div className="weather-container">
         <div className="weather-header">
           <h1 className="title">COSMIC WEATHER</h1>

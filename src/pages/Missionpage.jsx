@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import ParticleBackground from "../components/Home/ParticleBackground";
 import MissionHero from "../components/Missions/MissionHero";
 import MissionFiltersSection from "../components/Missions/MissionFiltersSection";
 import TimelineScroller from "../components/Missions/TimelineScroller";
@@ -18,11 +19,7 @@ function Missionpage() {
   return (
     <>
       {/* Global Background */}
-      <img
-        src="/backgrounds/abstract-horizon.png"
-        alt="Abstract planet horizon"
-        className="home-bg"
-      />
+      <ParticleBackground />
 
       {/* Hero Section */}
       <MissionHero />

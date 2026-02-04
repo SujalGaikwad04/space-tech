@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import ParticleBackground from "../components/Home/ParticleBackground";
 import EventFilters from "../components/Events/EventFilters";
 import LocationSelector from "../components/Events/LocationSelector";
 import EventsCalendar from "../components/Events/EventsCalendar";
@@ -186,27 +187,7 @@ function Eventspage() {
   return (
     <div className="events-page">
       {/* 🌍 GLOBAL BACKGROUND */}
-      <img
-        src="/backgrounds/abstract-horizon.png"
-        alt="Abstract planet horizon"
-        className="home-bg"
-      />
-
-      {/* Cosmic decorations */}
-      <div className="shooting-star"></div>
-      <div className="shooting-star"></div>
-      <div className="shooting-star"></div>
-      <div className="cosmic-particle"></div>
-      <div className="cosmic-particle"></div>
-      <div className="cosmic-particle"></div>
-      <div className="cosmic-particle"></div>
-      <div className="cosmic-particle"></div>
-      <div className="nebula nebula-1"></div>
-      <div className="nebula nebula-2"></div>
-      <div className="nebula nebula-3"></div>
-      <div className="planet planet-1"></div>
-      <div className="planet planet-2"></div>
-      <div className="moon-decoration"></div>
+      <ParticleBackground />
 
       <div className="events-container">
         <div style={{ textAlign: 'center' }}>

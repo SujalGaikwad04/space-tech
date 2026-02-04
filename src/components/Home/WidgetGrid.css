@@ -1,0 +1,139 @@
+.widget-grid-section {
+    padding: 4rem 2rem;
+    background: rgba(0, 0, 0, 0.2);
+}
+
+.widget-container {
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.section-title {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #ffffff;
+    text-align: center;
+    margin: 0 0 3rem 0;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.widget-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+}
+
+.widget-card {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    padding: 2rem;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.widget-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: var(--widget-color);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.widget-card:hover {
+    border-color: var(--widget-color);
+    transform: translateY(-4px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.widget-card:hover::before {
+    opacity: 1;
+}
+
+.widget-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.widget-icon {
+    font-size: 2.5rem;
+    filter: drop-shadow(0 0 10px var(--widget-color));
+}
+
+.widget-title {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #ffffff;
+    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.widget-body {
+    flex: 1;
+}
+
+.widget-value {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 3rem;
+    font-weight: 700;
+    color: var(--widget-color);
+    margin-bottom: 0.5rem;
+}
+
+.widget-subtitle {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.95rem;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.widget-footer {
+    padding-top: 1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.widget-link-text {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--widget-color);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+@media (max-width: 1024px) {
+    .widget-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 640px) {
+    .widget-grid-section {
+        padding: 3rem 1.5rem;
+    }
+
+    .section-title {
+        font-size: 2rem;
+    }
+
+    .widget-card {
+        padding: 1.5rem;
+    }
+
+    .widget-value {
+        font-size: 2.5rem;
+    }
+}

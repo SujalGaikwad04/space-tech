@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import ParticleBackground from "../Home/ParticleBackground";
 import { useAuth } from "../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { useEventsData } from "../Events/useEventsData";
@@ -150,11 +151,7 @@ const RealSpaceDashboard = () => {
   return (
     <div className="space-dashboard">
       {/* 🌍 GLOBAL BACKGROUND (Horizon) */}
-      <img
-        src="/backgrounds/abstract-horizon.png"
-        alt="Abstract planet horizon"
-        className="home-bg"
-      />
+      <ParticleBackground />
 
       <header className="space-header">
         <div className="header-left">

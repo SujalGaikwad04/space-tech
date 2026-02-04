@@ -44,8 +44,12 @@
 /* ===== CARD VISUAL ===== */
 .card-visual {
   position: absolute;
-  inset: 0;
-  background-size: cover;
+  top: 0;
+  right: 0;
+  width: 45%;
+  /* Reduced from 50% to create more clear separation */
+  height: 100%;
+  background-size: contain;
   background-repeat: no-repeat;
   background-position: center right;
   transition: transform 0.8s ease;
@@ -53,20 +57,21 @@
 }
 
 .explore-card:hover .card-visual {
-  transform: scale(1.1);
+  transform: scale(1.05) translateX(-10px);
+  /* Slight move left on hover for dynamic feel */
 }
 
 /* ===== IMAGE SOURCES ===== */
 .map-visual {
-  background-image: url("map.png");
+  background-image: url('/map.png');
 }
 
 .earth-visual {
-  background-image: url("earth(2).png");
+  background-image: url('/earth(2).png');
 }
 
 .satellite-visual {
-  background-image: url("satellite.png");
+  background-image: url('/satellite.png');
 }
 
 /* ===== GRADIENT OVERLAY ===== */
@@ -75,9 +80,11 @@
   position: absolute;
   inset: 0;
   background: linear-gradient(90deg,
-      rgba(0, 10, 20, 0.95) 0%,
-      rgba(0, 10, 20, 0.8) 40%,
-      rgba(0, 10, 20, 0.2) 100%);
+      rgba(0, 10, 20, 0) 0%,
+      /* Removed heavy dark overlay from left to let image pop */
+      rgba(0, 10, 20, 0.1) 100%);
+  display: none;
+  /* Hiding overlay to make images clearer as requested */
 }
 
 /* ===== CARD CONTENT ===== */
@@ -89,7 +96,8 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  max-width: 80%;
+  max-width: 55%;
+  /* Reduced from 80% to prevent overlap */
 }
 
 .card-content h3 {

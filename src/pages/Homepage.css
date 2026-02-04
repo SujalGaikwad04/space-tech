@@ -1,0 +1,8 @@
+.parallax-homepage {
+    scroll-behavior: smooth;
+}
+
+/* Ensure smooth scrolling */
+html {
+    scroll-behavior: smooth;
+}

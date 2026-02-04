@@ -1,0 +1,103 @@
+.chapter-section {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    scroll-snap-align: start;
+    overflow: hidden;
+}
+
+.chapter-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 1;
+}
+
+.chapter-content {
+    position: relative;
+    z-index: 2;
+    max-width: 1200px;
+    padding: 4rem 2rem;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.chapter-header {
+    margin-bottom: 4rem;
+    opacity: 0;
+    transform: translateY(50px);
+    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.chapter-section.visible .chapter-header {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.chapter-number {
+    display: inline-block;
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #00d9ff;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    margin-bottom: 1rem;
+    padding: 0.5rem 1.5rem;
+    border: 1px solid #00d9ff;
+    border-radius: 50px;
+}
+
+.chapter-title {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 4rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin: 1.5rem 0;
+    text-shadow: 0 2px 20px rgba(0, 0, 0, 0.8);
+    line-height: 1.2;
+}
+
+.chapter-subtitle {
+    font-family: 'Inter', sans-serif;
+    font-size: 1.5rem;
+    color: rgba(255, 255, 255, 0.9);
+    margin: 1rem 0 0 0;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.chapter-body {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1) 0.3s;
+}
+
+.chapter-section.visible .chapter-body {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+@media (max-width: 768px) {
+    .chapter-title {
+        font-size: 2.5rem;
+    }
+
+    .chapter-subtitle {
+        font-size: 1.2rem;
+    }
+
+    .chapter-content {
+        padding: 3rem 1.5rem;
+    }
+}

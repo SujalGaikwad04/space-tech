@@ -1,20 +1,23 @@
+import ParticleBackground from "../components/Home/ParticleBackground";
+import AnimatedHero from "../components/Home/AnimatedHero";
+import StatsCounter from "../components/Home/StatsCounter";
+import UpcomingEvents from "../components/Home/UpcomingEvents";
 import ExploreFeatures from "../components/Home/ExploreFeatures";
-import HeroSection from "../components/Home/HeroSection";
 import LearnAbout from "../components/Home/LearnAbout";
 import RealSpaceDashboard from "../components/Home/RealSpaceDashboard";
-import UpcomingEvents from "../components/Home/UpcomingEvents";
-
+import './Homepage.css';
 
 function HomePage() {
   return (
-    <>
-      <HeroSection />
+    <div className="parallax-homepage">
+      <ParticleBackground />
+      <AnimatedHero />
+      <StatsCounter />
       <UpcomingEvents />
       <ExploreFeatures />
       <LearnAbout />
       <RealSpaceDashboard />
-      {/* next sections of homepage */}
-    </>
+    </div>
   );
 }
 
