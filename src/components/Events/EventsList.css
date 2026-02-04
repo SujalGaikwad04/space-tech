@@ -52,7 +52,10 @@
 
 
 .event-content {
-    flex: 2;
+    flex: 1;
+    /* Changed from 2 to 1 to auto-expand */
+    width: 100%;
+    /* Ensure it takes full width if no image */
     padding: 30px;
     display: flex;
     flex-direction: column;

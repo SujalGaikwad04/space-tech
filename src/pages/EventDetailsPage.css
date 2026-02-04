@@ -375,3 +375,49 @@
         font-size: 1.125rem;
     }
 }
+
+/* Hero Actions Row */
+.hero-actions-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+/* Override back-button margin since it's now in a row */
+.back-button {
+    margin-bottom: 0;
+}
+
+/* Download PDF Button */
+.download-pdf-btn {
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px solid var(--accent-primary);
+    color: var(--accent-primary);
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    font-size: 0.938rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    backdrop-filter: blur(5px);
+}
+
+.download-pdf-btn:hover {
+    background: var(--accent-primary);
+    color: #000;
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 217, 255, 0.3);
+}
+
+@media (max-width: 480px) {
+    .hero-actions-row {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}

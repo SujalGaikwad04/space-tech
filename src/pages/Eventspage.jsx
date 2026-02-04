@@ -3,7 +3,7 @@ import EventFilters from "../components/Events/EventFilters";
 import LocationSelector from "../components/Events/LocationSelector";
 import EventsCalendar from "../components/Events/EventsCalendar";
 import SelectedDayDetails from "../components/Events/SelectedDayDetails";
-import EventsActions from "../components/Events/EventsActions";
+
 import EventsList from "../components/Events/EventsList";
 import { useEventsData } from "../components/Events/useEventsData";
 import { useSelectedEvent } from "../components/Events/useSelectedEvent";
@@ -254,7 +254,7 @@ function Eventspage() {
         </div>
 
         <EventsList events={filteredEventsForList} />
-        <EventsActions />
+
       </div>
     </div>
   );

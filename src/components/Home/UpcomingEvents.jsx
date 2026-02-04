@@ -1,116 +1,82 @@
 import React, { useMemo, useState } from "react";
 import "./UpcomingEvents.css";
 import { useNavigate } from "react-router-dom";
-// Example data – later you can replace this with data from APIs
-// Example data – later you can replace this with data from APIs
-const MOCK_EVENTS = [
-  {
-    id: 1,
-    title: "ISS Pass",
-    type: "ISS Pass",
-    startTime: "2025-12-30T20:42:00Z",
-    location: "Visible in Mumbai, Delhi, and Worldwide",
-    label: "Today, 8:42 PM",
-  },
-  {
-    id: 2,
-    title: "Aurora Alert",
-    type: "Aurora",
-    startTime: "2026-01-15T02:00:00Z",
-    endTime: "2026-01-17T06:00:00Z",
-    location: "Northern Regions, rarely visible in Delhi",
-    label: "Jan 15–17",
-  },
-  {
-    id: 3,
-    title: "Meteor Shower Peak",
-    type: "Meteor",
-    startTime: "2025-12-31T23:00:00Z",
-    location: "Best after midnight in Mumbai, Delhi",
-    label: "Tomorrow, 11:00 PM",
-  },
-];
+import { useEventsData } from "../Events/useEventsData";
 
 const FILTERS = [
   { id: "today", label: "Today" },
   { id: "week", label: "This Week" },
   { id: "month", label: "This Month" },
-  { id: "nextMonth", label: "Next Month" },
 ];
 
-function isSameLocalDay(dateA, dateB) {
-  return (
-    dateA.getFullYear() === dateB.getFullYear() &&
-    dateA.getMonth() === dateB.getMonth() &&
-    dateA.getDate() === dateB.getDate()
-  );
-}
+const CATEGORIES = [
+  { id: "all", label: "All Events" },
+  { id: "meteor", label: "Meteor" },
+  { id: "eclipse", label: "Eclipse" },
+  { id: "iss", label: "ISS Pass" },
+  { id: "conjunction", label: "Planet Alignment" },
+];
 
-function filterEvents(events, filterId) {
-  const now = new Date();
-  const startOfToday = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-  const endOfToday = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1);
-
-  return events.filter((event) => {
-    const start = new Date(event.startTime);
-
-    switch (filterId) {
-      case "today":
-        return start >= startOfToday && start < endOfToday;
-
-      case "week": {
-        const inSevenDays = new Date(startOfToday);
-        inSevenDays.setDate(startOfToday.getDate() + 7);
-        return start >= startOfToday && start < inSevenDays;
-      }
-
-      case "month":
-        return (
-          start >= startOfToday &&
-          start.getFullYear() === now.getFullYear() &&
-          start.getMonth() === now.getMonth()
-        );
-
-      case "nextMonth": {
-        const year = now.getMonth() === 11 ? now.getFullYear() + 1 : now.getFullYear();
-        const month = (now.getMonth() + 1) % 12;
-        return (
-          start.getFullYear() === year &&
-          start.getMonth() === month
-        );
-      }
-
-      default:
-        return true;
-    }
-  });
-}
-
-const UpcomingEvents = ({ events = MOCK_EVENTS }) => {
-  const [activeFilter, setActiveFilter] = useState("week");
-  const [searchLocation, setSearchLocation] = useState("");
-
-  const filteredEvents = useMemo(
-    () => {
-      // 1. Filter by time
-      const timeFiltered = filterEvents(events, activeFilter);
-
-      // 2. Filter by location (if search exists)
-      if (!searchLocation.trim()) return timeFiltered;
-
-      const normalize = (text) => text.toLowerCase().trim();
-      const query = normalize(searchLocation);
-
-      return timeFiltered.filter(event => {
-        const loc = normalize(event.location || "");
-        // Simple check: does the event location string contain the search query?
-        return loc.includes(query) || loc.includes("worldwide");
-      });
-    },
-    [events, activeFilter, searchLocation]
-  );
-
+const UpcomingEvents = () => {
   const navigate = useNavigate();
+  const [activeFilter, setActiveFilter] = useState("week"); // Time filter
+  const [activeCategory, setActiveCategory] = useState("all"); // Category filter
+  const [searchLocation, setSearchLocation] = useState("Mumbai, India");
+
+  // Get current date info
+  const today = new Date();
+  const currentMonth = today.getMonth();
+  const currentYear = today.getFullYear();
+  const currentDay = today.getDate();
+
+  // Fetch real data
+  const { allEventsData, loading } = useEventsData(currentMonth, currentYear, searchLocation);
+
+  const filteredEvents = useMemo(() => {
+    if (!allEventsData) return [];
+
+    return allEventsData.filter((event) => {
+      // 1. Time Filter
+      let passesTime = false;
+      if (activeFilter === "today") {
+        passesTime = event.day === currentDay;
+      } else if (activeFilter === "week") {
+        passesTime = event.day >= currentDay && event.day <= currentDay + 7;
+      } else if (activeFilter === "month") {
+        passesTime = true; // Data is already for current month
+      }
+
+      // 2. Category Filter
+      let passesCategory = true;
+      if (activeCategory !== "all") {
+        // Map UI category IDs to API types if needed, or simple string match
+        if (activeCategory === "iss") {
+          passesCategory = event.type === "iss" || event.type === "man-made";
+        } else if (activeCategory === "conjunction") {
+          passesCategory = event.type === "conjunction" || event.type === "planet" || event.type === "moon";
+        } else {
+          passesCategory = event.type === activeCategory;
+        }
+      }
+
+      // 3. Location Filter (Search)
+      // The hook already uses 'searchLocation' to generate some local events,
+      // but we can also filter the visible list if needed.
+      // For now, we assume the hook's return is relevant enough, 
+      // but let's strictly filter text description if user typed something specific.
+      // However, typical usage here is just setting context. We'll trust the hook.
+
+      return passesTime && passesCategory;
+    });
+  }, [allEventsData, activeFilter, activeCategory, currentDay]);
+
+  // Helper to format date label
+  const getDateLabel = (day) => {
+    if (day === currentDay) return "Today";
+    if (day === currentDay + 1) return "Tomorrow";
+    const date = new Date(currentYear, currentMonth, day);
+    return date.toLocaleDateString("en-US", { month: "short", day: "numeric" });
+  };
 
   return (
     <section className="upcoming-events">
@@ -146,12 +112,17 @@ const UpcomingEvents = ({ events = MOCK_EVENTS }) => {
         <div className="upcoming-body">
           {/* Left sidebar: Event Cards list */}
           <aside className="event-cards-sidebar">
-            <h3>Event Cards</h3>
+            <h3>Event Categories</h3>
             <ul>
-              <li>Meteor</li>
-              <li>Eclipse</li>
-              <li>ISS Pass</li>
-              <li>Planet Alignment</li>
+              {CATEGORIES.map(cat => (
+                <li
+                  key={cat.id}
+                  className={activeCategory === cat.id ? "active" : ""}
+                  onClick={() => setActiveCategory(cat.id)}
+                >
+                  {activeCategory === cat.id ? "▶ " : ""}{cat.label}
+                </li>
+              ))}
             </ul>
             <button className="view-calendar-btn" onClick={() => navigate("/events")}>
               View Full Calendar →
@@ -160,32 +131,52 @@ const UpcomingEvents = ({ events = MOCK_EVENTS }) => {
 
           {/* Right: Event cards */}
           <div className="events-list">
-            {filteredEvents.length === 0 ? (
-              <div className="no-events">No events in this time range.</div>
+            {loading ? (
+              <div className="loading-state">Scanning local skies...</div>
+            ) : filteredEvents.length === 0 ? (
+              <div className="no-events">No events found for this time range.</div>
             ) : (
-              filteredEvents.map((event) => (
-                <article key={event.id} className="event-card">
+              filteredEvents.map((event, index) => (
+                <article key={index} className="event-card">
                   <div className="event-main">
                     <div className="event-title-row">
-                      <span className="event-label">{event.label}</span>
+                      <span className="event-label">{getDateLabel(event.day)}</span>
                       <span className="event-type">{event.type}</span>
                     </div>
                     <h4 className="event-title">{event.title}</h4>
                     <div className="event-meta">
-                      <span className="event-location">📍 {event.location}</span>
+                      <div className="meta-row">
+                        <span className="event-location" title="Visibility">
+                          👁️ {event.visibilityText || "Visible"}
+                        </span>
+                        {event.time && (
+                          <span className="event-time" style={{ marginLeft: '15px' }}>
+                            🕒 {event.time}
+                          </span>
+                        )}
+                      </div>
+                      <p className="event-desc-sim">{event.description}</p>
                     </div>
                   </div>
 
                   <div className="event-actions">
-                    <button className="premium-btn event-btn secondary" onClick={() => navigate("/live-map")}>
+                    {event.primaryAction && (
+                      <button
+                        className="premium-btn event-btn primary"
+                        onClick={() => window.open(event.primaryAction, '_blank')}
+                      >
+                        <span className="shimmer-effect"></span>
+                        <span className="scan-line"></span>
+                        {event.buttonText || "View Details"}
+                      </button>
+                    )}
+                    <button
+                      className="premium-btn event-btn secondary"
+                      onClick={() => navigate("/events", { state: { selectedDay: event.day } })}
+                    >
                       <span className="shimmer-effect"></span>
                       <span className="scan-line"></span>
-                      View Map
-                    </button>
-                    <button className="premium-btn event-btn primary">
-                      <span className="shimmer-effect"></span>
-                      <span className="scan-line"></span>
-                      Interactive
+                      More Info
                     </button>
                   </div>
                 </article>

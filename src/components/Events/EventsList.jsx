@@ -25,9 +25,11 @@ const EventsList = ({ events }) => {
 
             {events.map((event, index) => (
                 <div key={index} className="event-card-item">
-                    <div className="event-visual" style={{ backgroundImage: `url(${event.image})` }}>
-                        <div className="visual-overlay"></div>
-                    </div>
+                    {event.image && (
+                        <div className="event-visual" style={{ backgroundImage: `url(${event.image})` }}>
+                            <div className="visual-overlay"></div>
+                        </div>
+                    )}
 
                     <div className="event-content">
                         <div className="event-top-row">
@@ -88,9 +90,7 @@ const EventsList = ({ events }) => {
                 </div>
             ))}
 
-            <div className="load-more-container">
-                <button className="load-more-btn">Load More Events ⌄</button>
-            </div>
+
         </div>
     );
 };
