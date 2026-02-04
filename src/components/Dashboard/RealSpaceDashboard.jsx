@@ -149,7 +149,12 @@ const RealSpaceDashboard = () => {
 
   return (
     <div className="space-dashboard">
-      <div className="space-bg"></div>
+      {/* 🌍 GLOBAL BACKGROUND (Horizon) */}
+      <img
+        src="/backgrounds/abstract-horizon.png"
+        alt="Abstract planet horizon"
+        className="home-bg"
+      />
 
       <header className="space-header">
         <div className="header-left">

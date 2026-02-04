@@ -13,11 +13,11 @@
 .weather-page {
   min-height: 100vh;
 
-  background-image: url("/earth.jpg");
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center;
-  background-attachment: fixed;
+  /* background-image: url("/earth.jpg"); REMOVED for global background */
+  /* background-repeat: no-repeat; */
+  /* background-size: cover; */
+  /* background-position: center; */
+  /* background-attachment: fixed; */
 
   position: relative;
   overflow-x: hidden;

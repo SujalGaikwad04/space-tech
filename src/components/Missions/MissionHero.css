@@ -1,14 +1,3 @@
-/* 🌍 FIXED BACKGROUND — IDENTICAL TO HOME PAGE */
-.home-bg {
-  position: fixed;
-  inset: 0;
-  width: 100vw;
-  height: 100vh;
-  object-fit: cover;
-  z-index: -10;
-  pointer-events: none;
-}
-
 /* MISSION HERO */
 .mission-hero {
   width: 100%;

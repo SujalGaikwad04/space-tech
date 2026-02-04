@@ -7,6 +7,7 @@ import EventsActions from "../components/Events/EventsActions";
 import EventsList from "../components/Events/EventsList";
 import { useEventsData } from "../components/Events/useEventsData";
 import { useSelectedEvent } from "../components/Events/useSelectedEvent";
+import EventCountdown from "../components/Events/EventCountdown";
 import "../components/Events/EventsPageContainer.css";
 
 function Eventspage() {
@@ -83,6 +84,41 @@ function Eventspage() {
   const { calendarEvents, allEventsData, loading } = useEventsData(currentMonth, currentYear, location);
   const selectedEventDetails = useSelectedEvent(selectedDay, allEventsData, currentMonth, currentYear);
 
+  // Logic to find the NEXT MAJOR EVENT for the countdown
+  const getNextMajorEvent = () => {
+    if (!allEventsData || allEventsData.length === 0) return null;
+
+    // Filter for future events only
+    const today = new Date();
+    const futureEvents = allEventsData.filter(event => {
+      // Construct event date object
+      const eventDate = new Date(currentYear, currentMonth, event.day);
+
+      // If event is today, check if time has passed (simplified)
+      if (event.day === today.getDate() && currentMonth === today.getMonth() && currentYear === today.getFullYear()) {
+        return true;
+      }
+      return eventDate >= today;
+    });
+
+    // Sort by day
+    futureEvents.sort((a, b) => a.day - b.day);
+
+    // Pick the first one that looks "Major" or just the immediate next one
+    const majorTypes = ["eclipse", "meteor", "conjunction"];
+    const nextMajor = futureEvents.find(e => majorTypes.includes(e.type)) || futureEvents[0];
+
+    if (!nextMajor) return null;
+
+    // Construct target date for countdown
+    const targetDate = new Date(currentYear, currentMonth, nextMajor.day);
+    targetDate.setHours(20, 0, 0); // Default to evening event
+
+    return { ...nextMajor, targetDate };
+  };
+
+  const nextEvent = getNextMajorEvent();
+
   // Event handlers
   const handleDaySelect = (day) => {
     setSelectedDay(day);
@@ -95,7 +131,6 @@ function Eventspage() {
     }
 
     return allEventsData.filter(event => {
-      // Check if event matches at least one active filter
       return activeFilters.some(filter => {
         switch (filter) {
           case "METEOR SHOWERS":
@@ -109,10 +144,8 @@ function Eventspage() {
           case "AURORA":
             return event.type === "aurora";
           case "TONIGHT":
-            // Simple check matches current selected day or today
             return event.day === selectedDay;
           case "THIS WEEK":
-            // Simplified week check: event day is within 7 days of selected day
             return event.day >= selectedDay && event.day <= selectedDay + 7;
           default:
             return false;
@@ -121,7 +154,7 @@ function Eventspage() {
     });
   };
 
-  const filteredEventsForList = getFilteredEvents().filter(e => e.description); // Ensure only rich events are shown in list
+  const filteredEventsForList = getFilteredEvents().filter(e => e.description);
 
   const handleFilterChange = (filter) => {
     if (filter === "ALL") {
@@ -138,9 +171,6 @@ function Eventspage() {
         newFilters.push(filter);
       }
 
-      // If no filters left, default to empty (which implies ALL logic if we want, or explicit "ALL")
-      // But typically empty means showing everything or nothing? 
-      // Let's say empty means "ALL" visually but effectively we handle it in getFilteredEvents
       if (newFilters.length === 0) {
         newFilters = ["ALL"];
       }
@@ -155,6 +185,13 @@ function Eventspage() {
 
   return (
     <div className="events-page">
+      {/* 🌍 GLOBAL BACKGROUND */}
+      <img
+        src="/backgrounds/abstract-horizon.png"
+        alt="Abstract planet horizon"
+        className="home-bg"
+      />
+
       {/* Cosmic decorations */}
       <div className="shooting-star"></div>
       <div className="shooting-star"></div>
@@ -191,6 +228,15 @@ function Eventspage() {
             <span className="gmt-val">{gmtOffset}</span>
           </div>
         </div>
+
+        {/* Countdown Section (Moved) */}
+        {nextEvent && (
+          <EventCountdown
+            targetDate={nextEvent.targetDate}
+            eventName={nextEvent.title}
+            onActionClick={() => window.open(nextEvent.primaryAction || "#", "_blank")}
+          />
+        )}
 
         <div className="calendar-and-details-wrapper">
           <EventsCalendar

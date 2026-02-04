@@ -4,11 +4,8 @@ const MissionHero = () => {
   return (
     <>
       {/* 🌍 FIXED BACKGROUND (SAME AS HOME PAGE) */}
-      <img
-        src="/earth.jpg"
-        alt="Space background"
-        className="home-bg"
-      />
+      {/* 🌍 FIXED BACKGROUND (SAME AS HOME PAGE) */}
+      {/* Background removed to use global background from Missionpage.jsx */}
 
       <section className="mission-hero">
         <h1 className="mission-title">SPACE MISSIONS</h1>

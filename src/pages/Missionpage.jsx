@@ -12,8 +12,14 @@ function Missionpage() {
 
   return (
     <>
+      {/* 🌍 GLOBAL BACKGROUND */}
+      <img
+        src="/backgrounds/abstract-horizon.png"
+        alt="Abstract planet horizon"
+        className="home-bg"
+      />
       <MissionHero />
-      <MissionFiltersSection 
+      <MissionFiltersSection
         onViewChange={setCurrentView}
       />
       {currentView === "timeline" && (

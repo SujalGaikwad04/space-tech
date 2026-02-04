@@ -2,10 +2,7 @@
 
 .events-page {
   min-height: 100vh;
-  background: url("/earth.jpg");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+  /* background: url("/earth.jpg"); REMOVED for global background */
 
   padding: 130px 2rem 3rem 2rem;
   color: var(--text-primary);

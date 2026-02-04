@@ -3,16 +3,42 @@
   font-family: "Inter", sans-serif;
 }
 
-/* Page Container with Unified Background */
+/* Page Container with Unified Background (Deep Space Blue) */
 .page-container {
   min-height: 100vh;
   width: 100%;
-  background-image: url('/auth-bg.png');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
+  background: radial-gradient(circle at center, #001f3f 0%, #000814 100%);
+  position: relative;
+  overflow: hidden;
   transition: var(--transition);
+}
+
+.page-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image:
+    radial-gradient(1px 1px at 10% 10%, rgba(255, 255, 255, 0.8) 0%, transparent 100%),
+    radial-gradient(1px 1px at 20% 40%, rgba(255, 255, 255, 0.6) 0%, transparent 100%),
+    radial-gradient(2px 2px at 60% 30%, rgba(173, 216, 230, 0.7) 0%, transparent 100%),
+    radial-gradient(1px 1px at 80% 80%, rgba(255, 255, 255, 0.5) 0%, transparent 100%);
+  background-size: 200px 200px;
+  animation: slow-drift 30s linear infinite;
+  pointer-events: none;
+  z-index: 0;
+}
+
+@keyframes slow-drift {
+  from {
+    transform: translateY(0);
+  }
+
+  to {
+    transform: translateY(-50px);
+  }
 }
 
 .auth-wrapper {
@@ -27,6 +53,8 @@
   transition: var(--transition);
   overflow: hidden;
   margin-bottom: 0;
+  z-index: 1;
+  /* Sit above background */
 }
 
 .auth-card {
@@ -692,6 +720,7 @@ form input:focus {
   padding: 0 40px 100px 40px;
   margin: 0;
   position: relative;
+  z-index: 1;
 }
 
 .about-section>* {

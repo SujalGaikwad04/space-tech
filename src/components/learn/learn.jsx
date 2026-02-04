@@ -61,8 +61,8 @@ function Learn() {
 
   return (
     <div className="learn-page-wrapper">
-      {/* Fixed background gif */}
-      <img src="stars.gif" className="bg-video" alt="Starry Cosmos" />
+      {/* Fixed background Deep Starfield */}
+      <div className="learn-bg"></div>
 
       {/* Hero & Stats Section */}
       <section className="stu-sec">
