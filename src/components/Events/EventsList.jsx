@@ -51,7 +51,7 @@ const EventsList = ({ events }) => {
                         <div className="event-info-row">
                             {event.time && (
                                 <div className="info-item">
-                                    <span className="info-icon">🕒</span> {event.time}
+                                    <span className="info-icon">{event.timeIcon || '🕒'}</span> {event.time}
                                 </div>
                             )}
                             {event.moonPhase && (
@@ -63,14 +63,14 @@ const EventsList = ({ events }) => {
 
                         {event.warning && (
                             <div className="warning-box">
-                                <span>ℹ️</span> {event.warning}
+                                <span>{event.warningIcon || 'ℹ️'}</span> {event.warning}
                             </div>
                         )}
 
                         <div className="event-actions">
                             {event.buttonText && (
                                 <button
-                                    className="btn-primary"
+                                    className={`btn-primary ${event.isWideButton ? 'btn-wide' : ''}`}
                                     onClick={() => event.primaryAction && window.open(event.primaryAction, '_blank')}
                                 >
                                     {event.buttonText === 'Set Reminder' && <span>🔔</span>}

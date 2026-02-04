@@ -38,8 +38,8 @@ const EventsCalendar = ({ events = [], selectedDate, onSelectDate, currentMonth,
 
   return (
     <div className="calendar-section">
-      <h2 className="month-title">{monthName}</h2>
       <div className="calendar">
+        <h2 className="month-title">{monthName}</h2>
         <div className="calendar-header">
           {daysOfWeek.map(day => (
             <div key={day} className="day-name">{day}</div>

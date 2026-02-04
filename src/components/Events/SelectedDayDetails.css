@@ -1,7 +1,7 @@
-/* Main Section Wrapper */
 .selected-day-section {
   width: 100%;
   animation: fadeUp 0.6s ease-out;
+  height: 100%;
 }
 
 @keyframes fadeUp {
@@ -31,41 +31,38 @@
 
 /* --- THE CARD CONTAINER --- */
 .details-card {
-  background: linear-gradient(135deg, #050a14 0%, #020c1b 100%);
+  background: rgba(5, 10, 20, 0.7);
   border-radius: 24px;
   padding: 40px;
   position: relative;
   overflow: hidden;
   box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6),
-    0 0 0 1px rgba(0, 217, 255, 0.15);
-  /* Subtle border */
+    inset 0 0 0 1px rgba(0, 217, 255, 0.1);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   color: #fff;
   height: 100%;
-  /* Match calendar height */
   min-height: 600px;
-  /* Fallback min height */
   display: flex;
   flex-direction: column;
 }
 
-/* Background Grid/Dot Pattern */
+/* Background Texture/Effect */
 .details-card::before {
   content: '';
   position: absolute;
   inset: 0;
-  background-image: radial-gradient(rgba(0, 217, 255, 0.15) 1px, transparent 1px);
-  background-size: 30px 30px;
-  opacity: 0.3;
+  background:
+    radial-gradient(circle at 10% 10%, rgba(0, 217, 255, 0.05) 0%, transparent 40%),
+    radial-gradient(circle at 90% 90%, rgba(0, 89, 255, 0.05) 0%, transparent 40%);
   pointer-events: none;
+  z-index: 0;
 }
 
-/* Horizontal Glow Line Separator */
+/* Horizontal Divider (Optional, kept subtle) */
 .card-divider {
-  width: 100%;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(0, 217, 255, 0.5), transparent);
-  margin: 20px 0 25px 0;
-  position: relative;
+  display: none;
+  /* Removed for cleaner look relative to new image */
 }
 
 /* --- HEADER SECTION --- */
@@ -75,70 +72,69 @@
   align-items: flex-start;
   position: relative;
   z-index: 2;
+  margin-bottom: 5px;
 }
 
 .event-title-main {
-  font-family: 'Orbitron', 'Rajdhani', sans-serif;
-  font-size: 2.2rem;
-  /* Increased significantly */
+  font-family: 'Orbitron', sans-serif;
+  font-size: 2.5rem;
   font-weight: 700;
   color: #00d9ff;
-  /* Neon Cyan */
   text-transform: uppercase;
-  letter-spacing: 3px;
+  letter-spacing: 2px;
   line-height: 1.1;
-  text-shadow: 0 0 20px rgba(0, 217, 255, 0.5);
+  text-shadow: 0 0 25px rgba(0, 217, 255, 0.4);
   max-width: 90%;
 }
 
 .info-icon-btn {
-  background: rgba(0, 217, 255, 0.1);
+  background: transparent;
   border: 1px solid rgba(0, 217, 255, 0.3);
   color: #00d9ff;
-  width: 32px;
-  height: 32px;
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   transition: all 0.3s ease;
+  font-size: 1rem;
 }
 
 .info-icon-btn:hover {
-  background: #00d9ff;
-  color: #000;
-  box-shadow: 0 0 15px #00d9ff;
+  background: rgba(0, 217, 255, 0.1);
+  box-shadow: 0 0 15px rgba(0, 217, 255, 0.3);
+  transform: rotate(15deg);
 }
 
 /* --- META INFO (Date | Time) --- */
 .event-datetime {
   font-family: 'Rajdhani', sans-serif;
-  font-size: 1.1rem;
-  /* Increased */
-  color: rgba(255, 255, 255, 0.7);
+  font-size: 1rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.5);
   text-transform: uppercase;
-  letter-spacing: 2px;
-  margin-bottom: 12px;
+  letter-spacing: 1.5px;
+  margin-bottom: 30px;
   position: relative;
   z-index: 2;
-  font-weight: 500;
 }
 
 /* --- VISIBILITY RATING --- */
 .event-visibility {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 15px;
   margin-bottom: 25px;
   position: relative;
   z-index: 2;
 }
 
 .visibility-label {
+  font-family: 'Rajdhani', sans-serif;
   font-size: 1rem;
-  /* Increased */
-  color: #fff;
+  color: rgba(255, 255, 255, 0.7);
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 1px;
@@ -146,17 +142,17 @@
 
 .stars {
   display: flex;
-  gap: 4px;
+  gap: 2px;
 }
 
 .star {
-  font-size: 1.2rem;
+  font-size: 1rem;
 }
 
 .star.filled {
-  color: #39ff14;
-  /* Neon Green */
-  text-shadow: 0 0 8px #39ff14;
+  color: #00d9ff;
+  /* Cyan stars to match theme, or stick to #39ff14 if green desired */
+  text-shadow: 0 0 8px rgba(0, 217, 255, 0.6);
 }
 
 .star.empty {
@@ -164,41 +160,47 @@
 }
 
 .visibility-text {
+  font-family: 'Rajdhani', sans-serif;
   font-size: 1rem;
-  color: #39ff14;
+  font-weight: 700;
   font-style: italic;
-  margin-left: 8px;
+  color: #ff3366;
+  /* Vibrant pink/red for contrast as seen in some refs, or stick to green */
+  margin-left: 5px;
 }
 
 /* --- DESCRIPTION --- */
 .event-description {
   position: relative;
   z-index: 2;
-  margin-bottom: auto;
-  /* Pushes content up */
+  margin-bottom: 20px;
 }
 
 .desc-label {
   color: #00d9ff;
+  font-family: 'Rajdhani', sans-serif;
   font-size: 0.9rem;
-  font-weight: 700;
+  font-weight: 800;
   text-transform: uppercase;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
   display: block;
+  letter-spacing: 1px;
 }
 
 .event-description p {
-  font-size: 1.1rem;
-  /* Increased */
-  line-height: 1.8;
-  color: rgba(255, 255, 255, 0.9);
-  margin-bottom: 15px;
+  font-family: 'Inter', sans-serif;
+  font-size: 1.25rem;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.8);
+  margin-bottom: 12px;
+  max-width: 95%;
 }
 
 .read-more-btn {
   background: none;
   border: none;
   color: #00d9ff;
+  font-family: 'Orbitron', sans-serif;
   font-weight: 700;
   text-transform: uppercase;
   font-size: 0.9rem;
@@ -209,7 +211,7 @@
 }
 
 .read-more-btn:hover {
-  text-shadow: 0 0 10px #00d9ff;
+  text-shadow: 0 0 8px rgba(0, 217, 255, 0.6);
   letter-spacing: 1.5px;
 }
 
@@ -218,21 +220,24 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 30px 0;
+  flex: 1;
+  /* Take up available space to center vertically */
   position: relative;
   z-index: 1;
+  min-height: 150px;
 }
 
 .center-icon {
-  font-size: 5rem;
-  filter: drop-shadow(0 0 20px rgba(0, 217, 255, 0.3));
+  font-size: 4rem;
+  filter: drop-shadow(0 0 25px rgba(0, 217, 255, 0.4));
   animation: float 6s ease-in-out infinite;
 }
 
 .quiet-moon {
   color: #00d9ff;
-  opacity: 0.8;
-  font-size: 6rem;
+  opacity: 0.9;
+  font-size: 5rem;
+  transform: rotate(-15deg);
 }
 
 @keyframes float {
@@ -249,51 +254,50 @@
 
 .quiet-label {
   text-align: center;
-  font-family: 'Rajdhani', sans-serif;
-  font-size: 1.1rem;
-  color: rgba(255, 255, 255, 0.4);
-  letter-spacing: 4px;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.3);
+  letter-spacing: 6px;
   text-transform: uppercase;
-  margin-top: 15px;
+  margin-bottom: auto;
+  /* Push buttons down */
+  margin-top: -20px;
 }
 
 /* --- ACTION BUTTONS (Footer) --- */
 .event-actions {
   display: flex;
   flex-direction: column;
-  gap: 15px;
-  margin-top: auto;
+  gap: 12px;
   position: relative;
   z-index: 2;
   width: 100%;
+  margin-top: 30px;
 }
 
 .action-btn {
-  background: transparent;
-  border: 1px solid rgba(0, 217, 255, 0.3);
+  background: rgba(0, 10, 20, 0.4);
+  border: 1px solid #00d9ff;
   color: #fff;
-  padding: 20px;
-  /* Increased padding */
-  border-radius: 10px;
+  padding: 16px;
+  border-radius: 50px;
+  /* Pill shape */
   font-family: 'Orbitron', sans-serif;
-  font-size: 1.1rem;
-  /* Increased font size */
+  font-size: 0.9rem;
   font-weight: 600;
   text-transform: uppercase;
   cursor: pointer;
   transition: all 0.3s ease;
   text-align: center;
-  position: relative;
-  overflow: hidden;
-  letter-spacing: 3px;
+  letter-spacing: 2px;
   width: 100%;
+  box-shadow: 0 0 10px rgba(0, 217, 255, 0.1);
 }
 
 .action-btn:hover {
-  background: rgba(0, 217, 255, 0.1);
-  border-color: #00d9ff;
-  box-shadow: 0 0 20px rgba(0, 217, 255, 0.3);
-  text-shadow: 0 0 5px #fff;
+  background: rgba(0, 217, 255, 0.15);
+  box-shadow: 0 0 20px rgba(0, 217, 255, 0.4);
+  transform: translateY(-2px);
 }
 
 .action-btn:active {
@@ -302,15 +306,12 @@
 
 /* --- RESPONSIVE --- */
 @media (max-width: 768px) {
-  .event-actions {
-    grid-template-columns: 1fr;
-  }
-
   .details-card {
-    padding: 20px;
+    padding: 25px;
+    min-height: auto;
   }
 
   .event-title-main {
-    font-size: 1.6rem;
+    font-size: 1.8rem;
   }
 }

@@ -97,7 +97,7 @@ const SelectedDayDetails = ({ event, selectedDay }) => {
               <button className="info-icon-btn">i</button>
             </div>
 
-            <div className="card-divider"></div>
+
 
             <div className="event-datetime">
               FEBRUARY {selectedDay}, 2026 | NO EVENTS SCHEDULED
@@ -116,7 +116,6 @@ const SelectedDayDetails = ({ event, selectedDay }) => {
                 While no major planetary alignments or meteor showers are predicted, it's a perfect
                 opportunity for deep-space photography of the Orion Nebula and Pleiades cluster.
               </p>
-              <button className="read-more-btn">READ MORE</button>
             </div>
 
             {/* Quiet Orbit Center Graphic */}
@@ -144,7 +143,7 @@ const SelectedDayDetails = ({ event, selectedDay }) => {
               <button className="info-icon-btn" onClick={() => navigate('/event-details', { state: { event } })}>i</button>
             </div>
 
-            <div className="card-divider"></div>
+
 
             <div className="event-datetime">
               {event.date || `FEBRUARY ${selectedDay}, 2026`} | {event.time || "ALL NIGHT"}
@@ -159,7 +158,6 @@ const SelectedDayDetails = ({ event, selectedDay }) => {
             <div className="event-description">
               <span className="desc-label">EVENT DESCRIPTION</span>
               <p>{event.description}</p>
-              <button className="read-more-btn" onClick={() => navigate('/event-details', { state: { event } })}>READ MORE</button>
             </div>
 
             {/* Event Type Center Graphic */}

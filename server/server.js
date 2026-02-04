@@ -34,7 +34,7 @@ const transporter = nodemailer.createTransport({
 
 // Initialize PostgreSQL database connection
 // Connection String provided by User
-const connectionString = 'postgresql://neondb_owner:npg_elhiFY8n4bsO@ep-morning-shadow-aj6mgc3s-pooler.c-3.us-east-2.aws.neon.tech/neondb?sslmode=require';
+const connectionString = 'postgresql://neondb_owner:npg_elhiFY8n4bsO@ep-morning-shadow-aj6mgc3s.us-east-2.aws.neon.tech/neondb?sslmode=require';
 
 const pool = new Pool({
   connectionString,

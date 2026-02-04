@@ -3,14 +3,10 @@ import "./EventFilters.css";
 const EventFilters = ({ activeFilters = [], onFilterChange }) => {
   const filters = [
     "ALL",
-    "TONIGHT",
-    "THIS WEEK",
     "METEOR SHOWERS",
     "ECLIPSES",
-    "ISS PASSES",
     "PLANETARY",
-    "AURORA",
-    "CUSTOM DATE RANGE"
+    "AURORA"
   ];
 
   const toggleFilter = (filter) => {
@@ -29,9 +25,8 @@ const EventFilters = ({ activeFilters = [], onFilterChange }) => {
         {filters.map((filter) => (
           <button
             key={filter}
-            className={`filter-btn ${
-              activeFilters.includes(filter) ? "active" : ""
-            }`}
+            className={`filter-btn ${activeFilters.includes(filter) ? "active" : ""
+              }`}
             onClick={() => toggleFilter(filter)}
           >
             {filter}

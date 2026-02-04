@@ -75,7 +75,7 @@
 
 .calendar-and-details-wrapper {
   display: grid;
-  grid-template-columns: 0.95fr 1.05fr;
+  grid-template-columns: 7fr 3fr;
   gap: 2rem;
   margin-top: 2rem;
 }
