@@ -1,0 +1,216 @@
+.live-craft-tracking {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(0, 217, 255, 0.3);
+    border-radius: 20px;
+    padding: 2.5rem;
+    margin: 2rem auto;
+    max-width: 800px;
+    box-shadow: inset 0 0 20px rgba(0, 217, 255, 0.05);
+}
+
+.tracking-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.tracking-header h3 {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #00d9ff;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin: 0;
+}
+
+.tracking-indicator {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.pulse-dot {
+    width: 8px;
+    height: 8px;
+    background: #00d9ff;
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+
+    0%,
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    50% {
+        opacity: 0.5;
+        transform: scale(1.2);
+    }
+}
+
+.tracking-text {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #00d9ff;
+    letter-spacing: 1px;
+}
+
+.orbital-canvas {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1;
+    max-width: 500px;
+    margin: 0 auto 2rem;
+    background: radial-gradient(circle, rgba(0, 217, 255, 0.05) 0%, transparent 70%);
+    border-radius: 50%;
+}
+
+.orbit-ring {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: 1px solid rgba(0, 217, 255, 0.2);
+    border-radius: 50%;
+}
+
+.orbit-1 {
+    width: 30%;
+    height: 30%;
+}
+
+.orbit-2 {
+    width: 50%;
+    height: 50%;
+}
+
+.orbit-3 {
+    width: 70%;
+    height: 70%;
+    border-color: rgba(0, 217, 255, 0.3);
+}
+
+.central-body {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 60px;
+    height: 60px;
+    background: radial-gradient(circle, #4a90e2 0%, #2c5aa0 100%);
+    border-radius: 50%;
+    box-shadow: 0 0 30px rgba(74, 144, 226, 0.5);
+}
+
+.spacecraft {
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    background: #00d9ff;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 0 20px rgba(0, 217, 255, 1);
+    transition: all 0.5s ease-out;
+    cursor: pointer;
+}
+
+.iss-marker {
+    animation: issGlow 2s infinite;
+}
+
+@keyframes issGlow {
+
+    0%,
+    100% {
+        box-shadow: 0 0 20px rgba(0, 217, 255, 1);
+    }
+
+    50% {
+        box-shadow: 0 0 30px rgba(0, 217, 255, 1), 0 0 40px rgba(0, 217, 255, 0.5);
+    }
+}
+
+.spacecraft-label {
+    position: absolute;
+    top: -25px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #00d9ff;
+    white-space: nowrap;
+    text-shadow: 0 0 10px rgba(0, 217, 255, 0.8);
+}
+
+.tracking-info {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    padding: 1.5rem;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 12px;
+    border: 1px solid rgba(0, 217, 255, 0.2);
+}
+
+.info-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.3rem;
+}
+
+.info-label {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: rgba(0, 217, 255, 0.7);
+    letter-spacing: 1px;
+}
+
+.info-value {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #fff;
+    text-shadow: 0 0 10px rgba(0, 217, 255, 0.5);
+}
+
+.full-screen-link {
+    display: block;
+    text-align: right;
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #00d9ff;
+    text-decoration: none;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+}
+
+.full-screen-link:hover {
+    color: #fff;
+    text-shadow: 0 0 10px rgba(0, 217, 255, 0.8);
+}
+
+@media (max-width: 768px) {
+    .orbital-canvas {
+        max-width: 350px;
+    }
+
+    .central-body {
+        width: 40px;
+        height: 40px;
+    }
+
+    .tracking-info {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}

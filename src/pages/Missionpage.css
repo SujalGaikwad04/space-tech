@@ -1,0 +1,34 @@
+/* Stats Row - Countdown & Stats Side-by-Side */
+.missions-stats-row {
+    max-width: 1540px;
+    margin: 2rem auto;
+    padding: 0 40px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    align-items: start;
+}
+
+.missions-stats-row .countdown-widget,
+.missions-stats-row .mission-stats-widget {
+    margin: 0;
+}
+
+/* Single View Container for Individual Tabs */
+.missions-single-view {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 40px;
+}
+
+.missions-single-view .live-craft-tracking,
+.missions-single-view .live-stream-widget,
+.missions-single-view .featured-spacecraft {
+    margin: 0 auto;
+}
+
+@media (max-width: 1024px) {
+    .missions-stats-row {
+        grid-template-columns: 1fr;
+    }
+}

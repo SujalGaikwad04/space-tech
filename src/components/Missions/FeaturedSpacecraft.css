@@ -1,0 +1,142 @@
+.featured-spacecraft {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(0, 217, 255, 0.3);
+    border-radius: 20px;
+    padding: 2.5rem;
+    margin: 2rem auto;
+    max-width: 800px;
+    box-shadow: inset 0 0 20px rgba(0, 217, 255, 0.05);
+}
+
+.spacecraft-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.spacecraft-header h3 {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #00d9ff;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin: 0;
+}
+
+.status-indicator {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.status-dot {
+    width: 8px;
+    height: 8px;
+    background: #00ff88;
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+}
+
+.status-text {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #00ff88;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.spacecraft-model-container {
+    width: 100%;
+    aspect-ratio: 16/9;
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 2rem;
+    position: relative;
+}
+
+.model-iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+    display: block;
+}
+
+.spacecraft-info {
+    margin-bottom: 2rem;
+    padding: 1.5rem;
+    background: rgba(0, 0, 0, 0.3);
+    border-left: 3px solid #00d9ff;
+    border-radius: 8px;
+}
+
+.info-label {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: rgba(0, 217, 255, 0.7);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 0.8rem;
+}
+
+.info-text {
+    font-family: 'Inter', sans-serif;
+    font-size: 1rem;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.8);
+    margin: 0;
+    font-style: italic;
+}
+
+.spacecraft-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.action-btn {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+    padding: 1rem 2rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+}
+
+.action-btn.outline {
+    background: transparent;
+    border: 1px solid rgba(0, 217, 255, 0.5);
+    color: #00d9ff;
+}
+
+.action-btn.outline:hover {
+    background: rgba(0, 217, 255, 0.1);
+    border-color: #00d9ff;
+}
+
+.action-btn.primary {
+    background: #00d9ff;
+    border: 1px solid #00d9ff;
+    color: #000;
+    box-shadow: 0 0 20px rgba(0, 217, 255, 0.3);
+}
+
+.action-btn.primary:hover {
+    background: #00a8cc;
+    box-shadow: 0 0 30px rgba(0, 217, 255, 0.5);
+}
+
+@media (max-width: 768px) {
+    .spacecraft-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+}

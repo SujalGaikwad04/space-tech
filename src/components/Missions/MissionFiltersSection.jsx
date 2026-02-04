@@ -1,31 +1,34 @@
 import { useState } from "react";
 import "./MissionFiltersSection.css";
 
-const MissionFiltersSection = ({ onViewChange, onFilterChange }) => {
+const MissionFiltersSection = ({ onViewChange }) => {
   const [activeView, setActiveView] = useState("timeline");
 
-  const handleViewChange = (view) => {
-    setActiveView(view);
-    if (onViewChange) onViewChange(view);
+  const filters = [
+    { id: "timeline", label: "TIMELINE" },
+    { id: "upcoming", label: "UPCOMING MISSIONS" },
+    { id: "tracking", label: "LIVE CRAFT TRACKING" },
+    { id: "stream", label: "LIVE STREAM" },
+    { id: "model", label: "3D MODEL" }
+  ];
+
+  const handleViewChange = (viewId) => {
+    setActiveView(viewId);
+    if (onViewChange) onViewChange(viewId);
   };
 
   return (
     <section className="mission-filters-section">
       <div className="filter-buttons">
-        <button 
-          className={`filter-btn ${activeView === 'timeline' ? 'active' : ''}`}
-          onClick={() => handleViewChange('timeline')}
-        >
-          TIMELINE VIEW
-        </button>
-        <button 
-          className={`filter-btn ${activeView === 'list' ? 'active' : ''}`}
-          onClick={() => handleViewChange('list')}
-        >
-          LIST VIEW
-        </button>
-        <button className="filter-btn">AGENCY FILTER</button>
-        <button className="filter-btn">STATUS FILTER</button>
+        {filters.map(filter => (
+          <button
+            key={filter.id}
+            className={`filter-btn ${activeView === filter.id ? 'active' : ''}`}
+            onClick={() => handleViewChange(filter.id)}
+          >
+            {filter.label}
+          </button>
+        ))}
       </div>
     </section>
   );
