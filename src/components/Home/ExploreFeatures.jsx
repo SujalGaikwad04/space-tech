@@ -22,8 +22,8 @@ const ExploreFeatures = () => {
         <div className="explore-card">
           <div className="card-visual map-visual"></div>
           <div className="card-content">
-            <h3>VISIBILITY MAP</h3>
-            <p>Check if you can see celestial events from your city</p>
+            <h3>ISS LIVE TRACKER</h3>
+            <p>Check if you can see ISS from your city</p>
             <button className="premium-btn card-link" onClick={() => navigate("/live-map")}>
               <span className="shimmer-effect"></span>
               <span className="scan-line"></span>

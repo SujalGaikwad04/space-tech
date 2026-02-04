@@ -82,6 +82,13 @@ const EventsContent = () => {
       }
     ];
     setEventsData(matchedEvents);
+
+    // [New] Load user created events
+    const userEvents = JSON.parse(localStorage.getItem('userEvents') || '[]');
+    if (userEvents.length > 0) {
+      setEventsData(prev => [...prev, ...userEvents]);
+    }
+
   }, [location]);
 
 
@@ -124,6 +131,8 @@ const EventsContent = () => {
             return event.type === "conjunction" || event.type === "planetary";
           case "ECLIPSES":
             return event.type === "eclipse";
+          case "COMMUNITY":
+            return event.tag === "COMMUNITY";
           default:
             return false;
         }
@@ -131,12 +140,56 @@ const EventsContent = () => {
     });
   };
 
+  const navigate = require("react-router-dom").useNavigate();
+
+
   return (
     <>
-      <EventFilters
-        activeFilters={activeFilters}
-        onFilterChange={handleFilterChange}
-      />
+      <div style={{ marginBottom: '20px' }}>
+        <EventFilters
+          activeFilters={activeFilters}
+          onFilterChange={handleFilterChange}
+        />
+      </div>
+
+      {/* Community Contribution Banner */}
+      <div style={{
+        margin: '20px 0',
+        padding: '30px',
+        background: 'linear-gradient(90deg, rgba(0,229,255,0.15) 0%, rgba(138,43,226,0.15) 100%)',
+        borderRadius: '16px',
+        border: '1px solid rgba(0,229,255,0.3)',
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        backdropFilter: 'blur(10px)',
+        boxShadow: '0 0 30px rgba(0,229,255,0.05)'
+      }}>
+        <div>
+          <h3 style={{ margin: '0 0 5px 0', fontFamily: 'Rajdhani', fontSize: '1.5rem', color: '#fff' }}>
+            GOT A SPACE EVENT?
+          </h3>
+          <p style={{ margin: 0, color: 'rgba(255,255,255,0.7)' }}>
+            Share your local star parties, workshops, or sightings with the community.
+          </p>
+        </div>
+        <button
+          className="premium-btn"
+          onClick={() => navigate('/create-event')}
+          style={{
+            padding: '12px 30px',
+            fontSize: '1.1rem',
+            background: '#fff',
+            color: '#000',
+            fontWeight: 'bold',
+            boxShadow: '0 0 20px rgba(255,255,255,0.3)'
+          }}
+        >
+          <span className="shimmer-effect"></span>
+          + Create Event
+        </button>
+      </div>
+
       <LocationSelector
         location={location}
         onLocationChange={handleLocationChange}

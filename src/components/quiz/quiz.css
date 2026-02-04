@@ -3,14 +3,65 @@
    Glassmorphism + Space Theme
    ========================================================= */
 
+/* Shared Background from Learn Page */
+.quiz-bg {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #000;
+  overflow: hidden;
+  z-index: -10;
+}
+
+.quiz-bg::before,
+.quiz-bg::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image:
+    radial-gradient(2px 2px at 20px 30px, #eee, rgba(0, 0, 0, 0)),
+    radial-gradient(2px 2px at 40px 70px, #fff, rgba(0, 0, 0, 0)),
+    radial-gradient(2px 2px at 50px 160px, #ddd, rgba(0, 0, 0, 0)),
+    radial-gradient(2px 2px at 90px 40px, #fff, rgba(0, 0, 0, 0)),
+    radial-gradient(2px 2px at 130px 80px, #fff, rgba(0, 0, 0, 0));
+  background-size: 200px 200px;
+  animation: stars-move 30s linear infinite;
+  opacity: 0.8;
+}
+
+.quiz-bg::after {
+  background-size: 300px 300px;
+  animation: stars-move 40s linear infinite reverse;
+  opacity: 0.5;
+  background-image:
+    radial-gradient(3px 3px at 50px 100px, #fff, rgba(0, 0, 0, 0)),
+    radial-gradient(3px 3px at 150px 50px, #eee, rgba(0, 0, 0, 0));
+}
+
+@keyframes stars-move {
+  from {
+    transform: translateY(0);
+  }
+
+  to {
+    transform: translateY(-200px);
+  }
+}
+
 .quiz-wrapper {
   min-height: 100vh;
-  padding: 100px 20px 60px;
+  padding: 140px 20px 60px;
+  /* Increased top padding */
   position: relative;
-  overflow: hidden;
+  overflow-x: hidden;
   display: flex;
   justify-content: center;
-  align-items: flex-start;
+  align-items: center;
+  /* Center vertically */
 }
 
 .quiz-container {

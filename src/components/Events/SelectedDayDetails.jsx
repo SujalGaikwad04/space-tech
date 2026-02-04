@@ -176,6 +176,9 @@ const SelectedDayDetails = ({ event, selectedDay }) => {
               <button className="action-btn" onClick={() => navigate('/event-details', { state: { event } })}>
                 VIEW DETAILS
               </button>
+              <button className="action-btn" style={{ borderColor: '#8a2be2', color: '#e0b0ff' }} onClick={() => navigate('/community-events')}>
+                COMMUNITY EVENTS
+              </button>
             </div>
           </>
         )}
