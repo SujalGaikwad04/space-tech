@@ -14,43 +14,60 @@ export const useAuth = () => {
 };
 
 export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
+  const [sessions, setSessions] = useState([]); // Array of { token, user }
+  const [activeSessionId, setActiveSessionId] = useState(null); // ID of active user
   const [loading, setLoading] = useState(true);
-  const [token, setToken] = useState(localStorage.getItem('token'));
 
-  // Load user from token on mount
+  // Derived state for backward compatibility
+  const activeSession = sessions.find(s => s.user.id === activeSessionId) || null;
+  const user = activeSession ? activeSession.user : null;
+  const token = activeSession ? activeSession.token : null;
+
+  // Load sessions from localStorage on mount
   useEffect(() => {
-    const loadUser = async () => {
-      const storedToken = localStorage.getItem('token');
-      if (storedToken) {
-        try {
-          // Verify token and get user data from backend
-          const response = await fetch(`${API_URL}/user/profile`, {
-            headers: {
-              'Authorization': `Bearer ${storedToken}`
-            }
-          });
+    const loadSessions = async () => {
+      try {
+        const storedSessions = JSON.parse(localStorage.getItem('auth_sessions') || '[]');
+        const storedActiveId = JSON.parse(localStorage.getItem('active_user_id') || 'null');
 
-          if (response.ok) {
-            const data = await response.json();
-            setUser(data.user);
-            setToken(storedToken);
+        if (storedSessions.length > 0) {
+          // Verify tokens are still valid (optional, but good practice)
+          // For now, we trust the stored tokens to be valid until an API call fails
+          setSessions(storedSessions);
+
+          if (storedActiveId && storedSessions.some(s => s.user.id === storedActiveId)) {
+            setActiveSessionId(storedActiveId);
           } else {
-            // Token invalid or expired
-            localStorage.removeItem('token');
-            setUser(null);
-            setToken(null);
+            setActiveSessionId(storedSessions[0].user.id);
           }
-        } catch (error) {
-          console.error('Error loading user:', error);
-          localStorage.removeItem('token');
         }
+      } catch (error) {
+        console.error('Error loading sessions:', error);
+        localStorage.removeItem('auth_sessions');
       }
       setLoading(false);
     };
 
-    loadUser();
+    loadSessions();
   }, []);
+
+  // Save sessions to localStorage whenever they change
+  useEffect(() => {
+    if (sessions.length > 0) {
+      localStorage.setItem('auth_sessions', JSON.stringify(sessions));
+    } else {
+      localStorage.removeItem('auth_sessions');
+    }
+  }, [sessions]);
+
+  // Save active ID whenever it changes
+  useEffect(() => {
+    if (activeSessionId) {
+      localStorage.setItem('active_user_id', JSON.stringify(activeSessionId));
+    } else {
+      localStorage.removeItem('active_user_id');
+    }
+  }, [activeSessionId]);
 
   // Register new user
   const register = async (userData) => {
@@ -69,11 +86,8 @@ export const AuthProvider = ({ children }) => {
         return { success: false, message: data.message || 'Registration failed' };
       }
 
-      // Save token and user
-      localStorage.setItem('token', data.token);
-      localStorage.setItem('currentUser', JSON.stringify(data.user)); // Keep for legacy components if needed
-      setToken(data.token);
-      setUser(data.user);
+      // Add session
+      addSession(data.user, data.token);
 
       return { success: true, message: 'Registration successful' };
     } catch (error) {
@@ -99,11 +113,8 @@ export const AuthProvider = ({ children }) => {
         return { success: false, message: data.message || 'Login failed' };
       }
 
-      // Save token and user
-      localStorage.setItem('token', data.token);
-      localStorage.setItem('currentUser', JSON.stringify(data.user)); // Keep for legacy components if needed
-      setToken(data.token);
-      setUser(data.user);
+      // Add or update session
+      addSession(data.user, data.token);
 
       return { success: true, message: 'Login successful' };
     } catch (error) {
@@ -112,12 +123,48 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  // Logout user
-  const logout = () => {
-    localStorage.removeItem('token');
-    localStorage.removeItem('currentUser');
-    setToken(null);
-    setUser(null);
+  // Helper to add or update a session
+  const addSession = (newUser, newToken) => {
+    setSessions(prev => {
+      // Check if user already in sessions
+      const existingIndex = prev.findIndex(s => s.user.id === newUser.id);
+      let newSessions;
+
+      if (existingIndex >= 0) {
+        // Update existing session
+        newSessions = [...prev];
+        newSessions[existingIndex] = { user: newUser, token: newToken };
+      } else {
+        // Add new session
+        newSessions = [...prev, { user: newUser, token: newToken }];
+      }
+      return newSessions;
+    });
+    setActiveSessionId(newUser.id);
+  };
+
+  // Logout specific user (or active user if no ID provided)
+  const logout = (userId = activeSessionId) => {
+    setSessions(prev => {
+      const newSessions = prev.filter(s => s.user.id !== userId);
+
+      // If we removed the active user, switch to another one if possible
+      if (userId === activeSessionId) {
+        if (newSessions.length > 0) {
+          setActiveSessionId(newSessions[0].user.id);
+        } else {
+          setActiveSessionId(null);
+        }
+      }
+      return newSessions;
+    });
+  };
+
+  // Switch active account
+  const switchAccount = (userId) => {
+    if (sessions.some(s => s.user.id === userId)) {
+      setActiveSessionId(userId);
+    }
   };
 
   // Check if username exists
@@ -144,11 +191,8 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  // Get leaderboard (mock implementation for compatibility or fetch from API if exists)
+  // Get leaderboard
   const getLeaderboard = async (limit = 10) => {
-    // Ideally this should be an API call
-    // For now returning empty array as backend endpoint wasn't explicitly created for this
-    // You can add /api/leaderboard to server.js if needed
     return [];
   };
 
@@ -176,10 +220,13 @@ export const AuthProvider = ({ children }) => {
         body: JSON.stringify(updatedStats)
       });
 
-      // Update local state optimistic UI
-      const updatedUser = { ...user, ...updatedStats };
-      setUser(updatedUser);
-      localStorage.setItem('currentUser', JSON.stringify(updatedUser)); // Sync legacy storage
+      // Update local state in sessions array
+      setSessions(prev => prev.map(s => {
+        if (s.user.id === user.id) {
+          return { ...s, user: { ...s.user, ...updatedStats } };
+        }
+        return s;
+      }));
     } catch (error) {
       console.error("Failed to update user stats", error);
     }
@@ -189,28 +236,29 @@ export const AuthProvider = ({ children }) => {
   const updateUserLocation = async (newLocation) => {
     if (!user) return;
 
-    // Note: We need a backend endpoint for this. 
-    // For now we'll just update local state to keep the UI responsive
-    // A proper implementation would require adding a location field update to user table in server.js
-
-    const updatedUser = { ...user, location: newLocation };
-    setUser(updatedUser);
-    localStorage.setItem('currentUser', JSON.stringify(updatedUser));
+    // Update local state
+    setSessions(prev => prev.map(s => {
+      if (s.user.id === user.id) {
+        return { ...s, user: { ...s.user, location: newLocation } };
+      }
+      return s;
+    }));
   };
 
   const value = {
-    user,
-    token, // Expose token for services
+    user, // Current active user
+    token, // Current active token
+    sessions, // All logged in sessions
+    activeSessionId,
     loading,
     register,
     login,
     logout,
+    switchAccount,
     checkUsernameExists,
     checkEmailExists,
-    // getAllUsers, // Removed as it's not secure for frontend to have all users
     getLeaderboard,
     isAuthenticated: !!user,
-
     getRankName,
     getNextRankName,
     updateUserStats,

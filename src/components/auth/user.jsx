@@ -8,8 +8,20 @@ export default function Auth() {
   const [showPopup, setShowPopup] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
+  const [isAddingAccount, setIsAddingAccount] = useState(false);
   const navigate = useNavigate();
-  const { user, isAuthenticated, register, login, logout, checkUsernameExists, checkEmailExists } = useAuth();
+  const {
+    user,
+    isAuthenticated,
+    register,
+    login,
+    logout,
+    checkUsernameExists,
+    checkEmailExists,
+    sessions,
+    switchAccount,
+    activeSessionId
+  } = useAuth();
 
   const [formData, setFormData] = useState({
     fullName: "",
@@ -84,6 +96,7 @@ export default function Auth() {
       if (result.success) {
         setSuccess("Registration successful! Redirecting...");
         setTimeout(() => {
+          setIsAddingAccount(false); // Return to profile view if we were adding
           navigate("/dashboard");
         }, 1000);
       } else {
@@ -102,6 +115,7 @@ export default function Auth() {
       if (result.success) {
         setSuccess("Login successful! Redirecting...");
         setTimeout(() => {
+          setIsAddingAccount(false); // Return to profile view if we were adding
           navigate("/dashboard");
         }, 1000);
       } else {
@@ -124,16 +138,16 @@ export default function Auth() {
     setTimeout(() => setSuccess(""), 3000);
   };
 
-  // If user is already logged in, show logout option
-  if (isAuthenticated && user) {
+  // If user is logged in and not explicitly trying to add another account
+  if (isAuthenticated && user && !isAddingAccount) {
+    const otherSessions = sessions.filter(s => s.user.id !== activeSessionId);
+
     return (
-
-
       <div className="page-container">
         <div className="auth-wrapper">
           <div className="auth-card">
             <div className="logged-in-header">
-              <h2>Already Logged In</h2>
+              <h2>Mission Control</h2>
             </div>
 
             <div className="user-info">
@@ -143,8 +157,7 @@ export default function Auth() {
               <div className="user-details">
                 <h3>{user.fullName}</h3>
                 <p className="username-display">@{user.username}</p>
-                <p className="email-display">{user.email}</p>
-                <p className="location-display">📍 {user.location}</p>
+                <div className="active-tag">ACTIVE COMMANDER</div>
               </div>
             </div>
 
@@ -159,21 +172,41 @@ export default function Auth() {
               </div>
               <div className="stat-item">
                 <span className="stat-value" style={{ fontSize: '1.6rem' }}>{useAuth().getRankName(user.level)}</span>
-                <span className="stat-label">Current Rank</span>
+                <span className="stat-label">Rank</span>
               </div>
             </div>
+
+            {otherSessions.length > 0 && (
+              <div className="account-switcher">
+                <h4 className="switcher-title">Switch Accounts</h4>
+                <div className="switcher-list">
+                  {otherSessions.map(session => (
+                    <div key={session.user.id} className="switcher-item" onClick={() => switchAccount(session.user.id)}>
+                      <div className="switcher-avatar">
+                        {session.user.username.charAt(0).toUpperCase()}
+                      </div>
+                      <div className="switcher-details">
+                        <span className="switcher-name">@{session.user.username}</span>
+                        <span className="switcher-rank">Lvl {session.user.level}</span>
+                      </div>
+                      <button className="switch-btn">Switch</button>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
 
             {success && <div className="success-message">{success}</div>}
 
             <div className="logged-in-actions">
               <button className="dashboard-btn" onClick={() => navigate("/dashboard")}>
-                Go to Dashboard
+                Launch Dashboard
               </button>
-              <button className="learn-btn" onClick={() => navigate("/learn")}>
-                Continue Learning
+              <button className="add-account-btn" onClick={() => setIsAddingAccount(true)}>
+                + Add Another Account
               </button>
               <button className="logout-btn" onClick={handleLogout}>
-                Logout
+                Logout @{user.username}
               </button>
             </div>
           </div>
@@ -252,7 +285,7 @@ export default function Auth() {
               </div>
             </div>
           </div>
-
+          {/* Capabilities Section */}
           <div className="capabilities-section">
             <h3 className="capabilities-heading">Platform Capabilities</h3>
             <p className="capabilities-subtitle">Advanced tools for interstellar discovery.</p>
@@ -307,11 +340,18 @@ export default function Auth() {
     );
   }
 
+  // LOGIN PAGE RENDER (If not authenticated or adding account)
   return (
     <>
       <div className="page-container">
         <div className="auth-wrapper">
           <div className="auth-card">
+            {isAddingAccount && (
+              <div className="adding-header" onClick={() => setIsAddingAccount(false)}>
+                <span className="back-arrow">←</span> Cancel
+              </div>
+            )}
+
             <div className="tab-switch">
               <button
                 className={mode === "login" ? "active" : ""}
@@ -476,7 +516,7 @@ export default function Auth() {
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                       <circle cx="12" cy="12" r="10"></circle>
                       <line x1="2" y1="12" x2="22" y2="12"></line>
-                      <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                      <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1 4-10z"></path>
                     </svg>
                   </button>
                 </div>

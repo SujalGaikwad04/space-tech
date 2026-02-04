@@ -33,8 +33,8 @@ const transporter = nodemailer.createTransport({
 });
 
 // Initialize PostgreSQL database connection
-// Connection String provided by User
-const connectionString = 'postgresql://neondb_owner:npg_elhiFY8n4bsO@ep-morning-shadow-aj6mgc3s.us-east-2.aws.neon.tech/neondb?sslmode=require';
+// Prioritize environment variable or use provided fallback
+const connectionString = process.env.DATABASE_URL || 'postgresql://neondb_owner:npg_elhiFY8n4bsO@ep-morning-shadow-aj6mgc3s-pooler.c-3.us-east-2.aws.neon.tech/neondb?sslmode=require';
 
 const pool = new Pool({
   connectionString,
@@ -457,6 +457,7 @@ app.get('/api/health', (req, res) => {
 });
 
 // Start reminder scheduler (checks every minute)
+// Start reminder scheduler (checks every 10 seconds for faster testing)
 setInterval(() => {
   const checkReminders = async () => {
     try {
@@ -512,6 +513,8 @@ setInterval(() => {
               // Mark as sent
               await pool.query('UPDATE event_reminders SET "reminderSent" = TRUE WHERE id = $1', [reminder.id]);
               console.log(`Reminder sent for event: ${reminder.eventTitle} to ${user.email}`);
+            } else {
+              console.error("Email error:", emailErr);
             }
           });
         }
@@ -522,7 +525,7 @@ setInterval(() => {
   };
 
   checkReminders();
-}, 60000); // Check every 60 seconds
+}, 10000); // Check every 10 seconds
 
 // Start server
 app.listen(PORT, () => {
