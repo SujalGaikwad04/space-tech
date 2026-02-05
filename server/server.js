@@ -12,16 +12,29 @@ const PORT = process.env.PORT || 5000;
 const JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key-change-this-in-production';
 
 // Middleware
+const allowedOrigins = [
+  "https://space-tech-t2yl.vercel.app",
+  "https://space-tech-t2yl-b55yqlgut-sujalgaikwad04s-projects.vercel.app",
+  "https://space-tech-l4nokgff3-sujalgaikwad04s-projects.vercel.app",
+  "https://space-tech-git-main-sujalgaikwad04s-projects.vercel.app",
+  "http://localhost:5173",
+  "http://127.0.0.1:5173",
+  "http://localhost:3000"
+];
+
 app.use(cors({
-  origin: [
-    "https://space-tech-t2yl-b55yqlgut-sujalgaikwad04s-projects.vercel.app",
-    "https://space-tech-l4nokgff3-sujalgaikwad04s-projects.vercel.app",
-    "https://space-tech-git-main-sujalgaikwad04s-projects.vercel.app",
-    "http://localhost:5173",
-    "http://127.0.0.1:5173",
-    "http://localhost:3000"
-  ],
+  origin: function (origin, callback) {
+    // allow requests with no origin (like mobile apps or curl requests)
+    if (!origin) return callback(null, true);
+    if (allowedOrigins.indexOf(origin) !== -1) {
+      return callback(null, true);
+    } else {
+      console.log("Blocked by CORS:", origin);
+      return callback(new Error('Not allowed by CORS'));
+    }
+  },
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"],
   credentials: true
 }));
 
