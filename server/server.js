@@ -156,7 +156,7 @@ function authenticateToken(req, res, next) {
 }
 
 // Root route for testing
-app.get('/', (req, res) => {
+app.get('/api/', (req, res) => {
   res.json({
     message: 'Space Tech Backend API',
     status: 'running',
@@ -170,13 +170,13 @@ app.get('/', (req, res) => {
 });
 
 // Test route
-app.get('/test', (req, res) => {
+app.get('/api/test', (req, res) => {
   res.json({ message: 'Test route working!', timestamp: new Date().toISOString() });
 });
 
 // Registration endpoint
 
-app.post('/auth/register', async (req, res) => {
+app.post('/api/auth/register', async (req, res) => {
   const { fullName, email, username, password } = req.body;
 
   // Validation
@@ -244,7 +244,7 @@ app.post('/auth/register', async (req, res) => {
 });
 
 // Login endpoint
-app.post('/auth/login', async (req, res) => {
+app.post('/api/auth/login', async (req, res) => {
   const { identifier, password } = req.body;
 
   if (!identifier || !password) {
@@ -299,7 +299,7 @@ app.post('/auth/login', async (req, res) => {
 });
 
 // Get user profile (protected route)
-app.get('/user/profile', authenticateToken, async (req, res) => {
+app.get('/api/user/profile', authenticateToken, async (req, res) => {
   try {
     const result = await pool.query(
       'SELECT id, "fullName", email, username, "learningStreak", "totalXP", level, progress, "createdAt" FROM users WHERE id = $1',
@@ -320,7 +320,7 @@ app.get('/user/profile', authenticateToken, async (req, res) => {
 });
 
 // Update user stats (protected route)
-app.patch('/user/stats', authenticateToken, async (req, res) => {
+app.patch('/api/user/stats', authenticateToken, async (req, res) => {
   const { learningStreak, totalXP, level, progress } = req.body;
 
   try {
@@ -336,7 +336,7 @@ app.patch('/user/stats', authenticateToken, async (req, res) => {
 });
 
 // Check username availability
-app.get('/auth/check-username/:username', async (req, res) => {
+app.get('/api/auth/check-username/:username', async (req, res) => {
   const { username } = req.params;
   try {
     const result = await pool.query('SELECT id FROM users WHERE username = $1', [username]);
@@ -347,7 +347,7 @@ app.get('/auth/check-username/:username', async (req, res) => {
 });
 
 // Check email availability
-app.get('/auth/check-email/:email', async (req, res) => {
+app.get('/api/auth/check-email/:email', async (req, res) => {
   const { email } = req.params;
   try {
     const result = await pool.query('SELECT id FROM users WHERE email = $1', [email]);
@@ -358,7 +358,7 @@ app.get('/auth/check-email/:email', async (req, res) => {
 });
 
 // Add event reminder endpoint (protected route)
-app.post('/reminders/add', authenticateToken, async (req, res) => {
+app.post('/api/reminders/add', authenticateToken, async (req, res) => {
   const { eventTitle, eventDate, eventTime, eventDescription, eventIcon, location } = req.body;
 
   if (!eventTitle || !eventDate) {
@@ -446,7 +446,7 @@ app.post('/reminders/add', authenticateToken, async (req, res) => {
 });
 
 // Get user's reminders (protected route)
-app.get('/reminders', authenticateToken, async (req, res) => {
+app.get('/api/reminders', authenticateToken, async (req, res) => {
   try {
     const result = await pool.query(
       'SELECT * FROM event_reminders WHERE "userId" = $1 ORDER BY "eventDate" ASC',
@@ -460,7 +460,7 @@ app.get('/reminders', authenticateToken, async (req, res) => {
 });
 
 // Remove event reminder (protected route)
-app.delete('/reminders/:id', authenticateToken, async (req, res) => {
+app.delete('/api/reminders/:id', authenticateToken, async (req, res) => {
   const { id } = req.params;
 
   try {
@@ -481,7 +481,7 @@ app.delete('/reminders/:id', authenticateToken, async (req, res) => {
 });
 
 // Check if user has reminder for specific event (protected route)
-app.post('/reminders/check', authenticateToken, async (req, res) => {
+app.post('/api/reminders/check', authenticateToken, async (req, res) => {
   const { eventTitle, eventDate } = req.body;
 
   try {
@@ -498,7 +498,7 @@ app.post('/reminders/check', authenticateToken, async (req, res) => {
 });
 
 // Proxy endpoint for ISS data (avoids mixed content issues)
-app.get('/iss-now', async (req, res) => {
+app.get('/api/iss-now', async (req, res) => {
   try {
     // Dynamic import for node-fetch if needed or use global fetch in Node 18+
     const response = await fetch("http://api.open-notify.org/iss-now.json");
@@ -512,7 +512,7 @@ app.get('/iss-now', async (req, res) => {
 });
 
 // Health check endpoint
-app.get('/health', (req, res) => {
+app.get('/api/health', (req, res) => {
   res.json({ status: 'OK', message: 'Server is running with Neon PostgreSQL' });
 });
 
