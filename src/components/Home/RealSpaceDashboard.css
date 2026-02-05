@@ -60,7 +60,8 @@
 .dashboard-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 24px;
+  gap: 20px;
+  /* Slightly reduced gap for better fit */
 }
 
 /* STRICT UNIFORM CARDS - ALL IDENTICAL */
@@ -131,8 +132,9 @@
   background: transparent;
   border: 1px solid #00e5ff;
   color: #00e5ff;
-  font-size: 0.95rem;
-  padding: 6px 14px;
+  font-size: 0.85rem;
+  /* Slightly smaller for tighter layout */
+  padding: 6px 12px;
   border-radius: 6px;
   width: fit-content;
   max-width: 130px;
@@ -186,7 +188,7 @@
 }
 
 /* Responsive */
-@media (max-width: 1200px) {
+@media (max-width: 1100px) {
   .dashboard-grid {
     grid-template-columns: repeat(2, 1fr);
   }
@@ -198,7 +200,7 @@
   }
 
   .dashboard-content-box {
-    padding: 2rem;
+    padding: 2rem 1.5rem;
   }
 
   .dashboard-grid {
@@ -206,12 +208,21 @@
   }
 
   .dashboard-card {
-    height: 160px !important;
-    min-height: 160px !important;
-    max-height: 160px !important;
+    height: 150px !important;
+    min-height: 150px !important;
+    max-height: 150px !important;
+  }
+
+  .dash-content {
+    padding: 15px;
+  }
+
+  .highlight-text {
+    font-size: 1.3rem;
   }
 
   .subsection-title {
-    font-size: 1.2rem;
+    font-size: 1.1rem;
+    margin-bottom: 1.5rem;
   }
 }

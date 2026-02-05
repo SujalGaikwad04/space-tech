@@ -17,6 +17,10 @@ const Header = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
+  const closeMenu = () => {
+    setIsMenuOpen(false);
+  };
+
   // Scroll effect for transparent header
   useEffect(() => {
     const handleScroll = () => {
@@ -34,6 +38,7 @@ const Header = () => {
   const handleLogout = () => {
     logout();
     setShowUserMenu(false);
+    setIsMenuOpen(false); // Close mobile menu on logout
     navigate("/auth");
   };
 
@@ -55,22 +60,22 @@ const Header = () => {
   }, [showUserMenu]);
 
   return (
-    <header className={`header ${scrolled ? "scrolled" : ""}`}>
+    <header className={`header ${scrolled ? "scrolled" : ""} ${isMenuOpen ? "header-menu-open" : ""}`}>
       <div className="header-container">
         {/* Logo Section */}
-        <div className="logo-section">
+        <div className="logo-section" onClick={() => { navigate("/"); closeMenu(); }}>
           <img src="/logo.png" alt="SpaceScope Logo" className="logo-image" />
           <span className="logo-text">SpaceScope</span>
         </div>
 
         {/* Navigation */}
         <nav className={`nav ${isMenuOpen ? "nav-open" : ""}`}>
-          <Link to="/" className={`nav-item ${location.pathname === "/" ? "active" : ""}`}>HOME</Link>
-          <Link to="/events" className={`nav-item ${location.pathname.startsWith("/events") ? "active" : ""}`}>EVENTS</Link>
-          <Link to="/mission" className={`nav-item ${location.pathname.startsWith("/mission") ? "active" : ""}`}>MISSION</Link>
-          <Link to="/weather" className={`nav-item ${location.pathname.startsWith("/weather") ? "active" : ""}`}>WEATHER</Link>
-          <Link to="/learn" className={`nav-item ${location.pathname.startsWith("/learn") ? "active" : ""}`}>LEARN</Link>
-          <Link to="/dashboard" className={`nav-item ${location.pathname.startsWith("/dashboard") ? "active" : ""}`}>DASHBOARD</Link>
+          <Link to="/" className={`nav-item ${location.pathname === "/" ? "active" : ""}`} onClick={closeMenu}>HOME</Link>
+          <Link to="/events" className={`nav-item ${location.pathname.startsWith("/events") ? "active" : ""}`} onClick={closeMenu}>EVENTS</Link>
+          <Link to="/mission" className={`nav-item ${location.pathname.startsWith("/mission") ? "active" : ""}`} onClick={closeMenu}>MISSION</Link>
+          <Link to="/weather" className={`nav-item ${location.pathname.startsWith("/weather") ? "active" : ""}`} onClick={closeMenu}>WEATHER</Link>
+          <Link to="/learn" className={`nav-item ${location.pathname.startsWith("/learn") ? "active" : ""}`} onClick={closeMenu}>LEARN</Link>
+          <Link to="/dashboard" className={`nav-item ${location.pathname.startsWith("/dashboard") ? "active" : ""}`} onClick={closeMenu}>DASHBOARD</Link>
 
           {/* Mobile Only Auth Items */}
           <div className="mobile-auth-item">
@@ -79,10 +84,10 @@ const Header = () => {
                 <div className="nav-item user-info-mobile">
                   <span>👤 {user.username}</span>
                 </div>
-                <div className="nav-item" onClick={handleLogout}>Logout</div>
+                <div className="nav-item logout-mobile" onClick={handleLogout}>Logout</div>
               </>
             ) : (
-              <Link to="/Auth" className="nav-item get-started-mobile">Get started</Link>
+              <Link to="/Auth" className="nav-item get-started-mobile" onClick={closeMenu}>Get started</Link>
             )}
           </div>
         </nav>

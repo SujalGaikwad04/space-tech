@@ -14,11 +14,14 @@
 /* Information Panel */
 .info-panel {
     position: absolute;
-    top: 20px;
+    top: 100px;
+    /* Increased from 20px to clear the fixed header */
     left: 20px;
     max-width: 400px;
-    max-height: calc(100vh - 40px);
+    max-height: calc(100vh - 120px);
     overflow-y: auto;
+    z-index: 100;
+    /* Ensure it stays below the site header z-index (1000) */
     background: rgba(10, 14, 39, 0.85);
     backdrop-filter: blur(20px);
     border: 1px solid rgba(79, 208, 231, 0.3);
@@ -285,36 +288,6 @@
     margin: 0;
 }
 
-/* Responsive Design */
-@media (max-width: 768px) {
-    .info-panel {
-        max-width: calc(100vw - 40px);
-        max-height: 50vh;
-        bottom: 20px;
-        top: auto;
-    }
-
-    .info-header h2 {
-        font-size: 22px;
-    }
-
-    .satellite-details {
-        flex-direction: column;
-        gap: 6px;
-    }
-}
-
-/* Loading animation for 3D scene */
-@keyframes rotate {
-    from {
-        transform: rotate(0deg);
-    }
-
-    to {
-        transform: rotate(360deg);
-    }
-}
-
 /* ===== NAVIGATION CONTROLS ===== */
 .navigation-controls {
     position: absolute;
@@ -433,35 +406,117 @@
     font-weight: 500;
 }
 
-/* Responsive Navigation */
+/* Responsive Design */
 @media (max-width: 768px) {
-    .navigation-controls {
-        bottom: 20px;
-        gap: 20px;
-        padding: 15px 20px;
-        flex-direction: column;
+    .info-panel {
+        display: none;
+        /* Hidden by default, wrapped in mobile wrapper */
     }
 
-    .nav-button {
-        padding: 12px 24px;
+    .info-panel-mobile-wrapper.mobile {
+        position: absolute;
+        bottom: 105px;
+        /* Lowered to give more room for objects */
+        left: 12px;
+        right: 12px;
+        max-height: 28vh;
+        /* Reduced height to keep focus on planet */
+        z-index: 101;
+        overflow-y: auto;
+        border-radius: 16px;
+        background: rgba(10, 14, 39, 0.85);
+        /* Slightly more transparent */
+        backdrop-filter: blur(15px);
+        -webkit-backdrop-filter: blur(15px);
+        border: 1px solid rgba(79, 208, 231, 0.2);
+        box-shadow: 0 -8px 25px rgba(0, 0, 0, 0.4);
+        animation: slideUpMobile 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .info-panel-mobile-wrapper.mobile .info-panel {
+        display: block;
+        position: static;
+        max-width: none;
+        max-height: none;
+        background: transparent;
+        border: none;
+        box-shadow: none;
+        padding: 15px;
+    }
+
+    .info-header h2 {
+        font-size: 22px;
+    }
+
+    .info-content {
+        gap: 15px;
+    }
+
+    .info-description {
         font-size: 14px;
     }
 
+    .stat-item {
+        padding: 8px 12px;
+    }
+
+    .navigation-controls {
+        bottom: 20px;
+        width: calc(100% - 30px);
+        gap: 15px;
+        padding: 12px 15px;
+        flex-direction: row;
+        /* Keep horizontal but compact */
+        justify-content: space-between;
+        border-radius: 25px;
+    }
+
+    .nav-button {
+        padding: 10px;
+        width: 44px;
+        height: 44px;
+        justify-content: center;
+        border-radius: 12px;
+    }
+
+    .nav-arrow {
+        font-size: 24px;
+    }
+
     .progress-indicator {
-        min-width: 200px;
+        min-width: 0;
+        flex: 1;
+        gap: 5px;
     }
 
     .current-body-name {
-        font-size: 16px;
+        font-size: 14px;
     }
 
     .progress-dots {
-        gap: 6px;
+        gap: 4px;
+        max-width: 100%;
     }
 
     .progress-dot {
-        width: 10px;
-        height: 10px;
+        width: 8px;
+        height: 8px;
+    }
+
+    .progress-dot.active {
+        transform: scale(1.4);
+    }
+}
+
+@keyframes slideUpMobile {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
     }
 }
 

@@ -215,15 +215,58 @@
 }
 
 @media (max-width: 768px) {
+  .whatif-wrapper {
+    padding: 100px 15px 40px;
+  }
+
   .whatif-container {
-    padding: 30px;
+    padding: 25px 20px;
+    border-radius: 30px;
+  }
+
+  .whatif-main-title {
+    font-size: 3.2rem;
+    margin-bottom: 15px;
   }
 
   .scenario-card {
-    padding: 25px;
+    padding: 25px 15px;
+    margin: 20px 0;
+    border-radius: 24px;
+  }
+
+  .scenario-question {
+    font-size: 1.8rem;
+    margin-bottom: 25px;
+    line-height: 1.4;
+  }
+
+  .whatif-options-list {
+    gap: 12px;
+  }
+
+  .whatif-option-card {
+    padding: 18px;
+    border-radius: 16px;
   }
 
   .option-main-text {
+    font-size: 1.5rem;
+    margin-bottom: 8px;
+  }
+
+  .option-explanation {
+    font-size: 1.3rem;
+  }
+
+  .whatif-btn {
+    width: 100%;
+    padding: 16px;
+    font-size: 1.6rem;
+    margin-top: 25px;
+  }
+
+  .loader-text {
     font-size: 1.6rem;
   }
 }

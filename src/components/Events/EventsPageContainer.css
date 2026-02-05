@@ -90,79 +90,152 @@
 
 @media (max-width: 480px) {
   .events-page {
-    padding: 100px 1rem 2rem 1rem;
+    /* Reduced top padding further for mobile */
+    padding: 90px 0.5rem 2rem 0.5rem;
+    overflow-x: hidden;
+    /* Prevent horizontal scroll on body */
   }
 
   .events-container {
-    padding: 1rem;
+    padding: 0.5rem;
+    width: 100%;
+    margin: 0;
+    box-sizing: border-box;
   }
 
   .events-page-header {
-    font-size: 1.4rem;
-    padding: 0.8rem 1.5rem;
+    font-size: 1.2rem;
+    padding: 0.6rem 1.2rem;
     margin-bottom: 1.5rem;
+    width: 100%;
+    box-sizing: border-box;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   .calendar-and-details-wrapper {
-    gap: 1.5rem;
-    margin-top: 1.5rem;
+    gap: 1rem;
+    margin-top: 1rem;
+    width: 100%;
+    box-sizing: border-box;
   }
 }
 
-/* ================= LOCATION & TIME ROW ================= */
+/* ================= COMMUNITY BANNER ================= */
 
-.location-and-time-row {
+.community-banner {
+  margin: 20px 0 30px 0;
+  padding: 25px;
+  background: linear-gradient(90deg, rgba(0, 229, 255, 0.1) 0%, rgba(138, 43, 226, 0.1) 100%);
+  border-radius: 16px;
+  border: 1px solid rgba(0, 229, 255, 0.2);
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 2rem;
-  margin: 1.5rem 0;
+  backdrop-filter: blur(5px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
 }
 
-.location-and-time-row .location-selector {
-  margin: 0;
-  flex: 1;
+.banner-title {
+  margin: 0 0 5px 0;
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 1.4rem;
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
-.current-time-info {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  background: rgba(0, 0, 0, 0.4);
-  padding: 0.8rem 1.5rem;
-  border-radius: 12px;
-  border: 1px solid var(--border-color-subtle);
-  backdrop-filter: blur(8px);
-  min-width: 140px;
-}
-
-.time-val {
-  font-family: 'Orbitron', 'JetBrains Mono', monospace;
-  font-size: 1.8rem;
-  font-weight: 800;
-  color: var(--accent-primary);
-  text-shadow: 0 0 10px var(--glow-color);
-  line-height: 1;
-}
-
-.gmt-val {
+.banner-emoji {
   font-size: 0.8rem;
-  color: var(--text-muted);
-  font-weight: 600;
-  margin-top: 0.2rem;
-  letter-spacing: 0.5px;
+  vertical-align: middle;
+}
+
+.banner-text {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.95rem;
+}
+
+.banner-actions {
+  display: flex;
+  gap: 15px;
+}
+
+.banner-actions .browse-btn {
+  padding: 10px 20px;
+  font-size: 0.9rem;
+  background: transparent;
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  cursor: pointer;
+}
+
+.banner-actions .create-btn {
+  padding: 10px 25px;
+  font-size: 1rem;
+  background: #fff;
+  color: #000;
+  font-weight: bold;
+  border: none;
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+  cursor: pointer;
 }
 
 @media (max-width: 768px) {
-  .location-and-time-row {
+  .community-banner {
     flex-direction: column;
-    align-items: stretch;
-    gap: 1rem;
+    text-align: center;
+    gap: 20px;
+    padding: 20px;
   }
 
-  .current-time-info {
-    align-items: center;
-    order: -1;
-    /* Time on top for mobile */
+  .banner-actions {
+    width: 100%;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .banner-actions button {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .events-page {
+    padding: 80px 8px 2rem 8px;
+    /* Strict padding */
+    width: 100%;
+    box-sizing: border-box;
+    overflow-x: hidden;
+  }
+
+  .events-container {
+    padding: 0;
+    /* Remove container padding to give room to children */
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    box-sizing: border-box;
+    overflow-x: hidden;
+  }
+
+  .events-page-header {
+    font-size: 1.1rem;
+    padding: 0.5rem 1rem;
+    margin-bottom: 1.2rem;
+    width: calc(100% - 16px);
+    margin-left: 8px;
+    margin-right: 8px;
+    box-sizing: border-box;
+  }
+
+  .calendar-and-details-wrapper {
+    gap: 1rem;
+    margin-top: 1rem;
+    width: 100%;
+    padding: 0 8px;
+    /* Keep consistent with header */
+    box-sizing: border-box;
   }
 }

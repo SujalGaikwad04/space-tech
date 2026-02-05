@@ -52,7 +52,7 @@ const ExploreFeatures = () => {
           <div className="card-content">
             <h3>SATELLITE IMPACT</h3>
             <p>See how space technology solves Earth problems</p>
-            <button className="premium-btn card-link" onClick={() => navigate("/blog/5")}>
+            <button className="premium-btn card-link" onClick={() => navigate("/earth-weather-details")}>
               <span className="shimmer-effect"></span>
               <span className="scan-line"></span>
               Try Now →

@@ -6,9 +6,6 @@ function InfoPanel({ selectedPlanet, selectedSun, onBack }) {
     if (selectedSun) {
         return (
             <div className="info-panel sun-info">
-                <button className="back-button" onClick={onBack}>
-                    ← Back to Solar System
-                </button>
 
                 <div className="info-header">
                     <h2>☀️ {sunInfo.name}</h2>
@@ -189,9 +186,6 @@ function InfoPanel({ selectedPlanet, selectedSun, onBack }) {
     // Show planet details
     return (
         <div className="info-panel planet-info">
-            <button className="back-button" onClick={onBack}>
-                ← Back to Solar System
-            </button>
 
             <div className="info-header">
                 <h2>{selectedPlanet.name}</h2>

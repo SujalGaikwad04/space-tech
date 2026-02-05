@@ -115,3 +115,25 @@
     transform: rotate(360deg);
   }
 }
+
+@media (max-width: 480px) {
+  .event-filters-section {
+    padding: 0.8rem;
+    border-radius: 10px;
+    margin-bottom: 1.5rem;
+  }
+
+  .filters-label {
+    font-size: 0.8rem;
+    margin-bottom: 0.8rem;
+  }
+
+  .event-filters {
+    gap: 0.5rem;
+  }
+
+  .filter-btn {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.75rem;
+  }
+}

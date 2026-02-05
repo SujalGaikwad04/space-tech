@@ -263,16 +263,70 @@
 }
 
 @media (max-width: 768px) {
+  .quiz-wrapper {
+    padding: 100px 15px 40px;
+  }
+
   .quiz-container {
-    padding: 30px;
+    padding: 25px 20px;
     border-radius: 20px;
   }
 
+  .quiz-header-title {
+    margin-bottom: 20px;
+    font-size: 2.8rem;
+  }
+
   .question-card {
-    padding: 20px;
+    padding: 25px 15px;
+    margin-bottom: 25px;
+  }
+
+  .question-text {
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+  }
+
+  .options-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
   }
 
   .option-btn {
+    padding: 15px 20px;
+    font-size: 1.5rem;
+    gap: 12px;
+    line-height: 1.4;
+    text-align: left;
+    align-items: flex-start;
+  }
+
+  .option-btn span {
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .results-card {
+    padding: 20px 10px;
+  }
+
+  .results-card h2 {
+    font-size: 2.8rem;
+  }
+
+  .xp-badge {
+    padding: 12px 25px;
+    font-size: 1.8rem;
+  }
+
+  .result-item {
+    padding: 15px;
     font-size: 1.4rem;
+  }
+
+  .retry-btn {
+    width: 100%;
+    padding: 15px;
+    font-size: 1.6rem;
   }
 }

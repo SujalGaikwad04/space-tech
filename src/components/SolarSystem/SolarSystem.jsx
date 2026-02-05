@@ -1,5 +1,5 @@
-import { useState, useRef } from 'react';
-import { Canvas, useFrame } from '@react-three/fiber';
+import { useState, useRef, useEffect, useMemo } from 'react';
+import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import { OrbitControls, Stars } from '@react-three/drei';
 import * as THREE from 'three';
 import InfoPanel from './InfoPanel';
@@ -287,9 +287,9 @@ function createRealisticTexture(data) {
 }
 
 // Celestial Body Component
-function CelestialBody({ data, isCurrent }) {
+function CelestialBody({ data, isCurrent, isMobile }) {
     const meshRef = useRef();
-    const texture = createRealisticTexture(data);
+    const texture = useMemo(() => createRealisticTexture(data), [data]);
 
     useFrame(() => {
         if (meshRef.current) {
@@ -301,8 +301,8 @@ function CelestialBody({ data, isCurrent }) {
         // Render asteroid belt as a ring of particles
         return (
             <group>
-                {[...Array(200)].map((_, i) => {
-                    const angle = (i / 200) * Math.PI * 2;
+                {[...Array(isMobile ? 100 : 200)].map((_, i) => {
+                    const angle = (i / (isMobile ? 100 : 200)) * Math.PI * 2;
                     const distance = 8 + Math.random() * 4;
                     const x = Math.cos(angle) * distance;
                     const z = Math.sin(angle) * distance;
@@ -320,11 +320,12 @@ function CelestialBody({ data, isCurrent }) {
         );
     }
 
-    const scale = isCurrent ? data.size * 4 : data.size * 3;
+    const baseScale = isMobile ? data.size * 2.5 : data.size * 3;
+    const currentScale = isCurrent ? baseScale * 1.3 : baseScale;
 
     return (
         <group>
-            <mesh ref={meshRef} scale={scale}>
+            <mesh ref={meshRef} scale={currentScale}>
                 <sphereGeometry args={[1, 64, 64]} />
                 <meshStandardMaterial
                     map={texture}
@@ -335,7 +336,7 @@ function CelestialBody({ data, isCurrent }) {
 
             {/* Atmospheric glow for gas giants */}
             {['jupiter', 'saturn', 'uranus', 'neptune'].includes(data.id) && (
-                <mesh scale={scale * 1.05}>
+                <mesh scale={currentScale * 1.05}>
                     <sphereGeometry args={[1, 64, 64]} />
                     <meshBasicMaterial
                         color={data.color}
@@ -348,8 +349,8 @@ function CelestialBody({ data, isCurrent }) {
 
             {/* Saturn's rings */}
             {data.id === 'saturn' && (
-                <>
-                    <mesh rotation={[Math.PI / 2.2, 0, 0]} scale={scale}>
+                <group scale={currentScale}>
+                    <mesh rotation={[Math.PI / 2.2, 0, 0]}>
                         <ringGeometry args={[1.5, 2.5, 128]} />
                         <meshStandardMaterial
                             color="#C9B896"
@@ -358,7 +359,7 @@ function CelestialBody({ data, isCurrent }) {
                             opacity={0.8}
                         />
                     </mesh>
-                    <mesh rotation={[Math.PI / 2.2, 0, 0]} scale={scale}>
+                    <mesh rotation={[Math.PI / 2.2, 0, 0]}>
                         <ringGeometry args={[1.8, 2.2, 128]} />
                         <meshStandardMaterial
                             color="#8B7355"
@@ -367,14 +368,14 @@ function CelestialBody({ data, isCurrent }) {
                             opacity={0.6}
                         />
                     </mesh>
-                </>
+                </group>
             )}
         </group>
     );
 }
 
 // Sun Component
-function Sun({ isCurrent }) {
+function Sun({ isCurrent, isMobile }) {
     const sunRef = useRef();
 
     useFrame(() => {
@@ -383,22 +384,23 @@ function Sun({ isCurrent }) {
         }
     });
 
-    const scale = isCurrent ? 3 : 2.5;
+    const baseScale = isMobile ? 1.8 : 2.5;
+    const currentScale = isCurrent ? baseScale * 1.2 : baseScale;
 
     return (
         <group>
-            <mesh ref={sunRef} scale={scale}>
+            <mesh ref={sunRef} scale={currentScale}>
                 <sphereGeometry args={[1, 64, 64]} />
                 <meshBasicMaterial color="#FDB813" />
                 <pointLight intensity={3} distance={200} decay={2} />
             </mesh>
 
-            <mesh scale={scale * 1.15}>
+            <mesh scale={currentScale * 1.15}>
                 <sphereGeometry args={[1, 64, 64]} />
                 <meshBasicMaterial color="#FDB813" transparent opacity={0.4} />
             </mesh>
 
-            <mesh scale={scale * 1.3}>
+            <mesh scale={currentScale * 1.3}>
                 <sphereGeometry args={[1, 64, 64]} />
                 <meshBasicMaterial color="#FFD700" transparent opacity={0.2} />
             </mesh>
@@ -407,7 +409,14 @@ function Sun({ isCurrent }) {
 }
 
 function SolarSystem() {
-    // Create celestial bodies array: Sun + Planets
+    const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+
+    useEffect(() => {
+        const handleResize = () => setIsMobile(window.innerWidth < 768);
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
+
     const celestialBodies = [
         { id: 'sun', name: 'The Sun', isSun: true },
         ...planetsData
@@ -431,22 +440,29 @@ function SolarSystem() {
     return (
         <div className="solar-system-container">
             {/* 3D Canvas */}
-            <Canvas camera={{ position: [0, 5, 15], fov: 60 }} className="solar-system-canvas">
-                <Stars radius={300} depth={60} count={7000} factor={5} saturation={0} fade speed={1} />
+            <Canvas
+                camera={{
+                    position: isMobile ? [0, 8, 20] : [0, 5, 15],
+                    fov: isMobile ? 55 : 60
+                }}
+                className="solar-system-canvas"
+            >
+                <Stars radius={300} depth={60} count={isMobile ? 3000 : 7000} factor={5} saturation={0} fade speed={1} />
                 <ambientLight intensity={0.5} />
 
                 {currentBody.isSun ? (
-                    <Sun isCurrent={true} />
+                    <Sun isCurrent={true} isMobile={isMobile} />
                 ) : (
-                    <CelestialBody data={currentBody} isCurrent={true} />
+                    <CelestialBody data={currentBody} isCurrent={true} isMobile={isMobile} />
                 )}
 
                 <OrbitControls
-                    enablePan={true}
+                    enablePan={!isMobile}
                     enableZoom={true}
                     enableRotate={true}
                     minDistance={5}
-                    maxDistance={30}
+                    maxDistance={isMobile ? 40 : 30}
+                    target={isMobile ? [0, -2, 0] : [0, 0, 0]}
                 />
             </Canvas>
 
@@ -458,7 +474,7 @@ function SolarSystem() {
                     disabled={currentIndex === 0}
                 >
                     <span className="nav-arrow">←</span>
-                    <span className="nav-text">Previous</span>
+                    {!isMobile && <span className="nav-text">Previous</span>}
                 </button>
 
                 <div className="progress-indicator">
@@ -473,9 +489,11 @@ function SolarSystem() {
                             />
                         ))}
                     </div>
-                    <span className="progress-text">
-                        {currentIndex + 1} / {celestialBodies.length}
-                    </span>
+                    {!isMobile && (
+                        <span className="progress-text">
+                            {currentIndex + 1} / {celestialBodies.length}
+                        </span>
+                    )}
                 </div>
 
                 <button
@@ -483,17 +501,19 @@ function SolarSystem() {
                     onClick={handleNext}
                     disabled={currentIndex === celestialBodies.length - 1}
                 >
-                    <span className="nav-text">Next</span>
+                    {!isMobile && <span className="nav-text">Next</span>}
                     <span className="nav-arrow">→</span>
                 </button>
             </div>
 
             {/* Information Panel */}
-            <InfoPanel
-                selectedPlanet={currentBody.isSun ? null : currentBody}
-                selectedSun={currentBody.isSun}
-                onBack={() => { }}
-            />
+            <div className={`info-panel-mobile-wrapper ${isMobile ? 'mobile' : ''}`}>
+                <InfoPanel
+                    selectedPlanet={currentBody.isSun ? null : currentBody}
+                    selectedSun={currentBody.isSun}
+                    onBack={() => { }}
+                />
+            </div>
         </div>
     );
 }

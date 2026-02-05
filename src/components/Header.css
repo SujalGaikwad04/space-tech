@@ -244,83 +244,152 @@
 
 /* Mobile Styles */
 @media (max-width: 768px) {
-  .nav {
-    display: none;
+  .header {
+    background: rgba(13, 17, 23, 0.95);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border-color-subtle);
   }
 
-  /* When nav is open (Mobile Menu) */
-  .nav.nav-open {
+  .header-container {
+    justify-content: space-between;
+    /* Push logo and hamburger apart */
+    position: relative;
+  }
+
+  .logo-section {
+    position: static;
+    /* Remove absolute positioning on mobile */
+    z-index: 1002;
+  }
+
+  .header-actions {
+    position: static;
+    margin-right: 45px;
+    /* Leave space for hamburger */
+    z-index: 1002;
+  }
+
+  .nav {
     display: flex;
     flex-direction: column;
-    position: absolute;
-    top: 60px;
-    left: 0;
+    position: fixed;
+    top: 0;
     right: 0;
-    background: var(--header-bg);
-    backdrop-filter: blur(15px);
-    padding: 20px;
-    border-bottom: 1px solid var(--border-color-subtle);
-    gap: 10px;
+    /* Slide from right */
+    width: 280px;
+    /* Distinct sidebar width */
+    height: 100vh;
+    background: #0d1117;
+    backdrop-filter: blur(25px);
+    padding: 80px 20px 40px;
+    gap: 12px;
+    transform: translateX(100%);
+    /* Start off-screen */
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 1000;
+    box-shadow: -10px 0 30px rgba(0, 0, 0, 0.5);
+    border-left: 1px solid rgba(0, 217, 255, 0.2);
+    pointer-events: none;
+    opacity: 0;
   }
 
-  /* Show mobile auth items in the menu */
+  .nav.nav-open {
+    transform: translateX(0);
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .nav-item {
+    width: 100%;
+    padding: 14px 20px;
+    text-align: left;
+    /* Sidebar style */
+    font-size: 14px;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(0, 217, 255, 0.05);
+    margin: 0;
+  }
+
+  .nav-item:hover,
+  .nav-item.active {
+    background: rgba(0, 217, 255, 0.1);
+    color: var(--accent-primary);
+    border-color: var(--accent-primary);
+    transform: none;
+  }
+
   .mobile-auth-item {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 12px;
+    margin-top: auto;
+    /* Push to bottom of sidebar */
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
   }
 
-  /* Hide Desktop Auth Buttons in Header Actions */
+  .logout-mobile {
+    background: rgba(255, 51, 102, 0.05);
+    color: #ff3366;
+    border-color: rgba(255, 51, 102, 0.2);
+  }
+
+  .get-started-mobile {
+    background: var(--accent-primary) !important;
+    color: #000 !important;
+    font-weight: 700;
+    text-align: center;
+  }
+
   .header-actions .get-started,
   .header-actions .user-profile {
     display: none;
   }
 
-  /* Adjust Header Actions Position for Mobile */
-  .header-actions {
-    right: 60px;
-    /* Move left to make space for hamburger */
-  }
-
   .hamburger {
     display: flex;
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1002;
   }
 
-  .logo-section {
-    left: 20px;
-    transform: none;
-    /* Align logo left on mobile too for cleaner look */
+  .header-menu-open .hamburger span:nth-child(1) {
+    transform: translateY(6px) rotate(45deg);
+  }
+
+  .header-menu-open .hamburger span:nth-child(2) {
+    opacity: 0;
+  }
+
+  .header-menu-open .hamburger span:nth-child(3) {
+    transform: translateY(-6px) rotate(-45deg);
   }
 }
 
 @media (max-width: 480px) {
   .header-container {
-    height: 50px;
+    height: 60px;
+    padding: 0 15px;
   }
 
   .logo-text {
-    font-size: 16px;
+    font-size: 18px;
   }
 
-  .planet-icon {
-    width: 20px;
-    height: 20px;
+  .logo-image {
+    height: 38px;
   }
 
-  /* Mobile Auth Button Styles */
-  .get-started-mobile {
-    background: var(--accent-primary);
-    color: var(--btn-text);
-    text-align: center;
-    justify-content: center;
-    box-shadow: 0 0 10px var(--glow-color);
+  .nav {
+    width: 80%;
+    /* Almost full width but feels like a drawer */
   }
 
-  .user-info-mobile {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    background: rgba(255, 255, 255, 0.05);
-    border: none;
+  .nav-item {
+    font-size: 13px;
+    padding: 12px 16px;
   }
 }
