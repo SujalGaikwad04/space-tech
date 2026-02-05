@@ -3,7 +3,7 @@ import './FeaturedSpacecraft.css';
 
 const FeaturedSpacecraft = () => {
     return (
-        <div className="featured-spacecraft">
+        <div className="featured-spacecraft glass-panel">
             <div className="spacecraft-header">
                 <h3>FEATURED: ISS (INTERNATIONAL SPACE STATION)</h3>
                 <div className="status-indicator">

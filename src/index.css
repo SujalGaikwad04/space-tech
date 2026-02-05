@@ -7,8 +7,9 @@
 :root {
   --transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
   --premium-shadow: 0 0 20px rgba(0, 217, 255, 0.2);
-  --glass-bg: rgba(0, 10, 20, 0.6);
-  --glass-border: rgba(0, 229, 255, 0.15);
+  --glass-bg: rgba(10, 25, 45, 0.25);
+  /* More transparent */
+  --glass-border: rgba(0, 229, 255, 0.2);
 }
 
 /* 🌍 GLOBAL FIXED BACKGROUND */
@@ -329,4 +330,26 @@ a {
   opacity: 0.5;
   animation: scan-line 3s linear infinite;
   box-shadow: 0 0 10px var(--glow-color);
+}
+
+/* ========================================
+   GLASSMORPHISM UTILITIES
+   ======================================== */
+
+.glass-panel {
+  background: rgba(10, 25, 45, 0.25);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  border-radius: 16px;
+  position: relative;
+  overflow: hidden;
+  transition: var(--transition);
+}
+
+.glass-panel:hover {
+  background: rgba(10, 25, 45, 0.5);
+  border-color: rgba(0, 217, 255, 0.2);
+  box-shadow: 0 8px 32px 0 rgba(0, 217, 255, 0.15);
 }

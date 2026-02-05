@@ -102,7 +102,7 @@ const StatsCounter = () => {
                 <h2 className="stats-title">Space Exploration by the Numbers</h2>
                 <div className="stats-grid">
                     {stats.map((stat, index) => (
-                        <div key={index} className="stat-card">
+                        <div key={index} className="stat-card glass-panel">
                             <div className="stat-icon">{stat.icon}</div>
                             <div className="stat-value">
                                 {stat.value.toLocaleString()}{stat.suffix}

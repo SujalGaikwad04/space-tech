@@ -11,7 +11,7 @@ const TimelineScroller = ({ onEraSelect }) => {
   };
 
   return (
-    <div className="timeline-scroller">
+    <div className="timeline-scroller glass-panel">
       <div className="timeline-header">
         <h3>TIMELINE SCROLLER</h3>
       </div>

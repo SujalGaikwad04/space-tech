@@ -19,6 +19,7 @@ import BlogPost from "./pages/BlogPost.page";
 import SkyObjectDetail from "./pages/SkyObjectDetail.page";
 import SatelliteDetail from "./pages/SatelliteDetail.page";
 import EarthWeatherDetails from "./pages/EarthWeatherDetails";
+import MissionDetails from "./pages/MissionDetails.page";
 
 /* Learning Section Components */
 import Learn from "./components/learn/learn";
@@ -51,6 +52,7 @@ function App() {
             <Route path="/community-event/:id" element={<CommunityEventDetails />} />
             <Route path="/event-details" element={<EventDetailsPage />} />
             <Route path="/mission" element={<Missionpage />} />
+            <Route path="/mission-details/:missionId" element={<MissionDetails />} />
             <Route path="/weather" element={<Weatherpage />} />
             <Route path="/dashboard" element={<Dashboardpage />} />
             <Route path="/live-map" element={<LiveMap />} />

@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import ParticleBackground from "../Home/ParticleBackground";
 import Scenario from "./Scenario";
 import "./whatif.css";
 import { useAuth } from "../../context/AuthContext";
@@ -107,8 +108,7 @@ Rules:
 
   return (
     <div className="whatif-wrapper">
-      {/* Background from Learn Page */}
-      <div className="whatif-bg"></div>
+      <ParticleBackground />
 
       <div className="whatif-container">
         <h1 className="whatif-main-title">Cosmic What-If?</h1>

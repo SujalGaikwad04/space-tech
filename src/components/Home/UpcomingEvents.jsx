@@ -81,7 +81,7 @@ const UpcomingEvents = () => {
   return (
     <section className="upcoming-events">
       <div className="section-header-top">SECTION 1: UPCOMING EVENTS</div>
-      <div className="upcoming-content-box">
+      <div className="upcoming-content-box glass-panel">
         <header className="upcoming-header">
           <h2 className="subsection-title">UPCOMING CELESTIAL EVENTS</h2>
 

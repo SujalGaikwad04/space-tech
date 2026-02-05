@@ -22,7 +22,7 @@
 
 /* Main HUD Container */
 .dashboard-content-box {
-  background: rgba(0, 10, 20, 0.7);
+  background: var(--glass-bg);
   backdrop-filter: blur(25px);
   -webkit-backdrop-filter: blur(25px);
   border: 1px solid rgba(0, 229, 255, 0.2);

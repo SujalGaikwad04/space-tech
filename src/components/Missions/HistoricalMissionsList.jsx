@@ -1,9 +1,11 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import './HistoricalMissionsList.css';
 import { historicalMissions, getStatusColor } from './missionsData';
 
 const HistoricalMissionsList = ({ selectedEra }) => {
     const missions = historicalMissions[selectedEra] || [];
+    const navigate = useNavigate();
 
     if (missions.length === 0) {
         return (
@@ -25,7 +27,12 @@ const HistoricalMissionsList = ({ selectedEra }) => {
 
             <div className="missions-grid">
                 {missions.map((mission, index) => (
-                    <div key={index} className="mission-card">
+                    <div
+                        key={index}
+                        className="mission-card"
+                        onClick={() => navigate(`/mission-details/${encodeURIComponent(mission.name)}`)}
+                        style={{ cursor: 'pointer' }}
+                    >
                         <div className="mission-card-header">
                             <div className="mission-name">{mission.name}</div>
                             <div

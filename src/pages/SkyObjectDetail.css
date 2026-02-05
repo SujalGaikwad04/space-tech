@@ -1,7 +1,7 @@
 /* Sky Object Detail Page */
 .sky-object-detail {
     min-height: 100vh;
-    background: var(--bg-primary);
+    background: transparent;
     color: var(--text-primary);
     position: relative;
     transition: var(--transition);

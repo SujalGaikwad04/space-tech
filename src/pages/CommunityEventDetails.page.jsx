@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import ParticleBackground from "../components/Home/ParticleBackground";
 import "./CommunityEventDetails.css";
 
 const CommunityEventDetails = () => {
@@ -110,11 +111,7 @@ const CommunityEventDetails = () => {
     return (
         <div className="event-details-page">
             {/* 🌍 GLOBAL BACKGROUND */}
-            <img
-                src="/backgrounds/abstract-horizon.png"
-                alt="Abstract planet horizon"
-                className="home-bg"
-            />
+            <ParticleBackground />
 
             <div className="event-details-container">
                 <img src={event.image} alt={event.title} className="event-header-image" />

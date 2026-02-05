@@ -1,4 +1,5 @@
 import { useParams, useNavigate } from 'react-router-dom';
+import ParticleBackground from '../components/Home/ParticleBackground';
 import './SkyObjectDetail.css';
 
 const skyObjectsData = {
@@ -90,6 +91,7 @@ const SkyObjectDetail = () => {
 
     return (
         <div className="sky-object-detail">
+            <ParticleBackground />
             {/* Hero Section with Image Background */}
             <section className="detail-hero" style={{ backgroundImage: `url(${object.image})` }}>
                 <div className="hero-overlay"></div>

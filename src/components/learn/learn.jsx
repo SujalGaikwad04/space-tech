@@ -1,4 +1,5 @@
 import "./learn.css";
+import ParticleBackground from "../Home/ParticleBackground";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
@@ -61,8 +62,8 @@ function Learn() {
 
   return (
     <div className="learn-page-wrapper">
-      {/* Fixed background Deep Starfield */}
-      <div className="learn-bg"></div>
+      {/* Global Particle Background */}
+      <ParticleBackground />
 
       {/* Hero & Stats Section */}
       <section className="stu-sec">

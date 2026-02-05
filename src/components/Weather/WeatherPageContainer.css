@@ -43,7 +43,7 @@
   padding: 48px;
   border-radius: 28px;
 
-  background: var(--card-bg);
+  background: var(--glass-bg);
   border: 1px solid var(--border-color-subtle);
   box-shadow: var(--box-shadow);
 
