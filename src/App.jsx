@@ -1,15 +1,11 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-/* Pages */
-// import LearnPage from "./pages/Learn.page"; // Unused import removed or commented out
-import CreateBlog from "./pages/CreateBlog.page";
-import CreateEvent from "./pages/CreateEvent.page";
-import CommunityEvents from "./pages/CommunityEvents.page";
-import CommunityEventDetails from "./pages/CommunityEventDetails.page";
-
 /* Core Pages */
 import Homepage from "./pages/Homepage";
 import Eventspage from "./pages/Eventspage";
+import CreateEvent from "./pages/CreateEvent.page";
+import CommunityEvents from "./pages/CommunityEvents.page";
+import CommunityEventDetails from "./pages/CommunityEventDetails.page";
 import EventDetailsPage from "./pages/EventDetailsPage";
 import Missionpage from "./pages/Missionpage";
 import Weatherpage from "./pages/Weatherpage";
@@ -20,16 +16,18 @@ import SkyObjectDetail from "./pages/SkyObjectDetail.page";
 import SatelliteDetail from "./pages/SatelliteDetail.page";
 import EarthWeatherDetails from "./pages/EarthWeatherDetails";
 
-/* Learning Section Components */
+/* Learning */
 import Learn from "./components/learn/learn";
 import WhatIf from "./components/whatif/whatif";
 import Detailquiz from "./components/quiz/detailquiz";
 import SolarSystem from "./components/SolarSystem/SolarSystem";
 
-/* Layout */
-import Footer from "./components/Footer";
-import Header from "./components/Header";
+/* Auth */
 import Auth from "./components/auth/user";
+
+/* Layout */
+import Header from "./components/Header";
+import Footer from "./components/Footer";
 import AiChat from "./components/AiChat/AiChat";
 
 /* Context */
@@ -45,31 +43,29 @@ function App() {
 
           <Routes>
             <Route path="/" element={<Homepage />} />
+            <Route path="/Auth" element={<Auth />} />
+
             <Route path="/events" element={<Eventspage />} />
             <Route path="/create-event" element={<CreateEvent />} />
             <Route path="/community-events" element={<CommunityEvents />} />
             <Route path="/community-event/:id" element={<CommunityEventDetails />} />
             <Route path="/event-details" element={<EventDetailsPage />} />
+
             <Route path="/mission" element={<Missionpage />} />
             <Route path="/weather" element={<Weatherpage />} />
             <Route path="/dashboard" element={<Dashboardpage />} />
             <Route path="/live-map" element={<LiveMap />} />
-            <Route path="/Auth" element={<Auth />} />
+
             <Route path="/sky-object/:objectId" element={<SkyObjectDetail />} />
             <Route path="/satellite-impact/:topicId" element={<SatelliteDetail />} />
             <Route path="/earth-weather-details" element={<EarthWeatherDetails />} />
 
-
-            {/* Learning routes */}
+            {/* Learning */}
             <Route path="/learn" element={<Learn />} />
-            <Route path="/create-blog" element={<CreateBlog />} />
             <Route path="/blog/:id" element={<BlogPost />} />
             <Route path="/whatif" element={<WhatIf />} />
             <Route path="/quiz" element={<Detailquiz />} />
             <Route path="/solar-system" element={<SolarSystem />} />
-            <Route path="/solar-system" element={<SolarSystem />} />
-
-            {/* <Route path="/bg-preview" element={<BackgroundPreview />} /> REMOVED */}
           </Routes>
 
           <AiChat />
