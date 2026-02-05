@@ -13,11 +13,19 @@ const JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key-change-this-in-pro
 
 // Middleware
 app.use(cors({
-  origin: process.env.NODE_ENV === 'production'
-    ? ['https://space-tech-l4nokgff3-sujalgaikwad04s-projects.vercel.app', 'https://space-tech-git-main-sujalgaikwad04s-projects.vercel.app']
-    : ['http://localhost:5173', 'http://127.0.0.1:5173', 'http://localhost:3000'],
+  origin: [
+    "https://space-tech-t2yl-b55yqlgut-sujalgaikwad04s-projects.vercel.app",
+    "https://space-tech-l4nokgff3-sujalgaikwad04s-projects.vercel.app",
+    "https://space-tech-git-main-sujalgaikwad04s-projects.vercel.app",
+    "http://localhost:5173",
+    "http://127.0.0.1:5173",
+    "http://localhost:3000"
+  ],
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   credentials: true
 }));
+
+app.options("*", cors()); // IMPORTANT for preflight
 app.use(express.json());
 
 // Email transporter configuration
