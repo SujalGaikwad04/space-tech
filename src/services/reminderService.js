@@ -1,4 +1,4 @@
-const API_URL = 'https://space-tech-l4nokgff3-sujalgaikwad04s-projects.vercel.app/api';
+const API_URL = import.meta.env.VITE_API_URL ? `${import.meta.env.VITE_API_URL}/api` : '/api';
 
 // Get auth token from localStorage
 const getAuthToken = () => {

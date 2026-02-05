@@ -12,7 +12,12 @@ const PORT = process.env.PORT || 5000;
 const JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key-change-this-in-production';
 
 // Middleware
-app.use(cors());
+app.use(cors({
+  origin: process.env.NODE_ENV === 'production'
+    ? ['https://space-tech-l4nokgff3-sujalgaikwad04s-projects.vercel.app', 'https://space-tech-git-main-sujalgaikwad04s-projects.vercel.app']
+    : ['http://localhost:5173', 'http://127.0.0.1:5173', 'http://localhost:3000'],
+  credentials: true
+}));
 app.use(express.json());
 
 // Email transporter configuration
@@ -527,11 +532,16 @@ setInterval(() => {
   checkReminders();
 }, 10000); // Check every 10 seconds
 
-// Start server
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
-  console.log(`Health check: http://localhost:${PORT}/api/health`);
-});
+// Export the app for Vercel
+module.exports = app;
+
+// Only listen if running directly (not imported as a module/function)
+if (require.main === module) {
+  app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
+    console.log(`Health check: http://localhost:${PORT}/api/health`);
+  });
+}
 
 // Graceful shutdown
 process.on('SIGINT', () => {
