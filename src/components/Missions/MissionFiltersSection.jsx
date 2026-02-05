@@ -19,7 +19,7 @@ const MissionFiltersSection = ({ onViewChange }) => {
 
   return (
     <section className="mission-filters-section">
-      <div className="filter-buttons">
+      <div className="filter-buttons glass-panel">
         {filters.map(filter => (
           <button
             key={filter.id}

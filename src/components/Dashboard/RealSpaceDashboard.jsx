@@ -191,7 +191,7 @@ const RealSpaceDashboard = () => {
 
       <div className="dashboard-grid">
         <div className="main-content">
-          <section className="celestial-events">
+          <section className="celestial-events glass-panel">
             <div className="section-header">
               <h2>Celestial Events</h2>
               <span className="live-indicator">LIVE UPDATES</span>
@@ -235,7 +235,7 @@ const RealSpaceDashboard = () => {
           </section>
 
           {/* Deep Sky Recommendations */}
-          <section className="deep-sky-section">
+          <section className="deep-sky-section glass-panel">
             <h2 className="section-title">Deep Sky Recommendations</h2>
 
             <div className="sky-recommendations-grid">
@@ -275,7 +275,7 @@ const RealSpaceDashboard = () => {
         {/* Right Sidebar */}
         <aside className="sidebar">
           {/* Mission Reminders */}
-          <section className="mission-reminders">
+          <section className="mission-reminders glass-panel">
             <div className="section-header">
               <span className="reminder-icon">🔔</span>
               <h2>MISSION REMINDERS</h2>
@@ -311,7 +311,7 @@ const RealSpaceDashboard = () => {
           </section>
 
           {/* Astron Rank */}
-          <section className="astron-rank">
+          <section className="astron-rank glass-panel">
             <div className="rank-circle-container">
               <svg className="rank-circle" viewBox="0 0 120 120">
                 <circle

@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import ParticleBackground from "../Home/ParticleBackground";
 import "./quiz.css";
 import Question from "./question";
 import Result from "./result";
@@ -136,8 +137,7 @@ Rules:
 
   return (
     <div className="quiz-wrapper">
-      {/* Background from Learn Page */}
-      <div className="quiz-bg"></div>
+      <ParticleBackground />
 
       <div className="quiz-container">
         <h1 className="quiz-header-title">Planetary Quiz</h1>

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useBlog } from '../context/BlogContext';
 import { useAuth } from '../context/AuthContext';
+import ParticleBackground from '../components/Home/ParticleBackground';
 import './CreateBlog.css'; // Will create this css file as well for basic styling
 
 const CreateBlog = () => {
@@ -49,6 +50,7 @@ const CreateBlog = () => {
 
     return (
         <div className="create-blog-page">
+            <ParticleBackground />
             <div className="create-blog-container">
                 <h1>Write a New Blog Post</h1>
                 {error && <p className="error-message">{error}</p>}

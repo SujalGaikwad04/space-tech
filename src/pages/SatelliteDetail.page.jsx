@@ -95,7 +95,7 @@ const SatelliteDetail = () => {
                         </div>
                         <div className="cross-section-container">
                             <div className="cross-section-plot">
-                                <img src="https://images.unsplash.com/photo-1551522435-a13afa10f103?auto=format&fit=crop&q=80&w=1200" alt="Atmospheric Profile" className="cross-section-image" />
+                                <img src="https://images.unsplash.com/photo-1506765515384-028b60a970df?auto=format&fit=crop&q=80&w=1200" alt="Atmospheric Gradient" className="cross-section-image" />
                                 <div className="plot-gradient"></div>
                                 <div className="plot-overlay">
                                     <div className="altitude-labels">
@@ -322,7 +322,7 @@ const SatelliteDetail = () => {
                             </div>
                         </div>
                         <div className="satellites-visual">
-                            <img src="https://images.unsplash.com/photo-1516962080544-eac695c93791?auto=format&fit=crop&q=80&w=800" alt="Ocean Monitoring" className="satellite-img" />
+                            <img src="https://images.unsplash.com/photo-1439405326854-014607f694d7?auto=format&fit=crop&q=80&w=800" alt="Oceanic Heat Flux Visual" className="satellite-img" />
                         </div>
                     </div>
                 </section>

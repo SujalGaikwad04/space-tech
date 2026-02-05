@@ -59,7 +59,7 @@ export const useEventsData = (currentMonth, currentYear, location = "Mumbai, Ind
           try {
             // Fetch ISS passes for Mumbai (Lat: 19.0760, Lon: 72.8777)
             // Using open-notify API (public, no key needed)
-            const issResponse = await fetch("http://api.open-notify.org/iss-pass.json?lat=19.0760&lon=72.8777");
+            const issResponse = await fetch("https://api.open-notify.org/iss-pass.json?lat=19.0760&lon=72.8777");
             const issData = await issResponse.json();
 
             if (issData.message === "success" && issData.response.length > 0) {

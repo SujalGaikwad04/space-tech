@@ -6,7 +6,7 @@ const RealSpaceDashboard = () => {
   const [astronauts, setAstronauts] = useState(null);
 
   useEffect(() => {
-    fetch("http://api.open-notify.org/astros.json")
+    fetch("https://api.open-notify.org/astros.json")
       .then(res => res.json())
       .then(data => setAstronauts(data))
       .catch(err => console.error(err));
@@ -18,7 +18,7 @@ const RealSpaceDashboard = () => {
     <section className="dashboard-section">
       <div className="section-header-top">SECTION 4: REAL-SPACE DASHBOARD WIDGET</div>
 
-      <div className="dashboard-content-box">
+      <div className="dashboard-content-box glass-panel">
         <h2 className="subsection-title">LIVE SPACE DASHBOARD WIDGET</h2>
 
         <div className="dashboard-grid">

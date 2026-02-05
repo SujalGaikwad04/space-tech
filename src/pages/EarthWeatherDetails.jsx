@@ -4,6 +4,8 @@ import EarthWeatherDashboard from '../components/Weather/EarthWeatherDashboard';
 import '../components/Weather/WeatherPageContainer.css';
 import './EarthWeatherDetails.css';
 
+import ParticleBackground from '../components/Home/ParticleBackground';
+
 const EarthWeatherDetails = () => {
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -11,6 +13,7 @@ const EarthWeatherDetails = () => {
 
     return (
         <div className="weather-page">
+            <ParticleBackground />
             <div className="weather-container">
                 <Link to="/weather" className="back-link">← RETURN TO COMMAND CENTER</Link>
                 <EarthWeatherDashboard isStandalone={true} />

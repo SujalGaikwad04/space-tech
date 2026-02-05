@@ -7,7 +7,8 @@ const ExploreFeatures = () => {
   const [issData, setIssData] = useState(null);
 
   useEffect(() => {
-    fetch("http://api.open-notify.org/iss-now.json")
+    const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+    fetch(`${apiUrl}/api/iss-now`)
       .then(res => res.json())
       .then(data => setIssData(data.iss_position))
       .catch(err => console.error(err));
@@ -19,7 +20,7 @@ const ExploreFeatures = () => {
 
       <div className="explore-cards">
         {/* Visibility Map */}
-        <div className="explore-card">
+        <div className="explore-card glass-panel">
           <div className="card-visual map-visual"></div>
           <div className="card-content">
             <h3>ISS LIVE TRACKER</h3>
@@ -33,7 +34,7 @@ const ExploreFeatures = () => {
         </div>
 
         {/* Mission Track */}
-        <div className="explore-card">
+        <div className="explore-card glass-panel">
           <div className="card-visual earth-visual"></div>
           <div className="card-content">
             <h3>MISSION TRACK</h3>
@@ -47,7 +48,7 @@ const ExploreFeatures = () => {
         </div>
 
         {/* Satellite Impact */}
-        <div className="explore-card">
+        <div className="explore-card glass-panel">
           <div className="card-visual satellite-visual"></div>
           <div className="card-content">
             <h3>SATELLITE IMPACT</h3>

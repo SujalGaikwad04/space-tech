@@ -3,7 +3,7 @@ import './MissionStatsWidget.css';
 
 const MissionStatsWidget = () => {
     return (
-        <div className="mission-stats-widget">
+        <div className="mission-stats-widget glass-panel">
             <div className="stats-header">
                 <h3>MISSION STATISTICS</h3>
                 <span className="stats-icon">📊</span>

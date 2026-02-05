@@ -1,6 +1,6 @@
 import ParticleBackground from "../components/Home/ParticleBackground";
 import AnimatedHero from "../components/Home/AnimatedHero";
-import StatsCounter from "../components/Home/StatsCounter";
+
 import UpcomingEvents from "../components/Home/UpcomingEvents";
 import ExploreFeatures from "../components/Home/ExploreFeatures";
 import LearnAbout from "../components/Home/LearnAbout";
@@ -12,7 +12,7 @@ function HomePage() {
     <div className="parallax-homepage">
       <ParticleBackground />
       <AnimatedHero />
-      <StatsCounter />
+
       <UpcomingEvents />
       <ExploreFeatures />
       <LearnAbout />

@@ -36,7 +36,7 @@ const CountdownWidget = () => {
     }, []);
 
     return (
-        <div className="countdown-widget">
+        <div className="countdown-widget glass-panel">
             <div className="countdown-header">
                 <h3>NEXT LAUNCH: ARTEMIS III</h3>
                 <span className="countdown-badge">🚀</span>
