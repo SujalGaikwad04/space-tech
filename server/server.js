@@ -587,8 +587,21 @@ setInterval(() => {
   checkReminders();
 }, 10000); // Check every 10 seconds
 
+// Debug Catch-all for 404s
+app.use((req, res) => {
+  res.status(404).json({
+    error: 'Route not found',
+    path: req.path,
+    url: req.url,
+    originalUrl: req.originalUrl,
+    method: req.method,
+    headers: req.headers
+  });
+});
+
 // Export the app for Vercel
 module.exports = app;
+
 
 // Only listen if running directly (not imported as a module/function)
 if (require.main === module) {
