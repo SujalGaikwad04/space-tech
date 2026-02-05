@@ -2,9 +2,16 @@ const API_URL = import.meta.env.VITE_API_URL ? `${import.meta.env.VITE_API_URL}/
 
 // Get auth token from localStorage
 const getAuthToken = () => {
-    const token = localStorage.getItem('token');
-    if (token) {
-        return `Bearer ${token}`;
+    try {
+        const sessions = JSON.parse(localStorage.getItem('auth_sessions') || '[]');
+        const activeId = JSON.parse(localStorage.getItem('active_user_id') || 'null');
+
+        const activeSession = sessions.find(s => s.user.id === activeId);
+        if (activeSession && activeSession.token) {
+            return `Bearer ${activeSession.token}`;
+        }
+    } catch (e) {
+        console.error("Error getting auth token:", e);
     }
     return null;
 };

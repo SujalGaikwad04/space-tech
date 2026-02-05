@@ -1,228 +1,399 @@
 /* =========================================================
-   REAL-SPACE DASHBOARD - UNIFORM CARD LAYOUT
+   PREMIUM HUD DASHBOARD - CYBERNETIC DESIGN
    ========================================================= */
 
 .dashboard-section {
-  max-width: 1540px;
-  margin: 60px auto;
+  max-width: 1400px;
+  margin: 80px auto;
   padding: 0 40px;
   position: relative;
 }
 
-.section-header-top {
-  font-family: 'Poppins', sans-serif;
-  font-size: 0.9rem;
-  letter-spacing: 3px;
-  color: #00e5ff;
-  margin-bottom: 1.5rem;
-  opacity: 0.8;
-  font-weight: 600;
-  text-transform: uppercase;
+.hud-label-main {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--accent-primary);
+  letter-spacing: 4px;
+  margin-bottom: 20px;
+  opacity: 0.7;
+  display: flex;
+  align-items: center;
+  gap: 15px;
 }
 
-/* Main HUD Container */
-.dashboard-content-box {
-  background: var(--glass-bg);
-  backdrop-filter: blur(25px);
-  -webkit-backdrop-filter: blur(25px);
-  border: 1px solid rgba(0, 229, 255, 0.2);
-  border-top: 3px solid rgba(0, 229, 255, 0.6);
-  border-radius: 12px;
-  padding: 3rem;
+.hud-label-main::after {
+  content: '';
+  height: 1px;
+  flex: 1;
+  background: linear-gradient(90deg, var(--accent-primary), transparent);
+}
+
+/* MAIN HUD CONTAINER */
+.glass-hud {
+  background: rgba(10, 15, 30, 0.4);
+  backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px);
+  border: 1px solid rgba(0, 217, 255, 0.1);
+  border-radius: 24px;
+  padding: 40px;
   position: relative;
-  box-shadow: 0 0 50px rgba(0, 229, 255, 0.05);
+  overflow: hidden;
+  box-shadow:
+    0 40px 100px rgba(0, 0, 0, 0.4),
+    inset 0 0 40px rgba(0, 217, 255, 0.05);
 }
 
-.dashboard-content-box::after {
+.glass-hud::before {
   content: '';
   position: absolute;
-  top: -2px;
-  left: 10%;
-  right: 10%;
-  height: 2px;
-  background: linear-gradient(90deg, transparent, rgba(0, 229, 255, 0.8), transparent);
-  filter: blur(4px);
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background:
+    linear-gradient(90deg, rgba(0, 217, 255, 0.02) 1px, transparent 1px),
+    linear-gradient(rgba(0, 217, 255, 0.02) 1px, transparent 1px);
+  background-size: 40px 40px;
+  pointer-events: none;
+}
+
+/* HEADER */
+.hud-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 40px;
+  border-bottom: 1px solid rgba(0, 217, 255, 0.1);
+  padding-bottom: 20px;
+}
+
+.hud-main-title {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 2.8rem;
+  font-weight: 900;
+  color: #fff;
+  letter-spacing: 2px;
+  margin: 0;
+  text-shadow: 0 0 20px rgba(0, 217, 255, 0.5);
+}
+
+.hud-subtitle {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 1.2rem;
+  color: var(--accent-primary);
+  opacity: 0.6;
+  margin-top: 5px;
+}
+
+.hud-status-badge {
+  background: rgba(0, 217, 255, 0.05);
+  border: 1px solid var(--accent-primary);
+  padding: 8px 16px;
+  border-radius: 4px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 1.1rem;
+  color: var(--accent-primary);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.pulse-dot {
+  width: 8px;
+  height: 8px;
+  background: var(--accent-primary);
+  border-radius: 50%;
+  animation: pulse-dot 1.5s ease-out infinite;
+}
+
+@keyframes pulse-dot {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+
+  100% {
+    transform: scale(2.5);
+    opacity: 0;
+  }
+}
+
+/* GRID LAYOUT - ASYMMETRIC */
+.dashboard-hud-grid {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  grid-auto-rows: 220px;
+  gap: 25px;
+}
+
+/* HUD CARDS */
+.hud-card {
+  position: relative;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(0, 217, 255, 0.15);
+  border-radius: 16px;
+  padding: 30px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
+  display: flex;
+  align-items: center;
+}
+
+/* Card 3 should switch to 1fr 1.5fr ratio for balance */
+.traffic-card {
+  grid-column: 1 / 2;
+}
+
+.hud-card:hover {
+  border-color: var(--accent-primary);
+  background: rgba(0, 217, 255, 0.05);
+  transform: scale(1.02);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+}
+
+.hud-card-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(0, 217, 255, 0.05) 0%, transparent 100%);
+  pointer-events: none;
+}
+
+.hud-card-content {
+  position: relative;
+  z-index: 5;
+  width: 100%;
+}
+
+.hud-category {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 1.1rem;
+  color: var(--accent-primary);
+  opacity: 0.6;
+  margin-bottom: 15px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.hud-value {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 3.2rem;
+  font-weight: 800;
+  color: #fff;
+  margin: 0 0 15px 0;
+  line-height: 1;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+}
+
+.hud-metric {
+  display: flex;
+  gap: 15px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 1.2rem;
+}
+
+.metric-label {
+  color: var(--text-muted);
+}
+
+.metric-value {
+  color: #fff;
+  font-weight: 700;
+}
+
+.status-good {
+  color: #00ff88 !important;
+  text-shadow: 0 0 10px rgba(0, 255, 136, 0.3);
+}
+
+/* MINI GRAPH ANIMATION */
+.hud-mini-graph {
+  display: flex;
+  align-items: flex-end;
+  gap: 4px;
+  height: 30px;
+  margin-top: 20px;
+}
+
+.graph-bar {
+  width: 4px;
+  background: var(--accent-primary);
+  border-radius: 2px;
+  transition: height 0.3s ease;
+}
+
+/* BUTTONS */
+.hud-btn {
+  background: transparent;
+  border: 1px solid rgba(0, 217, 255, 0.5);
+  color: var(--accent-primary);
+  padding: 8px 16px;
+  border-radius: 4px;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 700;
+  margin-top: 20px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.hud-btn:hover {
+  background: var(--accent-primary);
+  color: #000;
+}
+
+/* BACKGROUND VISUALS */
+.hud-visual-bg {
+  position: absolute;
+  right: -20.0px;
+  bottom: -20.0px;
+  width: 60%;
+  height: 120%;
+  background-size: contain;
+  background-position: center right;
+  background-repeat: no-repeat;
+  opacity: 0.7;
+  /* Increased from 0.15 */
+  transition: all 0.6s ease;
+  filter: saturate(1.2) brightness(1.2) drop-shadow(0 0 30px var(--accent-primary));
+}
+
+.hud-card:hover .hud-visual-bg {
+  opacity: 1.0;
+  /* Increased from 0.3 */
+  transform: scale(1.08) rotate(-3deg);
+  filter: saturate(1.5) brightness(1.5) drop-shadow(0 0 40px var(--accent-primary));
+}
+
+.solar-bg {
+  background-image: url("/sun.png");
+}
+
+.orbit-bg {
+  background-image: url("/earth(2).png");
+}
+
+.traffic-bg {
+  background-image: url("/satellite.png");
+}
+
+.crew-bg {
+  background-image: url("/astronaut.png.png");
+}
+
+/* SCAN LINE ANIMATION */
+.hud-scan-line {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to bottom, transparent 0%, rgba(0, 217, 255, 0.05) 50%, transparent 100%);
+  background-size: 100% 200%;
+  animation: hud-scan 4s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes hud-scan {
+  0% {
+    transform: translateY(-100%);
+  }
+
+  100% {
+    transform: translateY(100%);
+  }
+}
+
+/* FOOTER */
+.hud-footer {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 40px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(0, 217, 255, 0.1);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 1.1rem;
+  color: var(--text-muted);
+  letter-spacing: 2px;
+}
+
+/* HUD CORNERS */
+.hud-corner {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--accent-primary);
   z-index: 10;
 }
 
-.subsection-title {
-  font-family: 'Exo 2', sans-serif;
-  font-size: 1.4rem;
-  font-weight: 800;
-  margin-bottom: 2.5rem;
-  color: #00e5ff;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  text-align: left;
+.top-left {
+  top: 0;
+  left: 0;
+  border-right: none;
+  border-bottom: none;
 }
 
-/* STRICT UNIFORM GRID */
-.dashboard-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 20px;
-  /* Slightly reduced gap for better fit */
+.top-right {
+  top: 0;
+  right: 0;
+  border-left: none;
+  border-bottom: none;
 }
 
-/* STRICT UNIFORM CARDS - ALL IDENTICAL */
-.dashboard-card {
-  position: relative;
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(0, 229, 255, 0.15);
-  border-radius: 12px;
-  display: flex;
-  flex-direction: row;
-  height: 180px !important;
-  /* FORCED uniform height */
-  min-height: 180px !important;
-  max-height: 180px !important;
-  width: 100%;
-  overflow: hidden;
-  transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
-  cursor: pointer;
+.bottom-left {
+  bottom: 0;
+  left: 0;
+  border-right: none;
+  border-top: none;
 }
 
-.dashboard-card:hover {
-  background: rgba(0, 229, 255, 0.06);
-  border-color: rgba(0, 229, 255, 0.5);
-  box-shadow: 0 15px 35px rgba(0, 217, 255, 0.15);
-  transform: translateY(-8px);
+.bottom-right {
+  bottom: 0;
+  right: 0;
+  border-left: none;
+  border-top: none;
 }
 
-/* STRICT CONTENT AREA - 60% WIDTH */
-.dash-content {
-  flex: 0 0 60%;
-  min-width: 60%;
-  max-width: 60%;
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  gap: 8px;
+/* CARD TAG */
+.hud-card-tag {
+  position: absolute;
+  bottom: 10px;
+  right: 15px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.8rem;
+  color: var(--accent-primary);
+  opacity: 0.3;
+  letter-spacing: 1px;
 }
 
-.dashboard-card h3 {
-  color: #00e5ff;
-  font-size: 0.95rem;
-  font-weight: 700;
-  letter-spacing: 1.5px;
-  margin: 0;
-  text-transform: uppercase;
-  line-height: 1.2;
-}
-
-.highlight-text {
-  font-family: 'Inter', sans-serif;
-  font-size: 1.6rem;
-  font-weight: 700;
-  color: #ffffff;
-  margin: 0;
-  line-height: 1;
-}
-
-.sub-text {
-  font-size: 0.9rem;
-  color: rgba(255, 255, 255, 0.5);
-  margin: 0;
-  line-height: 1.2;
-}
-
-/* BUTTON STYLING */
-.dashboard-card .dash-btn {
-  background: transparent;
-  border: 1px solid #00e5ff;
-  color: #00e5ff;
-  font-size: 0.85rem;
-  /* Slightly smaller for tighter layout */
-  padding: 6px 12px;
-  border-radius: 6px;
-  width: fit-content;
-  max-width: 130px;
-  transition: all 0.3s ease;
-  font-weight: 700;
-  text-transform: uppercase;
-  margin-top: auto;
-}
-
-.dashboard-card:hover .dash-btn {
-  background: var(--accent-primary);
-  color: #000;
-  box-shadow: 0 0 15px var(--glow-color);
-}
-
-/* STRICT VISUAL AREA - 40% WIDTH */
-.dash-visual {
-  flex: 0 0 40%;
-  min-width: 40%;
-  max-width: 40%;
-  background-size: contain;
-  background-position: center;
-  background-repeat: no-repeat;
-  position: relative;
-  transition: transform 0.6s ease;
-}
-
-/* Individual visuals */
-.solar-visual {
-  background-image: url("/sun.png");
-  background-size: 75%;
-}
-
-.orbit-visual {
-  background-image: url("/earth(2).png");
-  background-size: 90%;
-}
-
-.traffic-visual {
-  background-image: url("/satellite.png");
-  background-size: 85%;
-}
-
-.astronaut-visual {
-  background-image: url("/astronaut.png.png");
-  background-size: 75%;
-}
-
-.dashboard-card:hover .dash-visual {
-  transform: scale(1.05);
-}
-
-/* Responsive */
-@media (max-width: 1100px) {
-  .dashboard-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (max-width: 768px) {
-  .dashboard-section {
-    padding: 0 20px;
-  }
-
-  .dashboard-content-box {
-    padding: 2rem 1.5rem;
-  }
-
-  .dashboard-grid {
+/* RESPONSIVE */
+@media (max-width: 1000px) {
+  .dashboard-hud-grid {
     grid-template-columns: 1fr;
+    grid-auto-rows: auto;
   }
 
-  .dashboard-card {
-    height: 150px !important;
-    min-height: 150px !important;
-    max-height: 150px !important;
+  .hud-card {
+    min-height: 200px;
   }
 
-  .dash-content {
-    padding: 15px;
+  .hud-main-title {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .glass-hud {
+    padding: 20px;
   }
 
-  .highlight-text {
-    font-size: 1.3rem;
+  .hud-header {
+    flex-direction: column;
+    gap: 20px;
   }
 
-  .subsection-title {
-    font-size: 1.1rem;
-    margin-bottom: 1.5rem;
+  .hud-value {
+    font-size: 2.4rem;
   }
 }

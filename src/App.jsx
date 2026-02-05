@@ -17,17 +17,17 @@ import SkyObjectDetail from "./pages/SkyObjectDetail.page";
 import SatelliteDetail from "./pages/SatelliteDetail.page";
 import EarthWeatherDetails from "./pages/EarthWeatherDetails";
 import MissionDetails from "./pages/MissionDetails.page";
-
-/* Learning */
 import Learn from "./components/learn/learn";
+import Quiz from "./components/quiz/quiz";
 import WhatIf from "./components/whatif/whatif";
-import Detailquiz from "./components/quiz/detailquiz";
 import SolarSystem from "./components/SolarSystem/SolarSystem";
+
+/* Auth */
+import Auth from "./components/auth/user";
 
 /* Layout */
 import Header from "./components/Header";
 import Footer from "./components/Footer";
-import Auth from "./components/auth/user";
 import AiChat from "./components/AiChat/AiChat";
 
 /* Context */
@@ -50,27 +50,21 @@ function App() {
             <Route path="/weather" element={<Weatherpage />} />
             <Route path="/dashboard" element={<Dashboardpage />} />
             <Route path="/live-map" element={<LiveMap />} />
-
-            {/* AUTH */}
-            <Route path="/auth" element={<Auth />} />
-
-            {/* BLOG / EVENTS */}
-            <Route path="/create-blog" element={<CreateBlog />} />
+            <Route path="/learn" element={<Learn />} />
+            <Route path="/quiz" element={<Quiz />} />
+            <Route path="/whatif" element={<WhatIf />} />
+            <Route path="/solar-system" element={<SolarSystem />} />
             <Route path="/blog/:id" element={<BlogPost />} />
+            <Route path="/create-blog" element={<CreateBlog />} />
             <Route path="/create-event" element={<CreateEvent />} />
             <Route path="/community-events" element={<CommunityEvents />} />
             <Route path="/community-event/:id" element={<CommunityEventDetails />} />
-
-            {/* LEARN */}
-            <Route path="/learn" element={<Learn />} />
-            <Route path="/whatif" element={<WhatIf />} />
-            <Route path="/quiz" element={<Detailquiz />} />
-            <Route path="/solar-system" element={<SolarSystem />} />
-
-            {/* DETAILS */}
             <Route path="/sky-object/:objectId" element={<SkyObjectDetail />} />
-            <Route path="/satellite-impact/:topicId" element={<SatelliteDetail />} />
+            <Route path="/satellite/:topicId" element={<SatelliteDetail />} />
             <Route path="/earth-weather-details" element={<EarthWeatherDetails />} />
+
+            {/* 🔐 AUTH ROUTE */}
+            <Route path="/auth" element={<Auth />} />
           </Routes>
 
           <AiChat />

@@ -127,8 +127,8 @@ const SelectedDayDetails = ({ event, selectedDay }) => {
             <div className="event-actions">
               <button className="action-btn" onClick={() => alert("Reminder set for stargazing!")}>ADD REMINDER</button>
               <button className="action-btn" onClick={() => {
-                navigator.clipboard.writeText("Clear skies tonight!");
-                alert("Copied to clipboard");
+                const shareText = `🌙 SpaceScope – Stargazing Forecast 🌙\n\n✨ No major space event tonight, but the sky still has a story to tell! ✨\n\n━━━━━━━━━━━━━━━━━━\n\n🌌 Tonight’s Sky Condition\n👉 Clear Night Sky\n\n🌕 Moon Phase\n👉 Waning Gibbous (Affects visibility)\n\n⭐ Star Visibility\n👉 Excellent\n\n📍 Location\n👉 ${user?.location || "Your Area"}\n\n━━━━━━━━━━━━━━━━━━\n\n🔭 Stargazing Tip\n👉 Best time to observe: Late Night\n👉 Look towards: Zenith (Overhead)\n\n━━━━━━━━━━━━━━━━━━\n\n✨ Even on quiet nights, the universe is beautiful\n🌠 Keep looking up with SpaceScope`;
+                window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(shareText)}`, '_blank');
               }}>SHARE EVENT</button>
               <button className="action-btn">VIEW FULL SKY MAP</button>
             </div>
@@ -170,8 +170,9 @@ const SelectedDayDetails = ({ event, selectedDay }) => {
                 {reminderText.toUpperCase()}
               </button>
               <button className="action-btn" onClick={() => {
-                navigator.clipboard.writeText(`Check out ${event.title}!`);
-                alert("Link copied!");
+                const visibilityStars = "⭐".repeat(event.visibility || 4).padEnd(5, "☆");
+                const shareText = `🌌 SpaceScope – Event Alert 🌌\n\n✨ Look up tonight, something amazing is happening! ✨\n\n━━━━━━━━━━━━━━━━━━\n\n🚀 Event Name\n👉 ${event.title}\n\n🗓 Date\n👉 ${event.date || `Feb ${selectedDay}, 2026`}\n\n⏰ Time\n👉 ${event.time || "All Night"}\n\n📍 Your Location\n👉 ${user?.location || "Your Area"}\n\n👀 Visibility Rating\n👉 ${visibilityStars} (${event.visibilityText || "Good Visibility"})\n\n━━━━━━━━━━━━━━━━━━\n\n📝 What’s Happening?\n👉 ${event.description}\n\n━━━━━━━━━━━━━━━━━━\n\n🔭 Why You Should Watch\n• Visible with naked eyes / binoculars\n• Best viewed after sunset / midnight\n• Perfect for space lovers 🌠\n\n━━━━━━━━━━━━━━━━━━\n\n✨ Discover the universe with SpaceScope\n🌍 Stay curious. Keep watching the skies!`;
+                window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(shareText)}`, '_blank');
               }}>SHARE EVENT</button>
               <button className="action-btn" onClick={() => navigate('/event-details', { state: { event } })}>
                 VIEW DETAILS

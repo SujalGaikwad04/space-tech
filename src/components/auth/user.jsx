@@ -163,18 +163,32 @@ export default function Auth() {
               </div>
             </div>
 
-            <div className="user-stats">
-              <div className="stat-item">
-                <span className="stat-value">{user.learningStreak}</span>
-                <span className="stat-label">Day Streak</span>
+            <div className="user-stats-hud">
+              <div className="stat-card-hud">
+                <div className="stat-icon-hud">🔥</div>
+                <div className="stat-info-hud">
+                  <span className="stat-label-hud">DAY STREAK</span>
+                  <span className="stat-value-hud">{user.learningStreak}</span>
+                </div>
+                <div className="stat-hud-decoration"></div>
               </div>
-              <div className="stat-item">
-                <span className="stat-value">{user.totalXP}</span>
-                <span className="stat-label">Total XP</span>
+
+              <div className="stat-card-hud">
+                <div className="stat-icon-hud">⚡</div>
+                <div className="stat-info-hud">
+                  <span className="stat-label-hud">TOTAL XP</span>
+                  <span className="stat-value-hud">{user.totalXP}</span>
+                </div>
+                <div className="stat-hud-decoration"></div>
               </div>
-              <div className="stat-item">
-                <span className="stat-value" style={{ fontSize: '1.6rem' }}>{useAuth().getRankName(user.level)}</span>
-                <span className="stat-label">Rank</span>
+
+              <div className="stat-card-hud">
+                <div className="stat-icon-hud">🎖️</div>
+                <div className="stat-info-hud">
+                  <span className="stat-label-hud">RANK</span>
+                  <span className="stat-value-hud rank-v">{useAuth().getRankName(user.level)}</span>
+                </div>
+                <div className="stat-hud-decoration"></div>
               </div>
             </div>
 

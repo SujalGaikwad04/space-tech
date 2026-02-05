@@ -29,7 +29,7 @@
   /* Slightly increased for better image presence */
   border-radius: 20px;
   overflow: hidden;
-  background: #0a192f;
+  background: var(--bg-primary);
   /* Solid fallback deep background */
   border: 1px solid var(--glass-border);
   box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
@@ -39,7 +39,7 @@
 
 .explore-card:hover {
   transform: translateY(-8px);
-  box-shadow: 0 25px 60px rgba(0, 217, 255, 0.25);
+  box-shadow: 0 25px 60px var(--glow-color);
   border-color: var(--accent-primary);
 }
 
@@ -64,9 +64,9 @@
   position: absolute;
   inset: 0;
   background: linear-gradient(to right,
-      rgba(10, 25, 47, 1) 0%,
-      rgba(10, 25, 47, 0.7) 40%,
-      rgba(10, 25, 47, 0) 80%);
+      var(--bg-primary) 0%,
+      rgba(var(--bg-primary-rgb), 0.7) 40%,
+      transparent 80%);
   z-index: 2;
 }
 
@@ -105,17 +105,17 @@
   font-family: 'Rajdhani', sans-serif;
   font-size: 2.4rem;
   margin-bottom: 12px;
-  color: #ffffff;
+  color: var(--heading-color);
   letter-spacing: 2px;
   text-transform: uppercase;
-  text-shadow: 0 0 20px rgba(0, 217, 255, 0.4);
+  text-shadow: 0 0 20px var(--glow-color);
   font-weight: 800;
   line-height: 1.1;
 }
 
 .card-content p {
   font-size: 1.5rem;
-  color: #ffffff;
+  color: var(--text-primary);
   /* Maximum brightness for P text */
   line-height: 1.5;
   margin-bottom: 30px;
@@ -130,7 +130,7 @@
   font-size: 1.3rem;
   width: fit-content;
   background: var(--accent-primary);
-  color: #000;
+  color: var(--btn-text);
   border: none;
   font-weight: 800;
   border-radius: 8px;
@@ -161,8 +161,8 @@
 
   .card-visual::after {
     background: linear-gradient(to bottom,
-        rgba(10, 25, 47, 0.5) 0%,
-        rgba(10, 25, 47, 1) 100%);
+        rgba(var(--bg-primary-rgb), 0.5) 0%,
+        var(--bg-primary) 100%);
   }
 
   .card-content {

@@ -1,8 +1,10 @@
 import React, { useEffect, useRef } from 'react';
 import './ParticleBackground.css';
+import { useTheme } from '../../context/ThemeContext';
 
 const ParticleBackground = () => {
     const canvasRef = useRef(null);
+    const { isDarkMode } = useTheme();
 
     useEffect(() => {
         const canvas = canvasRef.current;
@@ -11,6 +13,9 @@ const ParticleBackground = () => {
         const ctx = canvas.getContext('2d');
         let animationFrameId;
         let particles = [];
+
+        // Color based on theme
+        const particleColor = isDarkMode ? '255, 255, 255' : '0, 180, 216'; // White for dark, Cyan for light
 
         // Set canvas size
         const resizeCanvas = () => {
@@ -43,7 +48,7 @@ const ParticleBackground = () => {
             }
 
             draw() {
-                ctx.fillStyle = `rgba(255, 255, 255, ${this.opacity})`;
+                ctx.fillStyle = `rgba(${particleColor}, ${this.opacity})`;
                 ctx.beginPath();
                 ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
                 ctx.fill();
@@ -78,7 +83,7 @@ const ParticleBackground = () => {
             window.removeEventListener('resize', resizeCanvas);
             cancelAnimationFrame(animationFrameId);
         };
-    }, []);
+    }, [isDarkMode]);
 
     return <canvas ref={canvasRef} className="particle-background" />;
 };

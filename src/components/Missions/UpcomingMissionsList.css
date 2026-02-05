@@ -137,3 +137,37 @@
         flex-direction: column;
     }
 }
+
+.reminder-btn {
+    width: 100%;
+    margin-top: 1.5rem;
+    padding: 0.8rem;
+    background: transparent;
+    border: 1px solid #00d9ff;
+    color: #00d9ff;
+    border-radius: 8px;
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: 700;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.reminder-btn:hover:not(:disabled) {
+    background: rgba(0, 217, 255, 0.1);
+    box-shadow: 0 0 15px rgba(0, 217, 255, 0.2);
+}
+
+.reminder-btn.added {
+    background: rgba(0, 217, 255, 0.2);
+    border-color: #00d9ff;
+    color: #fff;
+    cursor: default;
+}
+
+.reminder-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
