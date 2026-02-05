@@ -155,7 +155,27 @@ function authenticateToken(req, res, next) {
   }
 }
 
+// Root route for testing
+app.get('/', (req, res) => {
+  res.json({
+    message: 'Space Tech Backend API',
+    status: 'running',
+    endpoints: {
+      health: '/api/health',
+      auth: '/api/auth/*',
+      reminders: '/api/reminders/*',
+      iss: '/api/iss-now'
+    }
+  });
+});
+
+// Test route
+app.get('/test', (req, res) => {
+  res.json({ message: 'Test route working!', timestamp: new Date().toISOString() });
+});
+
 // Registration endpoint
+
 app.post('/auth/register', async (req, res) => {
   const { fullName, email, username, password } = req.body;
 
