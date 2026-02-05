@@ -32,7 +32,8 @@ function LiveMap() {
 
     const fetchISSPosition = async () => {
         try {
-            const response = await fetch('http://api.open-notify.org/iss-now.json');
+            const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+            const response = await fetch(`${apiUrl}/api/iss-now`);
             const data = await response.json();
             const { latitude, longitude } = data.iss_position;
             setPosition([parseFloat(latitude), parseFloat(longitude)]);

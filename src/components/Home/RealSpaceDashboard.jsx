@@ -6,7 +6,7 @@ const RealSpaceDashboard = () => {
   const [astronauts, setAstronauts] = useState(null);
 
   useEffect(() => {
-    fetch("http://api.open-notify.org/astros.json")
+    fetch("https://api.open-notify.org/astros.json")
       .then(res => res.json())
       .then(data => setAstronauts(data))
       .catch(err => console.error(err));

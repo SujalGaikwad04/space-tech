@@ -7,7 +7,8 @@ const ExploreFeatures = () => {
   const [issData, setIssData] = useState(null);
 
   useEffect(() => {
-    fetch("http://api.open-notify.org/iss-now.json")
+    const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+    fetch(`${apiUrl}/api/iss-now`)
       .then(res => res.json())
       .then(data => setIssData(data.iss_position))
       .catch(err => console.error(err));

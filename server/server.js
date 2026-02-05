@@ -464,6 +464,20 @@ app.post('/api/reminders/check', authenticateToken, async (req, res) => {
   }
 });
 
+// Proxy endpoint for ISS data (avoids mixed content issues)
+app.get('/api/iss-now', async (req, res) => {
+  try {
+    // Dynamic import for node-fetch if needed or use global fetch in Node 18+
+    const response = await fetch("http://api.open-notify.org/iss-now.json");
+    if (!response.ok) throw new Error('Upstream API failed');
+    const data = await response.json();
+    res.json(data);
+  } catch (e) {
+    console.error("ISS Proxy Error:", e);
+    res.status(500).json({ error: e.message });
+  }
+});
+
 // Health check endpoint
 app.get('/api/health', (req, res) => {
   res.json({ status: 'OK', message: 'Server is running with Neon PostgreSQL' });
