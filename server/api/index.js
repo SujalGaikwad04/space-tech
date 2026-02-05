@@ -1,32 +1,9 @@
-import express from "express";
-import cors from "cors";
-import pkg from "pg";
-import dotenv from "dotenv";
+// Vercel serverless function entry point
+// This imports the Express app and exports it as a serverless function handler
 
-dotenv.config();
+const app = require('../server.js');
 
-const { Pool } = pkg;
-const app = express();
+// Export the Express app directly for Vercel
+// Vercel will automatically wrap it with the serverless handler
+module.exports = app;
 
-app.use(cors());
-app.use(express.json());
-
-const pool = new Pool({
-  connectionString: process.env.DATABASE_URL,
-  ssl: { rejectUnauthorized: false }
-});
-
-app.get("/", (req, res) => {
-  res.send("Backend running on Vercel");
-});
-
-app.get("/test-db", async (req, res) => {
-  try {
-    const result = await pool.query("SELECT NOW()");
-    res.json(result.rows);
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
-});
-
-export default app;

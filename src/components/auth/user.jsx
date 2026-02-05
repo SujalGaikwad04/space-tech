@@ -59,6 +59,8 @@ export default function Auth() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log("LOGIN SUBMIT TRIGGERED");
+    console.log("LOGIN API URL:", `${import.meta.env.VITE_API_URL}/api/auth/login`);
     setError("");
     setSuccess("");
 

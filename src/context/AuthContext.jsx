@@ -3,7 +3,7 @@ import { getRankName, getNextRankName } from '../utils/rankUtils';
 
 const AuthContext = createContext();
 
-const API_URL = 'https://space-tech-l4nokgff3-sujalgaikwad04s-projects.vercel.app/api';
+const API_URL = import.meta.env.VITE_API_URL ? `${import.meta.env.VITE_API_URL}/api` : '/api';
 
 export const useAuth = () => {
   const context = useContext(AuthContext);
