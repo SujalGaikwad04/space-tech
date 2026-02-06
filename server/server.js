@@ -166,26 +166,34 @@ app.get("/auth/check-username/:username", async (req, res) => {
 });
 
 // --------------------
-// ✅ EMAIL CONFIGURATION
+// ✅ EMAIL CONFIGURATION (BREVO API MODE)
 // --------------------
-const transporter = nodemailer.createTransport({
-  host: "smtp-relay.brevo.com",
-  port: 587,
-  secure: false, // use STARTTLS
-  auth: {
-    user: process.env.EMAIL_USER,
-    pass: process.env.EMAIL_PASSWORD
-  }
-});
+const sendBrevoEmail = async (toEmail, subject, htmlContent) => {
+  try {
+    const response = await fetch("https://api.brevo.com/v3/smtp/email", {
+      method: "POST",
+      headers: {
+        "accept": "application/json",
+        "api-key": process.env.EMAIL_PASSWORD,
+        "content-type": "application/json"
+      },
+      body: JSON.stringify({
+        sender: { name: "SpaceScope", email: "sujalgaikwad0411@gmail.com" },
+        to: [{ email: toEmail }],
+        subject: subject,
+        htmlContent: htmlContent
+      })
+    });
 
-// Verify email configuration on startup
-transporter.verify((error, success) => {
-  if (error) {
-    console.error("❌ Email (Nodemailer) verification failed:", error);
-  } else {
-    console.log("✅ Email (Nodemailer) is ready to send notifications");
+    const result = await response.json();
+    if (!response.ok) throw new Error(JSON.stringify(result));
+    console.log("✅ Email sent via API:", result.messageId || "Success");
+    return true;
+  } catch (error) {
+    console.error("❌ API Email error:", error.message);
+    return false;
   }
-});
+};
 
 // --------------------
 // ✅ MIDDLEWARE: AUTHENTICATE TOKEN
@@ -253,40 +261,25 @@ app.post("/reminders/add", authenticateToken, async (req, res) => {
       [userId, eventTitle, eventDate, eventTime, eventDescription]
     );
 
-    // Send Email
-    const mailOptions = {
-      from: `"SpaceScope" <sujalgaikwad0411@gmail.com>`,
-      to: userEmail,
-      subject: `SpaceScope Reminder: ${eventTitle}`,
-      html: `
-        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; background: #0b0d17; color: #ffffff; padding: 20px; border-radius: 10px;">
-          <h2 style="color: #00d9ff; text-align: center;">🌌 SpaceScope Reminder</h2>
-          <p>Hi ${userName},</p>
-          <p>You've successfully set a reminder for:</p>
-          <div style="background: #15192b; padding: 15px; border-radius: 8px; border-left: 4px solid #7000ff; margin: 20px 0;">
-            <h3 style="margin: 0 0 10px 0; color: #e0e0ff;">${eventTitle}</h3>
-            <p style="margin: 5px 0;"><strong>📅 Date:</strong> ${eventDate}</p>
-            <p style="margin: 5px 0;"><strong>⏰ Time:</strong> ${eventTime || "All Night"}</p>
-            <p style="margin: 5px 0;"><strong>📍 Location:</strong> ${location || "Your Location"}</p>
-          </div>
-          <p>We'll notify you again before the event starts!</p>
-          <p style="text-align: center; margin-top: 30px; font-size: 12px; color: #888;">
-            Keep looking up! 🔭<br>
-            SpaceScope Team
-          </p>
+    // Send Email via API
+    sendBrevoEmail(userEmail, `SpaceScope Reminder: ${eventTitle}`, `
+      <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; background: #0b0d17; color: #ffffff; padding: 20px; border-radius: 10px;">
+        <h2 style="color: #00d9ff; text-align: center;">🌌 SpaceScope Reminder</h2>
+        <p>Hi ${userName},</p>
+        <p>You've successfully set a reminder for:</p>
+        <div style="background: #15192b; padding: 15px; border-radius: 8px; border-left: 4px solid #7000ff; margin: 20px 0;">
+          <h3 style="margin: 0 0 10px 0; color: #e0e0ff;">${eventTitle}</h3>
+          <p style="margin: 5px 0;"><strong>📅 Date:</strong> ${eventDate}</p>
+          <p style="margin: 5px 0;"><strong>⏰ Time:</strong> ${eventTime || "All Night"}</p>
+          <p style="margin: 5px 0;"><strong>📍 Location:</strong> ${location || "Your Location"}</p>
         </div>
-      `
-    };
-
-    console.log(`📡 Attempting to send reminder email to: ${userEmail} for event: ${eventTitle}`);
-
-    transporter.sendMail(mailOptions, (error, info) => {
-      if (error) {
-        console.error("❌ Email error for", userEmail, ":", error);
-      } else {
-        console.log("✅ Email sent to", userEmail, ":", info.response);
-      }
-    });
+        <p>We'll notify you again before the event starts!</p>
+        <p style="text-align: center; margin-top: 30px; font-size: 12px; color: #888;">
+          Keep looking up! 🔭<br>
+          SpaceScope Team
+        </p>
+      </div>
+    `);
 
     res.status(201).json({
       success: true,
