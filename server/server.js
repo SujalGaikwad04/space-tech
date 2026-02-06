@@ -169,12 +169,9 @@ app.get("/auth/check-username/:username", async (req, res) => {
 // ✅ EMAIL CONFIGURATION
 // --------------------
 const transporter = nodemailer.createTransport({
-  host: "smtp-relay.gmail.com",
+  host: "smtp-relay.brevo.com",
   port: 587,
-  secure: false,
-  debug: true, // Show detailed logs
-  logger: true, // Log to console
-  connectionTimeout: 10000, // 10 seconds
+  secure: false, // use STARTTLS
   auth: {
     user: process.env.EMAIL_USER,
     pass: process.env.EMAIL_PASSWORD
