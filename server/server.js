@@ -176,6 +176,15 @@ const transporter = nodemailer.createTransport({
   }
 });
 
+// Verify email configuration on startup
+transporter.verify((error, success) => {
+  if (error) {
+    console.error("❌ Email (Nodemailer) verification failed:", error);
+  } else {
+    console.log("✅ Email (Nodemailer) is ready to send notifications");
+  }
+});
+
 // --------------------
 // ✅ MIDDLEWARE: AUTHENTICATE TOKEN
 // --------------------
@@ -267,11 +276,13 @@ app.post("/reminders/add", authenticateToken, async (req, res) => {
       `
     };
 
+    console.log(`📡 Attempting to send reminder email to: ${userEmail} for event: ${eventTitle}`);
+
     transporter.sendMail(mailOptions, (error, info) => {
       if (error) {
-        console.error("Email error:", error);
+        console.error("❌ Email error for", userEmail, ":", error);
       } else {
-        console.log("Email sent:", info.response);
+        console.log("✅ Email sent to", userEmail, ":", info.response);
       }
     });
 
