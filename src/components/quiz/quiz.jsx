@@ -4,6 +4,7 @@ import Question from "./question";
 import Result from "./result";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
+import ParticleBackground from "../Home/ParticleBackground";
 
 function Quiz() {
 
@@ -201,30 +202,40 @@ Rules:
     fetchQuestions();
   };
 
-  if (loading) return <h2>Loading questions...</h2>;
+  if (loading) {
+    return (
+      <div className="quiz-wrapper">
+        <ParticleBackground />
+        <div className="quiz-loader">
+          <div className="spinner"></div>
+          <h2 style={{ color: '#fff', marginTop: '20px' }}>Loading Cosmic Questions...</h2>
+        </div>
+      </div>
+    );
+  }
 
   return (
-    <div className="App">
-      <h1>Quick Quiz</h1>
+    <div className="quiz-wrapper">
+      <ParticleBackground />
 
-      {currentQuestion < questions.length && (
-        <Question
-          question={questions[currentQuestion]}
-          onAnswerClick={handleNextQuestion}
-        />
-      )}
+      <div className="quiz-container">
+        <h1 className="quiz-header-title">Quick Quiz</h1>
 
-      {currentQuestion === questions.length && (
-        <Result
-          userAnswers={userAnswers}
-          questions={questions}
-          resetQuiz={resetQuiz}
-        />
-      )}
+        {currentQuestion < questions.length && (
+          <Question
+            question={questions[currentQuestion]}
+            onAnswerClick={handleNextQuestion}
+          />
+        )}
 
-      <button className="challenge-btn"
-        onClick={() => navigate("/quiz")}> Challenge yourself </button>
-
+        {currentQuestion === questions.length && (
+          <Result
+            userAnswers={userAnswers}
+            questions={questions}
+            resetQuiz={resetQuiz}
+          />
+        )}
+      </div>
     </div>
   );
 }

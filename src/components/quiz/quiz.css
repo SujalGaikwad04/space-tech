@@ -54,14 +54,13 @@
 
 .quiz-wrapper {
   min-height: 100vh;
-  padding: 140px 20px 60px;
-  /* Increased top padding */
+  padding: 100px 20px 60px;
+  /* Reduced top padding */
   position: relative;
   overflow-x: hidden;
   display: flex;
   justify-content: center;
   align-items: center;
-  /* Center vertically */
 }
 
 .quiz-container {

@@ -10,7 +10,7 @@ import './SolarSystem.css';
 const TextureLoader = ({ data, isCurrent, isMobile }) => {
     const meshRef = useRef();
 
-    // Map texture IDs to file paths
+    // Map texture IDs to downloaded high-quality assets
     const textureMap = {
         sun: '/assets/textures/sun.jpg',
         mercury: '/assets/textures/mercury.jpg',
@@ -22,20 +22,24 @@ const TextureLoader = ({ data, isCurrent, isMobile }) => {
         saturn: '/assets/textures/saturn.jpg',
         uranus: '/assets/textures/uranus.jpg',
         neptune: '/assets/textures/neptune.jpg',
-        pluto: '/assets/textures/moon.jpg', // Fallback for Pluto
-        'asteroid-belt': '/assets/textures/moon.jpg' // Not used but mapped
+        pluto: null, // No high-quality texture currently
+        'asteroid-belt': null
     };
 
-    // Load texture
-    const texturePath = textureMap[data.id] || textureMap.mercury;
+    // Extension map for special textures
+    const cloudMapPath = data.id === 'earth' ? '/assets/textures/earth_clouds.jpg' :
+        data.id === 'venus' ? '/assets/textures/venus_atmosphere.jpg' : null;
+    const ringMapPath = data.id === 'saturn' ? '/assets/textures/saturn_ring.png' : null;
 
-    // Special handling for Earth clouds and Venus atmosphere
-    const [colorMap, cloudsMap, ringMap] = useTexture([
-        texturePath,
-        data.id === 'earth' ? '/assets/textures/earth_clouds.jpg' :
-            data.id === 'venus' ? '/assets/textures/venus_atmosphere.jpg' : null,
-        data.id === 'saturn' ? '/assets/textures/saturn_ring.png' : null
-    ].filter(Boolean));
+    // Load textures
+    const texturesToLoad = [textureMap[data.id], cloudMapPath, ringMapPath].filter(Boolean);
+    const loadedTextures = useTexture(texturesToLoad);
+
+    // Distribute loaded textures
+    let textureIndex = 0;
+    const colorMap = textureMap[data.id] ? loadedTextures[textureIndex++] : null;
+    const cloudsMap = cloudMapPath ? loadedTextures[textureIndex++] : null;
+    const ringMap = ringMapPath ? loadedTextures[textureIndex++] : null;
 
     useFrame(() => {
         if (meshRef.current) {
@@ -80,6 +84,7 @@ const TextureLoader = ({ data, isCurrent, isMobile }) => {
                 <sphereGeometry args={[1, 64, 64]} />
                 <meshStandardMaterial
                     map={colorMap}
+                    color={!colorMap ? data.color : '#ffffff'}
                     roughness={data.id === 'earth' ? 0.5 : 0.7}
                     metalness={data.id === 'earth' ? 0.1 : 0.05}
                 />
@@ -101,15 +106,16 @@ const TextureLoader = ({ data, isCurrent, isMobile }) => {
             )}
 
             {/* Saturn's Rings */}
-            {data.id === 'saturn' && ringMap && (
+            {data.id === 'saturn' && (
                 <mesh rotation={[-Math.PI / 2.5, 0, 0]} scale={currentScale}>
                     <ringGeometry args={[1.4, 2.3, 128]} />
                     <meshStandardMaterial
                         map={ringMap}
-                        color="#C9B896"
+                        color={!ringMap ? "#C9B896" : "#ffffff"}
                         side={THREE.DoubleSide}
                         transparent
-                        opacity={0.9}
+                        opacity={ringMap ? 0.9 : 0.7}
+                        roughness={0.4}
                     />
                 </mesh>
             )}
