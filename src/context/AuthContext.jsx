@@ -234,11 +234,13 @@ export const AuthProvider = ({ children }) => {
       });
 
       const data = await response.json();
+      console.log("📊 XP Update Response:", data);
 
       if (data.success && data.user) {
+        console.log("✅ XP Saved! New Total:", data.user.totalXP);
         // Update local state in sessions array with server response
         setSessions(prev => prev.map(s => {
-          if (s.user.id === user.id) {
+          if (String(s.user.id) === String(user.id)) {
             return {
               ...s,
               user: {
@@ -251,6 +253,8 @@ export const AuthProvider = ({ children }) => {
           }
           return s;
         }));
+      } else {
+        console.error("❌ XP failed to save:", data.message);
       }
     } catch (error) {
       console.error("Failed to update user stats", error);
