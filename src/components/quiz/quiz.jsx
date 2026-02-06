@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import "./Quiz.css";
+import "./quiz.css";
 import Question from "./question";
 import Result from "./result";
 import { useNavigate } from "react-router-dom";
