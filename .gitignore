@@ -23,3 +23,6 @@ dist-ssr
 *.sln
 *.sw?
 local_backup_2026_02_06
+
+# Local Assets
+public/assets/textures/
