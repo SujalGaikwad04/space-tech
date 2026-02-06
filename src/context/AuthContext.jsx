@@ -18,7 +18,7 @@ export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
 
   // Derived state for backward compatibility
-  const activeSession = sessions.find(s => s.user.id === activeSessionId) || null;
+  const activeSession = sessions.find(s => String(s.user.id) === String(activeSessionId)) || null;
   const user = activeSession ? activeSession.user : null;
   const token = activeSession ? activeSession.token : null;
 
