@@ -21,6 +21,7 @@ import Learn from "./components/learn/learn";
 import Quiz from "./components/quiz/quiz";
 import WhatIf from "./components/whatif/whatif";
 import SolarSystem from "./components/SolarSystem/SolarSystem";
+import AuroraView from "./pages/AuroraView";
 
 /* Auth */
 import Auth from "./components/auth/user";
@@ -61,7 +62,9 @@ function App() {
             <Route path="/community-event/:id" element={<CommunityEventDetails />} />
             <Route path="/sky-object/:objectId" element={<SkyObjectDetail />} />
             <Route path="/satellite/:topicId" element={<SatelliteDetail />} />
+            <Route path="/satellite/:topicId" element={<SatelliteDetail />} />
             <Route path="/earth-weather-details" element={<EarthWeatherDetails />} />
+            <Route path="/aurora-view" element={<AuroraView />} />
 
             {/* 🔐 AUTH ROUTE */}
             <Route path="/auth" element={<Auth />} />

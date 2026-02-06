@@ -9,6 +9,8 @@ export default function Auth() {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const [isAddingAccount, setIsAddingAccount] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const navigate = useNavigate();
   const {
     user,
@@ -453,15 +455,32 @@ export default function Auth() {
               <label>ACCESS KEY</label>
               <div className="password-input-wrapper">
                 <input
-                  type="password"
+                  type={showPassword ? "text" : "password"}
                   name="password"
                   placeholder="Enter password"
                   value={formData.password}
                   onChange={handleChange}
                 />
-                <svg className="lock-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
-                  <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                <svg
+                  className="lock-icon"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  onClick={() => setShowPassword(!showPassword)}
+                  style={{ cursor: "pointer" }}
+                >
+                  {showPassword ? (
+                    <>
+                      <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                      <path d="M7 11V7a5 5 0 0 1 9.9-1"></path>
+                    </>
+                  ) : (
+                    <>
+                      <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                      <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                    </>
+                  )}
                 </svg>
               </div>
 
@@ -470,15 +489,32 @@ export default function Auth() {
                   <label>CONFIRM ACCESS KEY</label>
                   <div className="password-input-wrapper">
                     <input
-                      type="password"
+                      type={showConfirmPassword ? "text" : "password"}
                       name="confirmPassword"
                       placeholder="Re-enter password"
                       value={formData.confirmPassword}
                       onChange={handleChange}
                     />
-                    <svg className="lock-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                      <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
-                      <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                    <svg
+                      className="lock-icon"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                      style={{ cursor: "pointer" }}
+                    >
+                      {showConfirmPassword ? (
+                        <>
+                          <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                          <path d="M7 11V7a5 5 0 0 1 9.9-1"></path>
+                        </>
+                      ) : (
+                        <>
+                          <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                          <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                        </>
+                      )}
                     </svg>
                   </div>
                 </>

@@ -18,7 +18,21 @@ const AuroraForecast = () => {
           Best Viewing: <span className="locations">Scandinavia, Canada</span>
         </p>
 
-        <button className="primary-btn">Get Location Alert</button>
+        <div className="aurora-buttons" style={{ display: 'flex', flexDirection: 'column', gap: '10px', marginTop: '15px' }}>
+          <button className="primary-btn" style={{ width: '100%' }}>Get Location Alert</button>
+          <button
+            className="primary-btn"
+            style={{
+              width: '100%',
+              background: 'rgba(0, 255, 136, 0.2)',
+              border: '1px solid rgba(0, 255, 136, 0.5)',
+              color: '#00ff88'
+            }}
+            onClick={() => window.location.href = '/aurora-view'}
+          >
+            Aurora View
+          </button>
+        </div>
       </div>
     </div>
   );
