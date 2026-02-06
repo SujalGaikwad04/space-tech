@@ -171,7 +171,10 @@ app.get("/auth/check-username/:username", async (req, res) => {
 const transporter = nodemailer.createTransport({
   host: "smtp.gmail.com",
   port: 587,
-  secure: false, // use STARTTLS
+  secure: false,
+  debug: true, // Show detailed logs
+  logger: true, // Log to console
+  connectionTimeout: 10000, // 10 seconds
   auth: {
     user: process.env.EMAIL_USER,
     pass: process.env.EMAIL_PASSWORD
