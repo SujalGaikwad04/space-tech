@@ -169,7 +169,7 @@ app.get("/auth/check-username/:username", async (req, res) => {
 // ✅ EMAIL CONFIGURATION
 // --------------------
 const transporter = nodemailer.createTransport({
-  host: "smtp.gmail.com",
+  host: "smtp-relay.gmail.com",
   port: 587,
   secure: false,
   debug: true, // Show detailed logs
