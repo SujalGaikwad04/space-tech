@@ -8,7 +8,7 @@ import LocationSelector from "../Events/LocationSelector";
 import "./RealSpaceDashboard.css";
 
 const RealSpaceDashboard = () => {
-  const { user, isAuthenticated, updateUserLocation } = useAuth();
+  const { user, isAuthenticated, updateUserLocation, getRankName } = useAuth();
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState("horizon");
   const [currentTime, setCurrentTime] = useState(new Date());
@@ -331,11 +331,11 @@ const RealSpaceDashboard = () => {
               </svg>
               <div className="rank-text">
                 <span className="rank-level">L{isAuthenticated ? user.level || 1 : 1}</span>
-                <span className="rank-label">STARGAZER</span>
+                <span className="rank-label">{getRankName(isAuthenticated ? user.level : 1).toUpperCase()}</span>
               </div>
             </div>
 
-            <p className="rank-xp">{isAuthenticated ? (50 - ((user.totalXP || 0) % 50)) : 50} XP to next rank: <strong>Level {isAuthenticated ? (user.level || 1) + 1 : 2}</strong></p>
+            <p className="rank-xp">{isAuthenticated ? (50 - ((user.totalXP || 0) % 50)) : 50} XP to next rank: <strong>{useAuth().getNextRankName(isAuthenticated ? user.level : 1)}</strong></p>
 
             <div className="rank-badges">
               <button className="badge-btn">🌙</button>

@@ -104,7 +104,15 @@ app.post("/auth/register", async (req, res) => {
     res.status(201).json({
       success: true,
       token,
-      user: { id: result.rows[0].id, fullName, email, username }
+      user: {
+        id: result.rows[0].id,
+        fullName,
+        email,
+        username,
+        totalXP: 0,
+        level: 1,
+        learningStreak: 0
+      }
     });
   } catch (err) {
     console.error(err);
@@ -140,7 +148,10 @@ app.post("/auth/login", async (req, res) => {
         id: user.id,
         fullName: user.fullName,
         email: user.email,
-        username: user.username
+        username: user.username,
+        totalXP: user.totalXP || 0,
+        level: user.level || 1,
+        learningStreak: user.learningStreak || 0
       }
     });
   } catch (err) {
