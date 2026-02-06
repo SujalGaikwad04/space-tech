@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, useEffect } from 'react';
+import { createContext, useContext, useState, useEffect, useCallback } from 'react';
 import { getRankName, getNextRankName } from '../utils/rankUtils';
 import { API_URL } from '../apiConfig';
 
@@ -69,7 +69,7 @@ export const AuthProvider = ({ children }) => {
   }, [activeSessionId]);
 
   // Register new user
-  const register = async (userData) => {
+  const register = useCallback(async (userData) => {
     try {
       const response = await fetch(`${API_URL}/auth/register`, {
         method: 'POST',
@@ -93,10 +93,10 @@ export const AuthProvider = ({ children }) => {
       console.error('Registration error:', error);
       return { success: false, message: 'Server connection failed' };
     }
-  };
+  }, []);
 
   // Login existing user
-  const login = async (identifier, password) => {
+  const login = useCallback(async (identifier, password) => {
     try {
       const response = await fetch(`${API_URL}/auth/login`, {
         method: 'POST',
@@ -120,7 +120,7 @@ export const AuthProvider = ({ children }) => {
       console.error('Login error:', error);
       return { success: false, message: 'Server connection failed' };
     }
-  };
+  }, []);
 
   // Helper to add or update a session
   const addSession = (newUser, newToken) => {
@@ -167,7 +167,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   // Check if username exists
-  const checkUsernameExists = async (username) => {
+  const checkUsernameExists = useCallback(async (username) => {
     try {
       const response = await fetch(`${API_URL}/auth/check-username/${username}`);
       const data = await response.json();
@@ -176,10 +176,10 @@ export const AuthProvider = ({ children }) => {
       console.error('Error checking username:', error);
       return false;
     }
-  };
+  }, []);
 
   // Check if email exists
-  const checkEmailExists = async (email) => {
+  const checkEmailExists = useCallback(async (email) => {
     try {
       const response = await fetch(`${API_URL}/auth/check-email/${email}`);
       const data = await response.json();
@@ -188,10 +188,10 @@ export const AuthProvider = ({ children }) => {
       console.error('Error checking email:', error);
       return false;
     }
-  };
+  }, []);
 
   // Get leaderboard
-  const getLeaderboard = async (limit = 10) => {
+  const getLeaderboard = useCallback(async (limit = 10) => {
     try {
       const response = await fetch(`${API_URL}/leaderboard?limit=${limit}`);
       const data = await response.json();
@@ -200,25 +200,11 @@ export const AuthProvider = ({ children }) => {
       console.error('Error fetching leaderboard:', error);
       return [];
     }
-  };
+  }, []);
 
   // Update user stats
-  const updateUserStats = async (points) => {
-    if (!user || !token) return;
-
-    // Calculate generic new stats based on current state (optimistic update)
-    const currentXP = user.totalXP || 0;
-    const newXP = currentXP + points;
-    const newLevel = Math.floor(newXP / 50) + 1;
-    // Just increment streak if it's a new day logic is handled on backend or more complex logic, 
-    // for now we'll just keep the streak same or trust backend to handle complex logic if implemented later.
-    // For this implementation, we just update XP and Level.
-
-    const statsToUpdate = {
-      totalXP: newXP,
-      level: newLevel,
-      learningStreak: user.learningStreak || 0
-    };
+  const updateUserStats = useCallback(async (points) => {
+    if (!user || !token) return false;
 
     try {
       const response = await fetch(`${API_URL}/user/stats`, {
@@ -253,13 +239,16 @@ export const AuthProvider = ({ children }) => {
           }
           return s;
         }));
+        return true;
       } else {
         console.error("❌ XP failed to save:", data.message);
+        return false;
       }
     } catch (error) {
       console.error("Failed to update user stats", error);
+      return false;
     }
-  };
+  }, [user, token]);
 
   // Update user location
   const updateUserLocation = async (newLocation) => {

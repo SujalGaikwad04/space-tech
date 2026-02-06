@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 
-const Result = ({ userAnswers, questions, resetQuiz = () => { } }) => {
+const Result = ({ userAnswers, questions, resetQuiz = () => { }, isUpdating = false }) => {
   const correctAnswers = userAnswers.filter((answer) => answer).length;
 
   return (
@@ -11,7 +11,7 @@ const Result = ({ userAnswers, questions, resetQuiz = () => { } }) => {
       </p>
 
       <div className="xp-badge">
-        🚀 +{correctAnswers * 2} XP Gained
+        {isUpdating ? "📡 Syncing stats with Star Command..." : `🚀 +${correctAnswers * 2} XP Gained`}
       </div>
 
       <ul className="results-list">
