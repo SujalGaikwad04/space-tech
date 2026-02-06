@@ -1,7 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useAuth } from '../../context/AuthContext';
+import { addEventReminder } from '../../services/reminderService';
 import './EventsList.css';
 
 const EventsList = ({ events }) => {
+    const { isAuthenticated, user } = useAuth();
+    const [reminderEvents, setReminderEvents] = useState({}); // Track reminders by event ID
+
     if (!events || events.length === 0) {
         return null;
     }
@@ -71,10 +76,41 @@ const EventsList = ({ events }) => {
                             {event.buttonText && (
                                 <button
                                     className={`btn-primary ${event.isWideButton ? 'btn-wide' : ''}`}
-                                    onClick={() => event.primaryAction && window.open(event.primaryAction, '_blank')}
+                                    onClick={async (e) => {
+                                        if (event.buttonText === 'Set Reminder' && !reminderEvents[event.id]) {
+                                            e.stopPropagation();
+                                            if (!isAuthenticated) {
+                                                alert("Please login to set reminders.");
+                                                return;
+                                            }
+
+                                            try {
+                                                await addEventReminder({
+                                                    eventTitle: event.title,
+                                                    eventDate: event.date,
+                                                    eventTime: event.time,
+                                                    eventDescription: event.description,
+                                                    location: user?.location || "Unknown"
+                                                });
+                                                setReminderEvents(prev => ({ ...prev, [event.id]: true }));
+                                            } catch (err) {
+                                                console.error(err);
+                                                alert("Failed to set reminder.");
+                                            }
+                                        } else if (event.primaryAction) {
+                                            window.open(event.primaryAction, '_blank');
+                                        }
+                                    }}
+                                    style={reminderEvents[event.id] ? { background: 'transparent', border: '1px solid #00ff88', color: '#00ff88' } : {}}
                                 >
-                                    {event.buttonText === 'Set Reminder' && <span>🔔</span>}
-                                    {event.buttonText}
+                                    {reminderEvents[event.id] ? (
+                                        <><span>✓</span> Reminder Added</>
+                                    ) : (
+                                        <>
+                                            {event.buttonText === 'Set Reminder' && <span>🔔</span>}
+                                            {event.buttonText}
+                                        </>
+                                    )}
                                 </button>
                             )}
                             {event.secondaryButtonText && (

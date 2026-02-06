@@ -192,40 +192,63 @@ export const AuthProvider = ({ children }) => {
 
   // Get leaderboard
   const getLeaderboard = async (limit = 10) => {
-    return [];
+    try {
+      const response = await fetch(`${API_URL}/leaderboard?limit=${limit}`);
+      const data = await response.json();
+      return Array.isArray(data) ? data : [];
+    } catch (error) {
+      console.error('Error fetching leaderboard:', error);
+      return [];
+    }
   };
 
   // Update user stats
   const updateUserStats = async (points) => {
     if (!user || !token) return;
 
-    const newXP = (user.totalXP || 0) + points;
+    // Calculate generic new stats based on current state (optimistic update)
+    const currentXP = user.totalXP || 0;
+    const newXP = currentXP + points;
     const newLevel = Math.floor(newXP / 50) + 1;
+    // Just increment streak if it's a new day logic is handled on backend or more complex logic, 
+    // for now we'll just keep the streak same or trust backend to handle complex logic if implemented later.
+    // For this implementation, we just update XP and Level.
 
-    const updatedStats = {
-      learningStreak: user.learningStreak,
+    const statsToUpdate = {
       totalXP: newXP,
       level: newLevel,
-      progress: user.progress
+      learningStreak: user.learningStreak || 0
     };
 
     try {
-      await fetch(`${API_URL}/user/stats`, {
+      const response = await fetch(`${API_URL}/user/stats`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${token}`
         },
-        body: JSON.stringify(updatedStats)
+        body: JSON.stringify(statsToUpdate)
       });
 
-      // Update local state in sessions array
-      setSessions(prev => prev.map(s => {
-        if (s.user.id === user.id) {
-          return { ...s, user: { ...s.user, ...updatedStats } };
-        }
-        return s;
-      }));
+      const data = await response.json();
+
+      if (data.success && data.user) {
+        // Update local state in sessions array with server response
+        setSessions(prev => prev.map(s => {
+          if (s.user.id === user.id) {
+            return {
+              ...s,
+              user: {
+                ...s.user,
+                totalXP: data.user.totalXP,
+                level: data.user.level,
+                learningStreak: data.user.learningStreak
+              }
+            };
+          }
+          return s;
+        }));
+      }
     } catch (error) {
       console.error("Failed to update user stats", error);
     }

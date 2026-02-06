@@ -34,6 +34,7 @@ const EventsContent = () => {
         location: "Overhead",
         type: "iss",
         tag: "",
+        date: "2026-02-06", // Added date
         time: "8:45 PM - 8:51 PM",
         timeIcon: "⏱️",
         description: `High brightness pass predicted for tonight over ${city} skies.`,
@@ -48,6 +49,7 @@ const EventsContent = () => {
         location: "Radiant: Constellation Perseus",
         type: "meteor",
         tag: "METEOR SHOWER",
+        date: "2026-08-12", // Added date (Peak usually mid-August)
         time: "Peak: 02:00 AM - 04:30 AM",
         description: "The most popular meteor shower of the year is peaking tonight. Expect up to 100 meteors per hour in dark sky areas.",
         image: "https://images.unsplash.com/photo-1533208705002-980bf85fa0a0?q=80&w=2070&auto=format&fit=crop", // Starry sky
@@ -60,6 +62,7 @@ const EventsContent = () => {
         location: "Global Visibility",
         type: "eclipse",
         tag: "ECLIPSE",
+        date: "2026-02-17", // Added demo date
         time: "Western Hemisphere Visibility",
         timeIcon: "🌎",
         description: "An annular solar eclipse occurs when the Moon passes between the Sun and Earth while it is at its farthest point from Earth.",
@@ -75,6 +78,7 @@ const EventsContent = () => {
         location: "Low on Western Horizon",
         type: "conjunction",
         tag: "PLANETARY",
+        date: "2026-03-10", // Added demo date
         description: "A rare great conjunction of the gas giants. Visible low on the western horizon just after sunset.",
         image: "https://images.unsplash.com/photo-1614730341194-75c6076452be?q=80&w=2148&auto=format&fit=crop", // Galaxy/Planets
         buttonText: "Details",

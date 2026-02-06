@@ -309,6 +309,21 @@ app.post("/reminders/check", authenticateToken, async (req, res) => {
   }
 });
 
+// GET ALL REMINDERS
+app.get("/reminders", authenticateToken, async (req, res) => {
+  const userId = req.user.id;
+  try {
+    const result = await pool.query(
+      "SELECT * FROM reminders WHERE user_id=$1 ORDER BY created_at DESC",
+      [userId]
+    );
+    res.json({ success: true, reminders: result.rows });
+  } catch (err) {
+    console.error("Error fetching reminders:", err);
+    res.status(500).json({ message: "Server error" });
+  }
+});
+
 // REMOVE REMINDER
 app.delete("/reminders/:id", authenticateToken, async (req, res) => {
   const reminderId = req.params.id;
@@ -323,6 +338,76 @@ app.delete("/reminders/:id", authenticateToken, async (req, res) => {
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: "Server error" });
+  }
+});
+
+// --------------------
+// ✅ GAME & LEADERBOARD ROUTES
+// --------------------
+
+// GET LEADERBOARD
+app.get("/leaderboard", async (req, res) => {
+  const limit = parseInt(req.query.limit) || 10;
+
+  try {
+    // Check if totalXP column exists first/handle migration if needed
+    // For now assuming the column exists or we might fail if schema isn't updated.
+    // Ideally we should add a migration script, but here we'll just query.
+    // If you haven't added columns to users table yet, this heavily relies on them being there.
+    // Based on user.jsx context, users seem to have totalXP locally.
+    // We'll proceed assuming columns exist or we add them. 
+    // Actually, let's ALTER table if needed in initialization or just run safely.
+
+    // Safety check / lazy migration
+    await pool.query(`
+      ALTER TABLE users ADD COLUMN IF NOT EXISTS "totalXP" INTEGER DEFAULT 0;
+      ALTER TABLE users ADD COLUMN IF NOT EXISTS level INTEGER DEFAULT 1;
+      ALTER TABLE users ADD COLUMN IF NOT EXISTS "learningStreak" INTEGER DEFAULT 0;
+    `);
+
+    const result = await pool.query(
+      `SELECT username, "totalXP", level, "learningStreak" 
+       FROM users 
+       ORDER BY "totalXP" DESC 
+       LIMIT $1`,
+      [limit]
+    );
+
+    res.json(result.rows);
+  } catch (err) {
+    console.error("Leaderboard error:", err);
+    res.status(500).json({ message: "Server error fetching leaderboard" });
+  }
+});
+
+// UPDATE USER STATS (XP)
+app.patch("/user/stats", authenticateToken, async (req, res) => {
+  const { totalXP, level, learningStreak } = req.body;
+  const userId = req.user.id;
+
+  if (totalXP === undefined) {
+    return res.status(400).json({ message: "totalXP is required" });
+  }
+
+  try {
+    const result = await pool.query(
+      `UPDATE users 
+       SET "totalXP" = COALESCE($1, "totalXP"),
+           level = COALESCE($2, level),
+           "learningStreak" = COALESCE($3, "learningStreak")
+       WHERE id = $4
+       RETURNING id, username, "totalXP", level, "learningStreak"`,
+      [totalXP, level, learningStreak, userId]
+    );
+
+    if (result.rows.length === 0) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    res.json({ success: true, user: result.rows[0] });
+  } catch (err) {
+    console.error("Update stats error:", err);
+    res.status(500).json({ message: "Server error updating stats" });
   }
 });
 
