@@ -642,3 +642,16 @@
     color: #4fdcff;
     font-weight: bold;
 }
+
+/* Loading Spinner */
+.loading-spinner {
+    color: #00d9ff;
+    font-size: 1.2rem;
+    font-weight: 500;
+    letter-spacing: 2px;
+    background: rgba(0, 0, 0, 0.7);
+    padding: 15px 30px;
+    border-radius: 30px;
+    border: 1px solid rgba(0, 217, 255, 0.3);
+    backdrop-filter: blur(5px);
+}
