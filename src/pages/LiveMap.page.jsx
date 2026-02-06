@@ -29,17 +29,44 @@ const issIcon = L.icon({
 function LiveMap() {
     const [position, setPosition] = useState([0, 0]); // Latitude, Longitude
     const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
 
     const fetchISSPosition = async () => {
         try {
             const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000';
-            const response = await fetch(`${apiUrl}/api/iss-now`);
-            const data = await response.json();
-            const { latitude, longitude } = data.iss_position;
-            setPosition([parseFloat(latitude), parseFloat(longitude)]);
-            setLoading(false);
+            let response;
+            let data;
+
+            try {
+                // Primary: Try backend proxy
+                response = await fetch(`${apiUrl}/api/iss-now`);
+                if (!response.ok) throw new Error('Backend proxy failed');
+                data = await response.json();
+            } catch (proxyError) {
+                console.warn("Backend proxy failed, trying fallback API...", proxyError);
+                // Fallback: Fetch directly from a reliable public API
+                response = await fetch("https://api.wheretheiss.at/v1/satellites/25544");
+                if (!response.ok) throw new Error('Fallback API failed');
+                const rawData = await response.json();
+                // Map fallback data format to matches what the app expects
+                data = {
+                    iss_position: {
+                        latitude: rawData.latitude.toString(),
+                        longitude: rawData.longitude.toString()
+                    }
+                };
+            }
+
+            if (data && data.iss_position) {
+                const { latitude, longitude } = data.iss_position;
+                setPosition([parseFloat(latitude), parseFloat(longitude)]);
+                setError(null);
+            }
         } catch (error) {
             console.error("Error fetching ISS position:", error);
+            setError("Could not fetch ISS position. Please try again later.");
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -63,6 +90,10 @@ function LiveMap() {
 
             {loading ? (
                 <div className="loading-map">Loading ISS Position...</div>
+            ) : error ? (
+                <div className="error-map" style={{ textAlign: 'center', padding: '2rem', color: '#ff4d4d' }}>
+                    {error}
+                </div>
             ) : (
                 <div className="live-map-container">
                     <MapContainer center={position} zoom={3} scrollWheelZoom={true} style={{ height: "100%", width: "100%" }}>
