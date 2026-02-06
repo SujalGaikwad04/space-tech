@@ -227,7 +227,10 @@ export const AuthProvider = ({ children }) => {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${token}`
         },
-        body: JSON.stringify(statsToUpdate)
+        body: JSON.stringify({
+          xpToAdd: points,
+          learningStreak: user.learningStreak || 0
+        })
       });
 
       const data = await response.json();

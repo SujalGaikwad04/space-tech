@@ -226,9 +226,11 @@ const authenticateToken = (req, res, next) => {
 // ✅ REMINDER ROUTES
 // --------------------
 
-// Ensure reminders table exists
-const initRemindersTable = async () => {
+// ✅ INITIALIZE DATABASE
+// --------------------
+const initDB = async () => {
   try {
+    // 1. Reminders Table
     await pool.query(`
       CREATE TABLE IF NOT EXISTS reminders (
         id SERIAL PRIMARY KEY,
@@ -240,12 +242,20 @@ const initRemindersTable = async () => {
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
       )
     `);
-    console.log("Reminders table ready");
+
+    // 2. User Stats Columns (Safety Check)
+    await pool.query(`
+      ALTER TABLE users ADD COLUMN IF NOT EXISTS "totalXP" INTEGER DEFAULT 0;
+      ALTER TABLE users ADD COLUMN IF NOT EXISTS level INTEGER DEFAULT 1;
+      ALTER TABLE users ADD COLUMN IF NOT EXISTS "learningStreak" INTEGER DEFAULT 0;
+    `);
+
+    console.log("✅ Database initialized and migrations applied");
   } catch (err) {
-    console.error("Error creating reminders table:", err);
+    console.error("❌ Database initialization error:", err);
   }
 };
-initRemindersTable();
+initDB();
 
 // ADD REMINDER
 app.post("/reminders/add", authenticateToken, async (req, res) => {
@@ -397,25 +407,36 @@ app.get("/leaderboard", async (req, res) => {
   }
 });
 
-// UPDATE USER STATS (XP)
 app.patch("/user/stats", authenticateToken, async (req, res) => {
-  const { totalXP, level, learningStreak } = req.body;
+  const { totalXP, level, learningStreak, xpToAdd } = req.body;
   const userId = req.user.id;
 
-  if (totalXP === undefined) {
-    return res.status(400).json({ message: "totalXP is required" });
-  }
-
   try {
-    const result = await pool.query(
-      `UPDATE users 
-       SET "totalXP" = COALESCE($1, "totalXP"),
-           level = COALESCE($2, level),
-           "learningStreak" = COALESCE($3, "learningStreak")
-       WHERE id = $4
-       RETURNING id, username, "totalXP", level, "learningStreak"`,
-      [totalXP, level, learningStreak, userId]
-    );
+    let result;
+
+    if (xpToAdd !== undefined) {
+      // Incremental Update (SAFER)
+      result = await pool.query(
+        `UPDATE users 
+         SET "totalXP" = "totalXP" + $1,
+             level = floor(("totalXP" + $1) / 50) + 1,
+             "learningStreak" = COALESCE($2, "learningStreak")
+         WHERE id = $3
+         RETURNING id, username, "totalXP", level, "learningStreak"`,
+        [xpToAdd, learningStreak, userId]
+      );
+    } else {
+      // Direct Set (Fallback)
+      result = await pool.query(
+        `UPDATE users 
+         SET "totalXP" = COALESCE($1, "totalXP"),
+             level = COALESCE($2, level),
+             "learningStreak" = COALESCE($3, "learningStreak")
+         WHERE id = $4
+         RETURNING id, username, "totalXP", level, "learningStreak"`,
+        [totalXP, level, learningStreak, userId]
+      );
+    }
 
     if (result.rows.length === 0) {
       return res.status(404).json({ message: "User not found" });
