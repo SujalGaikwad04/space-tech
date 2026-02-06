@@ -255,7 +255,7 @@ app.post("/reminders/add", authenticateToken, async (req, res) => {
 
     // Send Email
     const mailOptions = {
-      from: `"SpaceScope" <${process.env.EMAIL_USER}>`,
+      from: `"SpaceScope" <sujalgaikwad0411@gmail.com>`,
       to: userEmail,
       subject: `SpaceScope Reminder: ${eventTitle}`,
       html: `
