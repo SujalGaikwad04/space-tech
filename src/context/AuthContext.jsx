@@ -1,9 +1,8 @@
 import { createContext, useContext, useState, useEffect } from 'react';
 import { getRankName, getNextRankName } from '../utils/rankUtils';
+import { API_URL } from '../apiConfig';
 
 const AuthContext = createContext();
-
-const API_URL = import.meta.env.VITE_API_URL ? `${import.meta.env.VITE_API_URL}/api` : '/api';
 
 export const useAuth = () => {
   const context = useContext(AuthContext);

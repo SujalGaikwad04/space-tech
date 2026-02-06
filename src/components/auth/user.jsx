@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
+import { API_URL } from "../../apiConfig";
 import "./Auth.css";
 
 export default function Auth() {
@@ -62,7 +63,7 @@ export default function Auth() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log("LOGIN SUBMIT TRIGGERED");
-    console.log("LOGIN API URL:", `${import.meta.env.VITE_API_URL}/api/auth/login`);
+    console.log("LOGIN API URL:", `${API_URL}/auth/login`);
     setError("");
     setSuccess("");
 

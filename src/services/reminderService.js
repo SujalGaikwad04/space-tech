@@ -1,4 +1,4 @@
-const API_URL = import.meta.env.VITE_API_URL ? `${import.meta.env.VITE_API_URL}/api` : '/api';
+import { API_URL } from '../apiConfig';
 
 // Get auth token from localStorage
 const getAuthToken = () => {

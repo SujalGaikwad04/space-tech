@@ -16,14 +16,18 @@ const JWT_SECRET = process.env.JWT_SECRET;
 const allowedOrigins = [
   "https://space-tech-t2yl.vercel.app",
   "https://space-tech-t2yl-b55yqlgut-sujalgaikwad04s-projects.vercel.app",
-  "http://localhost:5173"
-];
+  "http://localhost:5173",
+  process.env.FRONTEND_URL
+].filter(Boolean);
 
 app.use(
   cors({
     origin: (origin, callback) => {
-      if (!origin) return callback(null, true); // allow Postman/curl
-      if (allowedOrigins.includes(origin)) return callback(null, true);
+      // allow requests with no origin (like mobile apps or curl)
+      if (!origin) return callback(null, true);
+      if (allowedOrigins.indexOf(origin) !== -1 || origin.endsWith('.vercel.app')) {
+        return callback(null, true);
+      }
       return callback(new Error("CORS blocked: " + origin));
     },
     credentials: true,

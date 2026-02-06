@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { API_URL } from "../../apiConfig";
 import "./ExploreFeatures.css";
 
 const ExploreFeatures = () => {
@@ -7,8 +8,7 @@ const ExploreFeatures = () => {
   const [issData, setIssData] = useState(null);
 
   useEffect(() => {
-    const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000';
-    fetch(`${apiUrl}/api/iss-now`)
+    fetch(`${API_URL}/iss-now`)
       .then(res => res.json())
       .then(data => setIssData(data.iss_position))
       .catch(err => console.error(err));

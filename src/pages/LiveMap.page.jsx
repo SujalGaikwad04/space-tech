@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
+import { API_URL } from '../apiConfig';
 import './LiveMap.css';
 
 // Fix for default marker icon missing in React-Leaflet
@@ -33,13 +34,12 @@ function LiveMap() {
 
     const fetchISSPosition = async () => {
         try {
-            const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000';
             let response;
             let data;
 
             try {
                 // Primary: Try backend proxy
-                response = await fetch(`${apiUrl}/api/iss-now`);
+                response = await fetch(`${API_URL}/iss-now`);
                 if (!response.ok) throw new Error('Backend proxy failed');
                 data = await response.json();
             } catch (proxyError) {
