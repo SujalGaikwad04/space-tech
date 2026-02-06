@@ -73,7 +73,7 @@ const Header = () => {
           <Link to="/" className={`nav-item ${location.pathname === "/" ? "active" : ""}`} onClick={closeMenu}>HOME</Link>
           <Link to="/events" className={`nav-item ${location.pathname.startsWith("/events") ? "active" : ""}`} onClick={closeMenu}>EVENTS</Link>
           <Link to="/mission" className={`nav-item ${location.pathname.startsWith("/mission") ? "active" : ""}`} onClick={closeMenu}>MISSION</Link>
-          <Link to="/weather" className={`nav-item ${location.pathname.startsWith("/weather") ? "active" : ""}`} onClick={closeMenu}>WEATHER</Link>
+          <Link to="/weather" className={`nav-item ${location.pathname.startsWith("/weather") || location.pathname.startsWith("/earth-weather-details") || location.pathname.startsWith("/satellite") ? "active" : ""}`} onClick={closeMenu}>WEATHER</Link>
           <Link to="/learn" className={`nav-item ${location.pathname.startsWith("/learn") ? "active" : ""}`} onClick={closeMenu}>LEARN</Link>
           <Link to="/dashboard" className={`nav-item ${location.pathname.startsWith("/dashboard") ? "active" : ""}`} onClick={closeMenu}>DASHBOARD</Link>
 

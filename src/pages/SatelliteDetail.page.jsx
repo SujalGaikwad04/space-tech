@@ -29,33 +29,36 @@ const SatelliteDetail = () => {
         return () => observer.disconnect();
     }, [topicId]);
 
+    // Navigate back to the previous dashboard or weather page
+    const handleBack = () => {
+        if (window.history.length > 2) {
+            navigate(-1);
+        } else {
+            navigate('/earth-weather-details');
+        }
+    };
+
     if (!data) {
         return (
-            <div className="satellite-detail-page" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <div className="satellite-detail-page" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100vh', background: '#000814' }}>
                 <div style={{ textAlign: 'center' }}>
-                    <h1>Topic Not Found</h1>
-                    <Link to="/weather" className="back-btn">Return to Dashboard</Link>
+                    <h1 style={{ fontSize: '3rem', color: '#fff', marginBottom: '2rem' }}>TOPIC NOT FOUND</h1>
+                    <Link to="/weather" className="back-btn" style={{ margin: '0 auto' }}>Return to Command Center</Link>
                 </div>
             </div>
         );
-    }
-
-    // Only render for specific topics, return null for others as requested before
-    const allowedTopics = ['precipitation-mapping', 'oceanic-heat-flux', 'atmospheric-sounding'];
-    if (!allowedTopics.includes(topicId)) {
-        return null;
     }
 
     if (topicId === 'atmospheric-sounding') {
         return (
             <div className="satellite-detail-page sounding-page">
                 <nav className="back-nav">
-                    <Link to="/weather" className="back-btn">
+                    <button onClick={handleBack} className="back-btn">
                         <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2">
                             <path d="M19 12H5M12 19l-7-7 7-7" />
                         </svg>
-                        Back to Weather
-                    </Link>
+                        Back to Analytics
+                    </button>
                 </nav>
 
                 <div className="precip-header" data-reveal>
@@ -225,12 +228,12 @@ const SatelliteDetail = () => {
         return (
             <div className="satellite-detail-page oceanic-page">
                 <nav className="back-nav">
-                    <Link to="/weather" className="back-btn">
+                    <button onClick={handleBack} className="back-btn">
                         <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2">
                             <path d="M19 12H5M12 19l-7-7 7-7" />
                         </svg>
-                        Back to Weather
-                    </Link>
+                        Back to Analytics
+                    </button>
                 </nav>
 
                 <div className="precip-header" data-reveal>
@@ -445,12 +448,12 @@ const SatelliteDetail = () => {
     return (
         <div className="satellite-detail-page precipitation-page">
             <nav className="back-nav">
-                <Link to="/weather" className="back-btn">
+                <button onClick={handleBack} className="back-btn">
                     <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2">
                         <path d="M19 12H5M12 19l-7-7 7-7" />
                     </svg>
-                    Back to Weather
-                </Link>
+                    Back to Analytics
+                </button>
             </nav>
 
             <div className="precip-header" data-reveal>

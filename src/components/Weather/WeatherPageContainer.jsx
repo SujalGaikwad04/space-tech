@@ -43,6 +43,7 @@ const WeatherPageContainer = () => {
 
         <SatelliteImpact kpIndex={kpIndex} />
         <EarthWeatherBrief />
+        <WeatherActions />
       </div>
     </div>
   );

@@ -58,7 +58,7 @@ const EarthWeatherDashboard = ({ isStandalone = false }) => {
                             ...(card.bgImage ? { backgroundImage: `url(${card.bgImage})` } : {}),
                             cursor: 'pointer'
                         }}
-                        onClick={() => navigate(`/satellite-impact/${card.slug}`)}
+                        onClick={() => navigate(`/satellite/${card.slug}`)}
                     >
                         <div className="sensor-card-overlay">
                             <span className="sensor-badge">SENSOR: {card.id}</span>
