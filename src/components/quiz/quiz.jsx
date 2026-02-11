@@ -186,19 +186,36 @@ Rules:
   };
 
   const { updateUserStats } = useAuth();
+  const [isUpdating, setIsUpdating] = useState(false);
+  const [hasAwarded, setHasAwarded] = useState(false);
 
   const handleNextQuestion = (isCorrect) => {
     setUserAnswers([...userAnswers, isCorrect]);
-    if (isCorrect) {
-      updateUserStats(2); // Award 2 points for correct answer
-    }
     setCurrentQuestion(currentQuestion + 1);
   };
+
+  // Trigger XP update once at the end
+  useEffect(() => {
+    if (currentQuestion === questions.length && questions.length > 0 && !hasAwarded && !isUpdating) {
+      const totalPoints = userAnswers.filter(ans => ans).length * 2;
+      if (totalPoints > 0) {
+        setIsUpdating(true);
+        setHasAwarded(true); // Prevent further triggers immediately
+        updateUserStats(totalPoints).then(() => {
+          setIsUpdating(false);
+        });
+      } else {
+        setHasAwarded(true);
+      }
+    }
+  }, [currentQuestion, questions.length, userAnswers, updateUserStats, hasAwarded, isUpdating]);
 
   const resetQuiz = () => {
     setCurrentQuestion(0);
     setUserAnswers([]);
     setLoading(true);
+    setIsUpdating(false);
+    setHasAwarded(false);
     fetchQuestions();
   };
 
@@ -233,6 +250,7 @@ Rules:
             userAnswers={userAnswers}
             questions={questions}
             resetQuiz={resetQuiz}
+            isUpdating={isUpdating}
           />
         )}
       </div>
