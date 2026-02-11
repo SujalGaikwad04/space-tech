@@ -19,14 +19,21 @@ function Learn() {
   const [userRank, setUserRank] = useState(0);
   useEffect(() => {
     const fetchData = async () => {
-      const data = await getLeaderboard(10);
+      // Get a larger list to both show top players and calculate user rank
+      const data = await getLeaderboard(100);
       setLeaderboardData(data || []);
 
       if (isAuthenticated && user) {
-        // Get full leaderboard to find rank (simulated for now)
-        const fullList = await getLeaderboard(1000);
-        const rank = fullList.findIndex(player => player.username === user.username);
-        setUserRank(rank !== -1 ? rank + 1 : 0);
+        // Find user rank from the fetched list
+        const rank = data.findIndex(player => player.username === user.username);
+        if (rank !== -1) {
+          setUserRank(rank + 1);
+        } else if (data.length === 100) {
+          // If not in top 100, we could fetch more, but for now just mark as 100+ or keep it
+          setUserRank(0);
+        } else {
+          setUserRank(0);
+        }
       }
     };
 

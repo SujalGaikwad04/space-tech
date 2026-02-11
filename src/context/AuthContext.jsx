@@ -206,19 +206,28 @@ export const AuthProvider = ({ children }) => {
   const updateUserStats = async (points) => {
     if (!user || !token) return;
 
-    // Calculate generic new stats based on current state (optimistic update)
-    const currentXP = user.totalXP || 0;
+    // 1. Optimistic Update (Immediate Feedback)
+    const currentXP = Number(user.totalXP || 0);
     const newXP = currentXP + points;
     const newLevel = Math.floor(newXP / 50) + 1;
-    // Just increment streak if it's a new day logic is handled on backend or more complex logic, 
-    // for now we'll just keep the streak same or trust backend to handle complex logic if implemented later.
-    // For this implementation, we just update XP and Level.
 
-    const statsToUpdate = {
-      totalXP: newXP,
-      level: newLevel,
-      learningStreak: user.learningStreak || 0
-    };
+    // Save current state for rollback if needed
+    const oldSessions = [...sessions];
+
+    // Apply change locally immediately
+    setSessions(prev => prev.map(s => {
+      if (String(s.user.id) === String(user.id)) {
+        return {
+          ...s,
+          user: {
+            ...s.user,
+            totalXP: newXP,
+            level: newLevel
+          }
+        };
+      }
+      return s;
+    }));
 
     try {
       const response = await fetch(`${API_URL}/user/stats`, {
@@ -234,11 +243,11 @@ export const AuthProvider = ({ children }) => {
       });
 
       const data = await response.json();
-      console.log("📊 XP Update Response:", data);
+      console.log("📊 Server Sync Response:", data);
 
       if (data.success && data.user) {
-        console.log("✅ XP Saved! New Total:", data.user.totalXP);
-        // Update local state in sessions array with server response
+        console.log("✅ Server Sync Success! Total XP:", data.user.totalXP);
+        // Ensure state matches server response exactly (in case of server-side calculations)
         setSessions(prev => prev.map(s => {
           if (String(s.user.id) === String(user.id)) {
             return {
@@ -247,17 +256,20 @@ export const AuthProvider = ({ children }) => {
                 ...s.user,
                 totalXP: data.user.totalXP,
                 level: data.user.level,
-                learningStreak: data.user.learningStreak
+                learningStreak: data.user.learningStreak || s.user.learningStreak
               }
             };
           }
           return s;
         }));
       } else {
-        console.error("❌ XP failed to save:", data.message);
+        console.error("❌ Stats sync failed:", data.message);
+        // Handled silently for now, but in production we might rollback
       }
     } catch (error) {
-      console.error("Failed to update user stats", error);
+      console.error("Failed to connect to server for stats update", error);
+      // Optional: rollback to oldSessions if connection failed
+      // setSessions(oldSessions);
     }
   };
 

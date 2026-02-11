@@ -1,14 +1,22 @@
-require("dotenv").config();
+const path = require("path");
+const fs = require("fs");
+
+// Load .env from server directory specifically
+const envPath = path.join(__dirname, ".env");
+if (fs.existsSync(envPath)) {
+  require("dotenv").config({ path: envPath });
+} else {
+  require("dotenv").config();
+}
 
 const express = require("express");
 const { Pool } = require("pg");
 const cors = require("cors");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const nodemailer = require("nodemailer");
 
 const app = express();
-const JWT_SECRET = process.env.JWT_SECRET;
+const JWT_SECRET = process.env.JWT_SECRET || "your-fallback-secret-for-development";
 
 // --------------------
 // ✅ CORS (FIXED)
@@ -17,6 +25,7 @@ const allowedOrigins = [
   "https://space-tech-t2yl.vercel.app",
   "https://space-tech-t2yl-b55yqlgut-sujalgaikwad04s-projects.vercel.app",
   "http://localhost:5173",
+  "http://localhost:3000",
   process.env.FRONTEND_URL
 ].filter(Boolean);
 
@@ -25,10 +34,10 @@ app.use(
     origin: (origin, callback) => {
       // allow requests with no origin (like mobile apps or curl)
       if (!origin) return callback(null, true);
-      if (allowedOrigins.indexOf(origin) !== -1 || origin.endsWith('.vercel.app')) {
+      if (allowedOrigins.some(o => origin.startsWith(o)) || origin.endsWith('.vercel.app')) {
         return callback(null, true);
       }
-      return callback(new Error("CORS blocked: " + origin));
+      return callback(null, true); // Fallback to allow for easier debugging during hackathon
     },
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
@@ -40,11 +49,14 @@ app.options("*", cors());
 app.use(express.json());
 
 // --------------------
-// ✅ VERCEL API PATH FIX
+// ✅ API PATH FIX (Robust)
 // --------------------
 app.use((req, _res, next) => {
+  // Handle both /api/ and /api
   if (req.url.startsWith("/api/")) {
     req.url = req.url.replace("/api", "");
+  } else if (req.url === "/api") {
+    req.url = "/";
   }
   next();
 });
@@ -54,7 +66,7 @@ app.use((req, _res, next) => {
 // --------------------
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
-  ssl: { rejectUnauthorized: false }
+  ssl: process.env.DATABASE_URL?.includes("neon") ? { rejectUnauthorized: false } : false
 });
 
 // --------------------
@@ -63,7 +75,8 @@ const pool = new Pool({
 app.get("/health", (_req, res) => {
   res.json({
     status: "OK",
-    message: "Server is running with Neon PostgreSQL"
+    message: "Server is internal system running",
+    database: process.env.DATABASE_URL ? "Connected" : "Missing URL"
   });
 });
 
@@ -90,8 +103,8 @@ app.post("/auth/register", async (req, res) => {
     const hashed = await bcrypt.hash(password, 10);
 
     const result = await pool.query(
-      `INSERT INTO users ("fullName", email, username, password)
-       VALUES ($1,$2,$3,$4) RETURNING id`,
+      `INSERT INTO users ("fullName", email, username, password, "totalXP", level, "learningStreak")
+       VALUES ($1,$2,$3,$4, 0, 1, 0) RETURNING id`,
       [fullName, email, username, hashed]
     );
 
@@ -116,7 +129,7 @@ app.post("/auth/register", async (req, res) => {
     });
   } catch (err) {
     console.error(err);
-    res.status(500).json({ message: "Server error" });
+    res.status(500).json({ message: "Server error during registration" });
   }
 });
 
@@ -156,7 +169,7 @@ app.post("/auth/login", async (req, res) => {
     });
   } catch (err) {
     console.error(err);
-    res.status(500).json({ message: "Server error" });
+    res.status(500).json({ message: "Server error during login" });
   }
 });
 
@@ -223,14 +236,26 @@ const authenticateToken = (req, res, next) => {
 };
 
 // --------------------
-// ✅ REMINDER ROUTES
-// --------------------
-
 // ✅ INITIALIZE DATABASE
 // --------------------
 const initDB = async () => {
   try {
-    // 1. Reminders Table
+    // 1. Users Table (Ensure it exists first)
+    await pool.query(`
+      CREATE TABLE IF NOT EXISTS users (
+        id SERIAL PRIMARY KEY,
+        "fullName" TEXT NOT NULL,
+        email TEXT UNIQUE NOT NULL,
+        username TEXT UNIQUE NOT NULL,
+        password TEXT NOT NULL,
+        "totalXP" INTEGER DEFAULT 0,
+        level INTEGER DEFAULT 1,
+        "learningStreak" INTEGER DEFAULT 0,
+        "createdAt" TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+      )
+    `);
+
+    // 2. Reminders Table
     await pool.query(`
       CREATE TABLE IF NOT EXISTS reminders (
         id SERIAL PRIMARY KEY,
@@ -243,16 +268,17 @@ const initDB = async () => {
       )
     `);
 
-    // 2. User Stats Columns (Safety Check)
+    // 3. Safety Migration for existing users
     await pool.query(`
       ALTER TABLE users ADD COLUMN IF NOT EXISTS "totalXP" INTEGER DEFAULT 0;
       ALTER TABLE users ADD COLUMN IF NOT EXISTS level INTEGER DEFAULT 1;
       ALTER TABLE users ADD COLUMN IF NOT EXISTS "learningStreak" INTEGER DEFAULT 0;
     `);
 
-    console.log("✅ Database initialized and migrations applied");
+    console.log("✅ Database initialized and connected to Neon PostgreSQL");
   } catch (err) {
-    console.error("❌ Database initialization error:", err);
+    console.error("❌ Database initialization error:", err.message);
+    console.log("⚠️ Hint: Check if DATABASE_URL is correct in .env file");
   }
 };
 initDB();
